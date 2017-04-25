@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+
+        <TextView
+            android:id="@+id/lbSelAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/lbSelAddress"
+            android:textColor="@android:color/holo_orange_light"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvZona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/tvZona"
+            android:textColor="@android:color/holo_orange_light"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lblTimeDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/lblTimeDate"
+            android:textColor="@android:color/background_light"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/lbSelArticulo"
+            android:layout_width="match_parent"
+            android:layout_height="31dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/lbSelArticulo"
+            android:textColor="@android:color/holo_orange_light"
+            android:textStyle="bold" />
+
+        <Spinner
+            android:id="@+id/spinner_entidad"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:backgroundTintMode="src_atop"
+            android:entries="@array/entidad_array"
+            android:prompt="@string/spinner_entidad"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp"
+            tools:ignore="UnusedAttribute" />
+
+        <EditText
+            android:id="@+id/edDniMatricula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:labelFor="@+id/edDniMatricula"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edNombreMarca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:labelFor="@+id/edNombreMarca"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edDomicilioReferencia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:labelFor="@+id/edDomicilioReferencia"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/edOther"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/edOther"
+            android:inputType="textPersonName"
+            android:textSize="14sp" />
+
+        <Spinner
+            android:id="@+id/spiner_vehiculo"
+            android:layout_width="292dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20sp"
+            android:entries="@array/vehiculo_array"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="30sp"
+            android:layout_marginTop="20sp"
+            android:layout_weight="0.30"
+            android:gravity="center"
+            android:orientation="horizontal"
+            tools:ignore="InefficientWeight">
+
+            <Button
+                android:id="@+id/btnDatePicker"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_dark"
+                android:onClick="setDate"
+                android:text="@string/btnDate"
+                android:textColor="@android:color/background_light"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Fecha del hecho" />
+
+            <Button
+                android:id="@+id/btnTimePicker"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="132dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:background="@android:color/holo_blue_dark"
+                android:onClick="setTime"
+                android:text="@string/btnTime"
+                android:textColor="@android:color/background_light"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:background="@android:color/holo_blue_dark"
+            android:text="@string/btnMyLocation"
+            android:textColor="@android:color/background_light"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnNext2"
+            android:layout_width="290dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10sp"
+            android:background="@color/colorPrimary"
+            android:onClick="setBtnNext2"
+            android:text="@string/btnNext2"
+            android:textColor="@android:color/background_light"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">PuertoApp</string>
+    <string name="multasButton">Sanciones</string>
+    <string name="seleccionarButton">Seleccionar</string>
+    <string name="txtNumArticulo">Articulo 13</string>
+    <string name="txtTitulo">VEHÍCULOS INDUSTRIALES Y MAQUINARIA</string>
+    <string name="txtDescripcion">El acceso de vehículos industriales y de maquinaria móvil , se autorizará en cada caso por la Dirección del Puerto , que podrá controlar sus características y estado de conservación y funcionamiento de acuerdo con lo que se establece en este Reglamento, sin que por ello pueda derivarse ninguna responsabilidad para la Junta del Puerto ni para su personal , en caso de accidente.</string>
+    <string name="tvAddress">Dirección:</string>
+    <string name="btnGetLocation">Obtener dirección</string>
+    <string name="tvLocation">Ubicación:</string>
+    <string name="edAddress">Dirección:</string>
+    <string name="tvSelectedArt">ArticuloX</string>
+    <string name="lb_ArticuloSel">Ley/Artículo seleccionado:</string>
+    <string name="lbAddress">Dirección obtenida: \n (puede editarla manualmente)</string>
+    <string name="btnNext">Siguiente</string>
+    <string name="lbZona">Zona : \n (puede dejarla en blanco)</string>
+    <string name="edZone">Zona</string>
+    <string name="tvZona">Zona</string>
+    <string name="lbSelAddress">Direccion X</string>
+    <string name="lblTimeDate">22:53 13/01/2018</string>
+    <string name="lbSelArticulo">Articulo X : Cacaca</string>
+
+    <!--   Spinners -->
+    <string name="spinner_entidad">"Seleccione entidad a multar"</string>
+    <string-array name="entidad_array">
+        <item>Datos del particular o Empresa</item>
+        <item>Datos del vehículo</item>
+    </string-array>
+
+    <string name="spiner_vehiculo">"Tipo de vehículo"</string>
+    <string-array name="vehiculo_array">
+        <item>Motocicleta</item>
+        <item>Triciclo</item>
+        <item>Cuatriciclo</item>
+        <item>Turismo</item>
+        <item>Autobús</item>
+        <item>Autocaravana</item>
+        <item>Camión</item>
+        <item>Furgoneta</item>
+        <item>Tractocamión</item>
+        <item>Vehículo articulado</item>
+        <item>Tren de carretera</item>
+        <item>Remolque</item>
+    </string-array>
+
+    <string name="edOther">Otros</string>
+    <string name="btnDate">Fecha del hecho</string>
+    <string name="btnTime">HORA DEL HECHO</string>
+    <string name="btnNext2">Siguiente</string>
+    <string name="btnMyLocation">Obtener dirección GPS</string>
+
+</resources>
