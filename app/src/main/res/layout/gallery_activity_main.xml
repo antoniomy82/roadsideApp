@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10sp"
-    tools:context=".Gallery_MainActivity">
+    tools:context=".GalleryListPhotos.Gallery_MainActivity">
 
     <ListView
         android:id="@+id/captureList"

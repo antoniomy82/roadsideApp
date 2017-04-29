@@ -1,10 +1,13 @@
 package elcolegainformatico.antonio.puertoapp.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import elcolegainformatico.antonio.puertoapp.GalleryListPhotos.Gallery_MainActivity;
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
 import elcolegainformatico.antonio.puertoapp.R;
 
@@ -58,6 +61,15 @@ public class ValidarActivity extends AppCompatActivity{
         txtArticle.setText("Ocurrió el siguiente hecho: "+mArticulo.getDescripcion()+ "estando estipulado en el"+mArticulo.getNumArticulo());
         txtDatos.setText(DniMatricula+" "+NombreMarca+" "+myVehicle+" "+DomicilioReferencia+" "+DomicilioReferencia);
 
+        btnGetPhotos=(Button)findViewById(R.id.btnGetPhotos);
 
+
+        btnGetPhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ValidarActivity.this, Gallery_MainActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

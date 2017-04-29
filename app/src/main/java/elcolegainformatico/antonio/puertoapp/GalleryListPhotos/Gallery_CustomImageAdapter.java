@@ -69,7 +69,7 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
         v.imageView = (ImageView) view.findViewById(R.id.imgPrv);
 
         // Set data in listView
-        final Gallery_GetSet dataSet = (Gallery_GetSet) _data.get(position);
+        final Gallery_GetSet dataSet = _data.get(position);
 
         dataSet.setListItemPosition(position);
 
@@ -151,7 +151,7 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
      * @param imageSrc set image in imageView
      */
     public void setImageInItem(int position, Bitmap imageSrc, String imagePath) {
-        Gallery_GetSet dataSet = (Gallery_GetSet) _data.get(position);
+        Gallery_GetSet dataSet = _data.get(position);
         dataSet.setImage(imageSrc);
         dataSet.setStatus(false);
         dataSet.setHaveImage(true);

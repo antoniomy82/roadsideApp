@@ -126,7 +126,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
         File f = new File(Environment.getExternalStorageDirectory(), imageTempName);
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(f));  //EXTRA_OUTPUT PARA FULL RESOLUTION
 
-        startActivityForResult(intent, 1);
+        startActivityForResult(intent, 100);
     }
 
     /**
@@ -135,7 +135,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
     public void getImageGallery(int pos) {
         position=pos;
         Intent data = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(data, 2);
+        startActivityForResult(data, 200);
     }
 
 
@@ -150,7 +150,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
         if (resultCode != Activity.RESULT_CANCELED) {
 
             //Cámara
-            if (requestCode == 1) {
+            if (requestCode == 100) {
                    File f = new File(Environment.getExternalStorageDirectory().toString());
 
                 for (File temp : f.listFiles()) {
@@ -168,9 +168,6 @@ public class Gallery_MainActivity extends AppCompatActivity {
                     //Nombre de la foto (((AQUÍ HAY QUE TOCAR)
                     String timeStamp = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
 
-
-                    //String path = Environment.getExternalStorageDirectory().toString();
-
                     imageRoot.mkdirs();  //Nos metemos en nuestro directorio
 
                     String path = imageRoot.getPath().toString(); //Lo asignamos a Path
@@ -186,19 +183,23 @@ public class Gallery_MainActivity extends AppCompatActivity {
                         outFile.flush();
                         outFile.close();
 
+                        if(checkPermission()==true) {
 
-                        // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
-                        Uri tempUri = getImageUri(getApplicationContext(), bitmap, imageTempName);
+                            // CALL THIS METHOD TO GET THE URI FROM THE BITMAP
+                            Uri tempUri = getImageUri(getApplicationContext(), bitmap, imageTempName);
 
-                        String picturePath = getRealPathFromURI(tempUri);
+                            String picturePath = getRealPathFromURI(tempUri);
 
+                            imagePath.add(position, picturePath); //Almaceno la ruta donde está la foto
 
-                        imagePath.add(position, picturePath); //Almaceno la ruta donde está la foto
+                            //Añadir imagen a la galeria
+                            customImageAdapter.setImageInItem(position, bitmap, picturePath);
 
-                        //Añadir imagen a la galeria
-                        customImageAdapter.setImageInItem(position, bitmap, picturePath);
-
-                        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file))); //Actualizo la galeria de fotos
+                            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(file))); //Actualizo la galeria de fotos
+                        }
+                        else {
+                           Toast toast=Toast.makeText(this,"Permite la escritura en memoria",Toast.LENGTH_SHORT);toast.show();
+                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -209,24 +210,30 @@ public class Gallery_MainActivity extends AppCompatActivity {
             }
 
                //Galeria de imagenes
-                if (requestCode == 2) {
+                if (requestCode == 200) {
 
-                    Uri selectedImage = data.getData();
-                    String[] filePath = { MediaStore.Images.Media.DATA };
-                    Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
-                    c.moveToFirst();
+                   if(checkPermission()==true)
+                    {
+                        Uri selectedImage = data.getData();
+                        String[] filePath = { MediaStore.Images.Media.DATA };
+                        Cursor c = getContentResolver().query(selectedImage,filePath, null, null, null);
+                        c.moveToFirst();
 
-                    int columnIndex = c.getColumnIndex(filePath[0]);
-                    String picturePath = c.getString(columnIndex);
-                    c.close();
-                    Bitmap thumbnail=(BitmapFactory.decodeFile(picturePath));
+                        int columnIndex = c.getColumnIndex(filePath[0]);
+                        String picturePath = c.getString(columnIndex);
+                        c.close();
+                        Bitmap thumbnail=(BitmapFactory.decodeFile(picturePath));
 
-                    imagePath.add(position,picturePath);
+                        imagePath.add(position,picturePath);
 
-                    Log.d("Tamaño", String.valueOf(thumbnail.getByteCount()));
+                        Log.d("Tamaño", String.valueOf(thumbnail.getByteCount()));
 
-                    //thumbnail = getResizedBitmap(thumbnail, 400); //Por encima de 400K no lo coge bien , limitación de los intents
-                    customImageAdapter.setImageInItem(position,thumbnail,picturePath);
+                        //thumbnail = getResizedBitmap(thumbnail, 400); //Por encima de 400K no lo coge bien , limitación de los intents
+                        customImageAdapter.setImageInItem(position,thumbnail,picturePath);
+                    }//Check
+                   else {
+                       Toast toast=Toast.makeText(this,"Permite la escritura en memoria",Toast.LENGTH_SHORT);toast.show();
+                   }
                 }
         }
     }
@@ -241,20 +248,25 @@ public class Gallery_MainActivity extends AppCompatActivity {
     public Uri getImageUri(Context inContext, Bitmap inImage, String imageName) {
 
         String path=null;
+        path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, imageName, EXTRA_OUTPUT);
+        return Uri.parse(path);
+    }
+
+    //API 23 Write in External Storage
+    public boolean checkPermission(){
 
         //Check Write_External Permissions
         int permissionCheck = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
         if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        } else
 
-            { //Store image in my device
-
-            path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, imageName, EXTRA_OUTPUT);
-
+            return false;
         }
-        return Uri.parse(path);
+        else{
+            return true;
+        }
+
     }
 
 

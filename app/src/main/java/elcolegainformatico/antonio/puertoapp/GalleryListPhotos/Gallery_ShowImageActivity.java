@@ -21,7 +21,7 @@ public class Gallery_ShowImageActivity extends AppCompatActivity {
         //Background color
         getWindow().getDecorView().setBackgroundColor(Color.BLACK);
 
-        String imagePath = (String) getIntent().getStringExtra("ImagePath");
+        String imagePath = getIntent().getStringExtra("ImagePath");
 
         Bitmap thumbnail=(BitmapFactory.decodeFile(imagePath));
 
