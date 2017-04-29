@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="imageFor">
+        <item>1 de 8</item>
+        <item>2 de 8</item>
+        <item>3 de 8</item>
+        <item>4 de 8</item>
+        <item>5 de 8</item>
+        <item>6 de 8</item>
+        <item>7 de 8</item>
+        <item>8 de 8</item>
+    </string-array>
+</resources>

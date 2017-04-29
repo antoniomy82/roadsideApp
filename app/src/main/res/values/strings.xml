@@ -43,10 +43,16 @@
         <item>Remolque</item>
     </string-array>
 
-    <string name="edOther">Otros</string>
+    <string name="edLocation">Dirección , Lugar</string>
     <string name="btnDate">Fecha del hecho</string>
     <string name="btnTime">HORA DEL HECHO</string>
     <string name="btnNext2">Siguiente</string>
     <string name="btnMyLocation">Obtener dirección GPS</string>
+    <string name="txtZona">Diligencia para hacer constar...</string>
+    <string name="txtDate">Siendo las 22:00 del día 22/10/2018</string>
+    <string name="txtArticle">Articulo 8 : Prohbido estacionar el vehículo en zonas blalla</string>
+    <string name="lblEntidadVehiculo">Datos del particular, empresa ó vehículo</string>
+    <string name="txtDatos">Nombre Apellidos ......</string>
+    <string name="btnGetPhotos">Obtener Fotos</string>
 
 </resources>

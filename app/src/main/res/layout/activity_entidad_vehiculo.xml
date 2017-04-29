@@ -14,22 +14,12 @@
 
 
         <TextView
-            android:id="@+id/lbSelAddress"
+            android:id="@+id/lbSelArticulo"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="31dp"
             android:background="@color/colorPrimary"
             android:gravity="center"
-            android:text="@string/lbSelAddress"
-            android:textColor="@android:color/holo_orange_light"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvZona"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="@string/tvZona"
+            android:text="@string/lbSelArticulo"
             android:textColor="@android:color/holo_orange_light"
             android:textStyle="bold" />
 
@@ -42,16 +32,6 @@
             android:text="@string/lblTimeDate"
             android:textColor="@android:color/background_light"
             android:textSize="14sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/lbSelArticulo"
-            android:layout_width="match_parent"
-            android:layout_height="31dp"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="@string/lbSelArticulo"
-            android:textColor="@android:color/holo_orange_light"
             android:textStyle="bold" />
 
         <Spinner
@@ -96,11 +76,11 @@
             android:textSize="14sp" />
 
         <EditText
-            android:id="@+id/edOther"
+            android:id="@+id/edLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="@string/edOther"
+            android:hint="@string/edLocation"
             android:inputType="textPersonName"
             android:textSize="14sp" />
 
@@ -152,12 +132,13 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btnLocation"
             android:layout_width="290dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10sp"
             android:background="@android:color/holo_blue_dark"
             android:text="@string/btnMyLocation"
+            android:onClick="getBtnLocation"
             android:textColor="@android:color/background_light"
             android:textStyle="bold" />
 

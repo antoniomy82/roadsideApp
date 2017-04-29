@@ -49,7 +49,7 @@ public class ArticuloEditActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //launch the second activity
-                Intent intent = new Intent(ArticuloEditActivity.this, GPSActivity.class); // Activity Source , Activity Destination
+                Intent intent = new Intent(ArticuloEditActivity.this, EntidadVehiculoActivity.class); // Activity Source , Activity Destination
 
                 //Aquí tengo que pasar el articulo.
                 intent.putExtra("myArticulo", mArticulo); //Pasamos un objeto articulo Parcelable

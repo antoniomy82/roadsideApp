@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:weightSum="1">
 
+    <TextView
+        android:id="@+id/txtZona"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.07"
+        android:gravity="center"
+        android:text="@string/txtZona" />
+
+    <TextView
+        android:id="@+id/txtDate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.07"
+        android:gravity="center"
+        android:text="@string/txtDate" />
+
+    <TextView
+        android:id="@+id/txtArticle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.34"
+        android:gravity="center"
+        android:text="@string/txtArticle" />
+
+    <TextView
+        android:id="@+id/lblEntidadVehiculo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/lblEntidadVehiculo"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtDatos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:gravity="center"
+        android:text="@string/txtDatos" />
+
+    <Button
+        android:id="@+id/btnGetPhotos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnGetPhotos" />
 </LinearLayout>

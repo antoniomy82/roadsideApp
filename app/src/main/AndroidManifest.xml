@@ -40,7 +40,7 @@
 
         <activity android:name=".Activity.ZonaListActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activity.GPSActivity"  android:screenOrientation="portrait" />  <!-- i bloqued the orientation to portrait -->
+        <!-- i bloqued the orientation to portrait -->
 
         <activity android:name=".Activity.EntidadVehiculoActivity" android:screenOrientation="portrait" />
         <activity android:name=".Activity.ValidarActivity" android:screenOrientation="portrait" />

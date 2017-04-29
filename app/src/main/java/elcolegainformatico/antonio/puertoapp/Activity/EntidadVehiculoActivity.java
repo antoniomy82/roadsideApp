@@ -3,11 +3,18 @@ package elcolegainformatico.antonio.puertoapp.Activity;
 
 import java.util.Calendar; //(API < 23 required)Time and Date with Calendar and this implementation.This supports until API23 (With API24 too work).
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -31,8 +38,6 @@ import elcolegainformatico.antonio.puertoapp.R;
 public class EntidadVehiculoActivity extends AppCompatActivity {
 
     //First textviews (in blue)
-    private TextView tvZona;
-    private TextView lbSelAddress;
     private TextView lbSelArticulo;
     private TextView lblTimeDate;
 
@@ -44,11 +49,11 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private EditText edDniMatricula;
     private EditText edNombreMarca;
     private EditText edDomicilioReferencia;
-    private EditText edOther;
+    private EditText edLocation;
 
 
     //Date & Time variables
-    private  Calendar calendar;
+    private Calendar calendar;
     private DatePicker datePicker;
     private int hour,minute;
     private int day;
@@ -56,6 +61,9 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private int year;
 
     private Button btnNext2; //to ValidarActitivy
+    private Button btnLocation;
+
+    Articulo mArticulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,30 +75,22 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
 
         //GetIntent Block
-        Articulo mArticulo = getIntent().getExtras().getParcelable("selected_art");
-        String address = getIntent().getStringExtra("myAddress");
-        String zone = getIntent().getStringExtra("myZone");
+        mArticulo = getIntent().getExtras().getParcelable("myArticulo");
 
         //TextView block
-        tvZona = (TextView) findViewById(R.id.tvZona);
-        lbSelAddress = (TextView) findViewById(R.id.lbSelAddress);
         lbSelArticulo = (TextView) findViewById(R.id.lbSelArticulo);
         lblTimeDate = (TextView) findViewById(R.id.lblTimeDate);
+        lbSelArticulo.setText(mArticulo.getNumArticulo() + " : " + mArticulo.getTitulo());
 
         //EditText block
         edDniMatricula = (EditText) findViewById(R.id.edDniMatricula);  //DNI o CIF / Matrícula
         edNombreMarca = (EditText) findViewById(R.id.edNombreMarca);    //Nombre y Apellidos o Nombre Empresa / Marca, Modelo, Color
         edDomicilioReferencia = (EditText) findViewById(R.id.edDomicilioReferencia);  //Domicilio o Razón Social / NºReferencia Portuaria
-        edOther = (EditText) findViewById(R.id.edOther); // Otros
+        edLocation = (EditText) findViewById(R.id.edLocation); // Otros
 
-        //Set TextView Zone ,Address and Articulo.
-        String myZone = "Zona: " + zone;
-        String myAddress = "Lugar: " + address;
-
-        tvZona.setText(myZone);
-        lbSelAddress.setText(myAddress);
-        lbSelArticulo.setText(mArticulo.getNumArticulo() + " : " + mArticulo.getTitulo());
-
+        //Link Next button
+        btnNext2=(Button) findViewById(R.id.btnNext2);
+        btnLocation =(Button) findViewById(R.id.btnLocation);
 
         //Date (Get Variable)
         calendar = Calendar.getInstance();
@@ -154,11 +154,6 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
             }
         });
-
-
-        //Link Next button
-        btnNext2=(Button) findViewById(R.id.btnNext2);
-
 
     }//onCreate
 
@@ -234,22 +229,6 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
             myMinute = String.valueOf(getMinute());
             lblTimeDate.setText("Hecho ocurrido el " + getDay() + " de " + getMonth(getMonth())  + " de " + getYear() + " A las "+ getHour() + ":" + myMinute);
         }
-
-    }
-
-    public void setBtnNext2(View view){
-
-        btnNext2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //launch the second activity
-                Intent intent = new Intent(EntidadVehiculoActivity.this, ValidarActivity.class); // Activity Source , Activity Destination
-
-                //QUEDA PASAR TODOS LOS EXTRASS!!!!!!
-
-                 startActivity(intent); //Start intent
-            }
-        });
 
     }
 
@@ -370,5 +349,136 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     public void setYear(int year) {
         this.year = year;
     }
+
+
+    /**
+     * Buttons block
+     */
+
+    //Next Activity
+    public void setBtnNext2(View view){
+       btnNext2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //launch the second activity
+                Intent intent = new Intent(EntidadVehiculoActivity.this, ValidarActivity.class); // Activity Source , Activity Destination
+
+
+                //Hacer un check de que estén los campos rellenos y llamar a dialogEmpty
+                intent.putExtra("hour",hour);
+                intent.putExtra("minute",minute);
+                intent.putExtra("day",day);
+                intent.putExtra("month",month);
+                intent.putExtra("year",year);
+
+                intent.putExtra("DniMatricula",edDniMatricula.getText().toString());
+                intent.putExtra("NombreMarca",edNombreMarca.getText().toString());
+                intent.putExtra("DomicilioReferencia",edDomicilioReferencia.getText().toString()) ;
+                intent.putExtra("Ubicacion",edLocation.getText().toString());
+
+                intent.putExtra("myVehicle", myVehicle);
+                intent.putExtra("myArticulo",mArticulo);
+
+                startActivity(intent); //Start intent
+            }
+        });
+
+    }
+
+    //Get GPS Location
+    public void getBtnLocation(View view) {
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                String address = ""; //Use to paint GeoLocation in edText or Toast
+                GPSTracker gps = new GPSTracker(getApplicationContext(), EntidadVehiculoActivity.this);
+
+
+                //Check GPS Permissions
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(EntidadVehiculoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+                } else  //I have permissions
+                {
+
+                    if (gps.canGetLocation()) { //I have GPS enable
+
+                        double latitude = gps.getLatitude();
+                        double longitude = gps.getLongitude();
+
+                        // \n is for new line
+                        Toast.makeText(getApplicationContext(), "Ubicación - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
+                        address = gps.getLocationAddress();
+
+                        if (gps.getAddress()) {
+                            edLocation.setText(address); //I Paint my address with geodecoder function (GPSTracker)
+                        } else //No geodecoder location
+                        {
+                            Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show(); //Show fail in a toast
+                        }
+
+                    } else { //I have GPS disable
+                        dialogNoGPS();
+                    }
+
+                }
+            }//onClick
+
+        });
+    }
+
+
+    /**
+     *  Dialog to Enable GPS
+     */
+
+    public void dialogNoGPS(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(EntidadVehiculoActivity.this);
+        dialog.setCancelable(false);
+        dialog.setTitle("GPS DESACTIVADO");
+        dialog.setMessage("¿Desea activar el GPS?" );
+        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                EntidadVehiculoActivity.this.startActivity(intent);
+            }
+        })
+                .setNegativeButton("Cancelar ", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Action for "Cancel".
+                        dialog.cancel();
+                    }
+                });
+
+        final AlertDialog alert = dialog.create();
+        alert.show();
+    }
+
+    /**
+     * Dialog Empty Edittext
+     */
+    public void dialogEmpty(){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(EntidadVehiculoActivity.this);
+        dialog.setCancelable(false);
+        dialog.setTitle("DIRECCION VACIA");
+        dialog.setMessage("Debe rellenar o obtener la dirección" );
+        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        final AlertDialog alert = dialog.create();
+        alert.show();
+    }
+
 
 }

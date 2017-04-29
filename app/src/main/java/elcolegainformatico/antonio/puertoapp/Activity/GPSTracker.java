@@ -79,7 +79,7 @@ public class GPSTracker extends Service {
             if (!isGPSEnabled && !isNetworkEnabled) {
                 // No network provider is enabled
 
-               //Laungh this action in GPSActivity dialogNoGPS();
+               //Laungh this action in MainActivity (EntidadVehículo) dialogNoGPS();
               }
 
             else {
