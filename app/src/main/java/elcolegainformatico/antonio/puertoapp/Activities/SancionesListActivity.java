@@ -1,4 +1,4 @@
-package elcolegainformatico.antonio.puertoapp.Activity;
+package elcolegainformatico.antonio.puertoapp.Activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

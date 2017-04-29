@@ -1,14 +1,11 @@
-package elcolegainformatico.antonio.puertoapp.Activity;
+package elcolegainformatico.antonio.puertoapp.Activities;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import elcolegainformatico.antonio.puertoapp.Model.Zona;
-import elcolegainformatico.antonio.puertoapp.R;
 
 
 /**

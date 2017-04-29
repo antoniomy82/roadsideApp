@@ -33,7 +33,7 @@
 
 
 
-        <activity android:name=".Activity.MenuActivity"  android:screenOrientation="portrait">
+        <activity android:name=".Activities.MenuActivity"  android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,18 +41,18 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activity.SancionesListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SancionesListActivity"  android:screenOrientation="portrait"/>
 
 
-        <activity android:name=".Activity.ArticulosListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ArticulosListActivity"  android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activity.ArticuloEditActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ArticuloEditActivity"  android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activity.ZonaListActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.ZonaListActivity" android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activity.EntidadVehiculoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activities.EntidadVehiculoActivity" android:screenOrientation="portrait" />
 
-        <activity android:name=".Activity.ValidarActivity" android:screenOrientation="portrait" />
+        <activity android:name=".Activities.ValidarActivity" android:screenOrientation="portrait" />
 
         <activity android:name=".GalleryListPhotos.Gallery_MainActivity" android:screenOrientation="portrait" />
 

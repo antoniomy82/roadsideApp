@@ -1,4 +1,4 @@
-package elcolegainformatico.antonio.puertoapp.Activity;
+package elcolegainformatico.antonio.puertoapp.Activities;
 
 
 import java.util.Calendar; //(API < 23 required)Time and Date with Calendar and this implementation.This supports until API23 (With API24 too work).

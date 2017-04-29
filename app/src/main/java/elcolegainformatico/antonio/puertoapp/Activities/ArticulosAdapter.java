@@ -1,4 +1,4 @@
-package elcolegainformatico.antonio.puertoapp.Activity;
+package elcolegainformatico.antonio.puertoapp.Activities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
