@@ -30,10 +30,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import elcolegainformatico.antonio.puertoapp.Activities.ValidarActivity;
 import elcolegainformatico.antonio.puertoapp.R;
 
 import static android.provider.MediaStore.EXTRA_OUTPUT;
 
+/**
+ * Created by antonio on 22/4/17.
+ */
 
 public class Gallery_MainActivity extends AppCompatActivity {
 
@@ -55,7 +59,15 @@ public class Gallery_MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        imagePath = new ArrayList<String>(8);
+
+        imagePath=getIntent().getStringArrayListExtra("photosArray");
+
+        if(imagePath==null){
+            imagePath = new ArrayList<String>(8);
+            Toast toast=Toast.makeText(this,"ImagePath Null",Toast.LENGTH_SHORT);toast.show();
+        }
+
+
 
         //Background color
         getWindow().getDecorView().setBackgroundColor(Color.DKGRAY);
@@ -114,6 +126,17 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Pass Intent with back button
+     */
+    @Override
+    public void onBackPressed() {
+        Intent passPhotos= new Intent(this, ValidarActivity.class);
+        passPhotos.putStringArrayListExtra("photosArray",imagePath);
+
+      super.onBackPressed();
+
+    }
 
     /**
      * Capture Image and save into database

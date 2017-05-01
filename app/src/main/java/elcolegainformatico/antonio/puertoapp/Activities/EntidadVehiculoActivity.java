@@ -58,7 +58,9 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private int hour,minute;
     private int day;
     private int month;
+    private String mes;
     private int year;
+    private int isVehicle;
 
     private Button btnNext2; //to ValidarActitivy
     private Button btnLocation;
@@ -96,6 +98,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
         month = calendar.get(Calendar.MONTH) + 1;
+        mes = getMonth(month);
         year = calendar.get(Calendar.YEAR);
 
         //Time (Get Variable)
@@ -122,6 +125,8 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                     edDomicilioReferencia.setHint("Domicilio o Razón Social");
 
                     spinner_vehiculo.setVisibility(View.GONE); //Hide spinner_vehículo
+                    setIsVehicle(position);
+
                 }
                 if (position == 1) //Vehículo
                 {
@@ -131,6 +136,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                     edDomicilioReferencia.setHint("Nº Referencia A. Portuaria");
 
                     spinner_vehiculo.setVisibility(View.VISIBLE); //Show
+                    setIsVehicle(position);
                 }
             }
 
@@ -155,6 +161,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
             }
         });
 
+
         /**
          * Buttons block
          */
@@ -172,6 +179,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                 intent.putExtra("minute",minute);
                 intent.putExtra("day",day);
                 intent.putExtra("month",month);
+                intent.putExtra("mes",mes);
                 intent.putExtra("year",year);
 
                 intent.putExtra("DniMatricula",edDniMatricula.getText().toString());
@@ -181,6 +189,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
                 intent.putExtra("myVehicle", myVehicle);
                 intent.putExtra("myArticulo",mArticulo);
+                intent.putExtra("isVehicle", isVehicle);
 
                 startActivity(intent); //Start intent
             }
@@ -266,6 +275,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                     // arg3 = day
                     setYear(arg1);
                     setMonth(arg2);
+                    setMes(arg2);
                     setDay(arg3);
                     showDateTime();
                 }
@@ -316,7 +326,11 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     public void setMyVehicle (String myVehicle){
 
         this.myVehicle = myVehicle;
-        Toast.makeText(this,myVehicle,Toast.LENGTH_SHORT).show();
+    }
+
+    //My own flag to know if Vehiculo o entidad.
+    public void setIsVehicle(int position){
+        this.isVehicle = position;
     }
 
     //Clean editx
@@ -416,6 +430,8 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     public void setMonth(int month) {
         this.month = month;
     }
+
+    public void setMes(int month){ this.mes=getMonth(month);}
 
     public int getYear() {
         return year;

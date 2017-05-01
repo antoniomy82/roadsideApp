@@ -9,31 +9,43 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.07"
+        android:background="@android:color/holo_orange_light"
         android:gravity="center"
-        android:text="@string/txtZona" />
+        android:text="@string/txtZona"
+        android:textColor="@android:color/black"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtDate"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.07"
+        android:background="?attr/actionModeSplitBackground"
         android:gravity="center"
-        android:text="@string/txtDate" />
+        android:text="@string/txtDate"
+        android:textColor="@android:color/background_light"
+        android:textSize="13sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/txtArticle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.34"
-        android:gravity="center"
-        android:text="@string/txtArticle" />
+        android:background="@android:color/black"
+        android:gravity="center_horizontal|center"
+        android:text="@string/txtArticle"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/lblEntidadVehiculo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/holo_orange_light"
         android:gravity="center"
         android:text="@string/lblEntidadVehiculo"
+        android:textColor="@android:color/black"
         android:textStyle="bold" />
 
     <TextView
@@ -41,12 +53,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.05"
+        android:background="@android:color/black"
         android:gravity="center"
-        android:text="@string/txtDatos" />
+        android:text="@string/txtDatos"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btnGetPhotos"
-        android:layout_width="match_parent"
+        android:layout_width="290dp"
         android:layout_height="wrap_content"
-        android:text="@string/btnGetPhotos" />
+        android:layout_gravity="center"
+        android:layout_marginTop="20sp"
+        android:background="@android:color/holo_blue_dark"
+        android:text="@string/btnGetPhotos"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold" />
 </LinearLayout>
