@@ -55,10 +55,12 @@ public class ArticulosAdapter extends BaseAdapter{
 
         TextView txtNumArticulo = (TextView) myView.findViewById(R.id.txtNumArticulo);
         TextView txtDescriptionArticulo = (TextView) myView.findViewById(R.id.txtTituloArticulo);
+        TextView txtDescriptionList= (TextView) myView.findViewById(R.id.txtDescriptionList);
 
 
         txtNumArticulo.setText(mArticulo.getNumArticulo()); //Obtengo el árticulo de mi modelo de datos articulo
         txtDescriptionArticulo.setText(mArticulo.getTitulo());
+        txtDescriptionList.setText(mArticulo.getDescripcion());
 
         return myView;
     }

@@ -48,8 +48,6 @@
 
         <activity android:name=".Activities.ArticuloEditActivity"  android:screenOrientation="portrait"/>
 
-        <activity android:name=".Activities.ZonaListActivity" android:screenOrientation="portrait"/>
-
         <activity android:name=".Activities.EntidadVehiculoActivity" android:screenOrientation="portrait" />
 
         <activity android:name=".Activities.ValidarActivity" android:screenOrientation="portrait" />

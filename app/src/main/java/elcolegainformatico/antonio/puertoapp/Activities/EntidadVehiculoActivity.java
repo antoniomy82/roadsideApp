@@ -155,6 +155,81 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Buttons block
+         */
+
+        //Next Activity
+        btnNext2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //launch the second activity
+                Intent intent = new Intent(EntidadVehiculoActivity.this, ValidarActivity.class); // Activity Source , Activity Destination
+
+
+                //Hacer un check de que estén los campos rellenos y llamar a dialogEmpty
+                intent.putExtra("hour",hour);
+                intent.putExtra("minute",minute);
+                intent.putExtra("day",day);
+                intent.putExtra("month",month);
+                intent.putExtra("year",year);
+
+                intent.putExtra("DniMatricula",edDniMatricula.getText().toString());
+                intent.putExtra("NombreMarca",edNombreMarca.getText().toString());
+                intent.putExtra("DomicilioReferencia",edDomicilioReferencia.getText().toString()) ;
+                intent.putExtra("Ubicacion",edLocation.getText().toString());
+
+                intent.putExtra("myVehicle", myVehicle);
+                intent.putExtra("myArticulo",mArticulo);
+
+                startActivity(intent); //Start intent
+            }
+        });
+
+        //Get GPS Location
+        btnLocation.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                String address = ""; //Use to paint GeoLocation in edText or Toast
+                GPSTracker gps = new GPSTracker(getApplicationContext(), EntidadVehiculoActivity.this);
+
+
+                //Check GPS Permissions
+                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(EntidadVehiculoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+                } else  //I have permissions
+                {
+
+                    if (gps.canGetLocation()) { //I have GPS enable
+
+                        double latitude = gps.getLatitude();
+                        double longitude = gps.getLongitude();
+
+                        // \n is for new line
+                        Toast.makeText(getApplicationContext(), "Ubicación - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
+                        address = gps.getLocationAddress();
+
+                        if (gps.getAddress()) {
+                            edLocation.setText(address); //I Paint my address with geodecoder function (GPSTracker)
+                        } else //No geodecoder location
+                        {
+                            Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show(); //Show fail in a toast
+                        }
+
+                    } else { //I have GPS disable
+                        dialogNoGPS();
+                    }
+
+                }
+            }//onClick
+
+        });
+
     }//onCreate
 
     /**
@@ -350,86 +425,6 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
         this.year = year;
     }
 
-
-    /**
-     * Buttons block
-     */
-
-    //Next Activity
-    public void setBtnNext2(View view){
-       btnNext2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //launch the second activity
-                Intent intent = new Intent(EntidadVehiculoActivity.this, ValidarActivity.class); // Activity Source , Activity Destination
-
-
-                //Hacer un check de que estén los campos rellenos y llamar a dialogEmpty
-                intent.putExtra("hour",hour);
-                intent.putExtra("minute",minute);
-                intent.putExtra("day",day);
-                intent.putExtra("month",month);
-                intent.putExtra("year",year);
-
-                intent.putExtra("DniMatricula",edDniMatricula.getText().toString());
-                intent.putExtra("NombreMarca",edNombreMarca.getText().toString());
-                intent.putExtra("DomicilioReferencia",edDomicilioReferencia.getText().toString()) ;
-                intent.putExtra("Ubicacion",edLocation.getText().toString());
-
-                intent.putExtra("myVehicle", myVehicle);
-                intent.putExtra("myArticulo",mArticulo);
-
-                startActivity(intent); //Start intent
-            }
-        });
-
-    }
-
-    //Get GPS Location
-    public void getBtnLocation(View view) {
-        btnLocation.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                String address = ""; //Use to paint GeoLocation in edText or Toast
-                GPSTracker gps = new GPSTracker(getApplicationContext(), EntidadVehiculoActivity.this);
-
-
-                //Check GPS Permissions
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                        ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(EntidadVehiculoActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-
-                } else  //I have permissions
-                {
-
-                    if (gps.canGetLocation()) { //I have GPS enable
-
-                        double latitude = gps.getLatitude();
-                        double longitude = gps.getLongitude();
-
-                        // \n is for new line
-                        Toast.makeText(getApplicationContext(), "Ubicación - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
-
-                        address = gps.getLocationAddress();
-
-                        if (gps.getAddress()) {
-                            edLocation.setText(address); //I Paint my address with geodecoder function (GPSTracker)
-                        } else //No geodecoder location
-                        {
-                            Toast.makeText(getApplicationContext(), address, Toast.LENGTH_LONG).show(); //Show fail in a toast
-                        }
-
-                    } else { //I have GPS disable
-                        dialogNoGPS();
-                    }
-
-                }
-            }//onClick
-
-        });
-    }
 
 
     /**

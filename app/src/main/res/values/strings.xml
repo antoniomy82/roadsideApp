@@ -54,5 +54,8 @@
     <string name="lblEntidadVehiculo">Datos del particular, empresa ó vehículo</string>
     <string name="txtDatos">Nombre Apellidos ......</string>
     <string name="btnGetPhotos">Obtener Fotos</string>
+    <string name="txtTituloArticulo">Segun la ley de puertos esto está mal</string>
+    <string name="txtNumArticle">Articulo 138</string>
+    <string name="txtDescriptionList">Descripción del articulo</string>
 
 </resources>
