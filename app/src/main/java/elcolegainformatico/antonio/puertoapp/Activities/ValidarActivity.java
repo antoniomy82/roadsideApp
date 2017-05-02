@@ -1,5 +1,7 @@
 package elcolegainformatico.antonio.puertoapp.Activities;
 
+
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,17 +10,19 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import elcolegainformatico.antonio.puertoapp.GalleryListPhotos.Gallery_MainActivity;
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
 import elcolegainformatico.antonio.puertoapp.R;
 
+
 /**
  * Created by antonio on 18/4/17.
  */
 
-public class ValidarActivity extends AppCompatActivity{
+public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     Articulo mArticulo;
 
@@ -34,7 +38,12 @@ public class ValidarActivity extends AppCompatActivity{
     private TextView txtZona,txtDate,txtArticle,txtDatos,lblEntidadVehiculo;
     private Button btnGetPhotos;
 
-    ArrayList<String> imagePath; //Array List of path
+
+
+
+    ArrayList<String> imagePath=null; //Array List of path
+    public static final int REQUEST_CODE = 300;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +51,8 @@ public class ValidarActivity extends AppCompatActivity{
 
         setContentView(R.layout.activity_validar);
 
-        imagePath = new ArrayList<String>(8);
-
         setTitle("Validar Sanción");
+
 
         //GetIntent Block
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
@@ -94,9 +102,9 @@ public class ValidarActivity extends AppCompatActivity{
             public void onClick(View v) {
                 Intent intent=new Intent(ValidarActivity.this, Gallery_MainActivity.class);
 
-                intent.putStringArrayListExtra("photoArray",imagePath);
+                intent.putExtra("validar", imagePath);
 
-                startActivity(intent);
+                startActivityForResult(intent,REQUEST_CODE);
             }
         });
 
@@ -104,14 +112,28 @@ public class ValidarActivity extends AppCompatActivity{
     }
 
 
+    //To get ArrayList of ImagePath to Gallery_MainActivity
     @Override
-    protected void onResume() {
-        super.onResume();
-        //imagePath=(ArrayList<String>)getIntent().getStringArrayListExtra("photosArray").clone();
-        imagePath=getIntent().getStringArrayListExtra("photosArray");
-        Toast toast=Toast.makeText(this,"Photos Array OK",Toast.LENGTH_SHORT);toast.show();
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 300 && resultCode == RESULT_OK && data!=null){
+
+              if(data.getStringArrayListExtra("galleryToValidar") !=null)
+              {
+                  this.imagePath=data.getStringArrayListExtra("galleryToValidar");
+                  Toast toast = Toast.makeText(this, "[ "+data.getStringArrayListExtra("galleryToValidar").size()+" ]:Imagenes guardadas", Toast.LENGTH_SHORT); toast.show();
+              }
+
+        else
+            {
+               Toast toast = Toast.makeText(this, "No hay imagenes", Toast.LENGTH_SHORT); toast.show();
+            }
+
+        }
      }
+
+
 
 }
 

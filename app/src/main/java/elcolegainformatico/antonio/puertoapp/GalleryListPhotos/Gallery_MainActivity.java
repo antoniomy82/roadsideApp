@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,7 +45,9 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
     Gallery_CustomImageAdapter customImageAdapter;  //ListView Adapter
     ArrayList<Gallery_GetSet> galleryGetSets;       //Object tipe GetSet
-    ArrayList<String> imagePath;                    //Almaceno la ruta donde están guardadas las imagenes.
+    ArrayList<String> imagePath=new ArrayList<>(8);       //Almaceno la ruta donde están guardadas las imagenes.
+    ArrayList<String> auxImage = new ArrayList<>();
+
     ListView listView;
 
 
@@ -60,11 +64,10 @@ public class Gallery_MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        imagePath=getIntent().getStringArrayListExtra("photosArray");
-
-        if(imagePath==null){
-            imagePath = new ArrayList<String>(8);
-            Toast toast=Toast.makeText(this,"ImagePath Null",Toast.LENGTH_SHORT);toast.show();
+        if( getIntent().getStringArrayListExtra("validar") !=null)
+        {
+            imagePath=new ArrayList<String>(getIntent().getStringArrayListExtra("validar"));
+            //Toast toast = Toast.makeText(this, "ValidarImage Tiene Cosas", Toast.LENGTH_SHORT); toast.show();
         }
 
 
@@ -129,12 +132,24 @@ public class Gallery_MainActivity extends AppCompatActivity {
     /**
      * Pass Intent with back button
      */
-    @Override
-    public void onBackPressed() {
-        Intent passPhotos= new Intent(this, ValidarActivity.class);
-        passPhotos.putStringArrayListExtra("photosArray",imagePath);
 
-      super.onBackPressed();
+    public void onBackPressed(){
+
+        if(imagePath.size()!=0)
+        {
+
+            for(int i=0; i<imagePath.size(); i++){
+                auxImage.add(imagePath.get(i));
+            }
+        }
+
+        Intent myImage = new Intent();
+        myImage.putStringArrayListExtra("galleryToValidar",auxImage);
+
+        setResult(Activity.RESULT_OK,myImage);
+
+        finish();
+        super.onBackPressed();
 
     }
 
@@ -329,6 +344,5 @@ public class Gallery_MainActivity extends AppCompatActivity {
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
-
 
 }
