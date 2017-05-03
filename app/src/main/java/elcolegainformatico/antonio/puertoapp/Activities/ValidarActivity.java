@@ -1,7 +1,6 @@
 package elcolegainformatico.antonio.puertoapp.Activities;
 
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,7 +41,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
 
     ArrayList<String> imagePath=null; //Array List of path
-    public static final int REQUEST_CODE = 300;
+    public static final int REQUEST_CODE = 300; //Back pressed
 
 
     @Override
@@ -81,7 +80,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         lblEntidadVehiculo = (TextView)findViewById(R.id.lblEntidadVehiculo);
 
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion);
-        txtDate.setText("Siendo las "+hour+":"+minute+" horas del día "+day+" de "+mes+ " de " +year+ " del año en curso");
+        txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del día "+day+" de "+mes+ " de " +year+ " del año en curso");
         txtArticle.setText("Ocurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo());
 
         if(isVehicle==0){
@@ -102,13 +101,11 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             public void onClick(View v) {
                 Intent intent=new Intent(ValidarActivity.this, Gallery_MainActivity.class);
 
-                intent.putExtra("validar", imagePath);
+                intent.putExtra("validarToGallery", imagePath);
 
                 startActivityForResult(intent,REQUEST_CODE);
             }
         });
-
-        imagePath=getIntent().getStringArrayListExtra("photosArray");
     }
 
 
@@ -122,7 +119,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
               if(data.getStringArrayListExtra("galleryToValidar") !=null)
               {
                   this.imagePath=data.getStringArrayListExtra("galleryToValidar");
-                  Toast toast = Toast.makeText(this, "[ "+data.getStringArrayListExtra("galleryToValidar").size()+" ]:Imagenes guardadas", Toast.LENGTH_SHORT); toast.show();
               }
 
         else
@@ -133,7 +129,20 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         }
      }
 
+    //Convert minutes to two digits.
+    public String convertTwoDigits(int minute){
 
+        String myMinute;
 
-}
+        if(minute<10){
+            myMinute="0"+minute; }
+
+        else {
+            myMinute = String.valueOf(minute);
+        }
+
+        return myMinute;
+    }
+
+}//ValidarActivity
 

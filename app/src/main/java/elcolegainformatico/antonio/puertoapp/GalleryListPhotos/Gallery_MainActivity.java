@@ -18,7 +18,6 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -27,14 +26,11 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-import elcolegainformatico.antonio.puertoapp.Activities.ValidarActivity;
 import elcolegainformatico.antonio.puertoapp.R;
-
 import static android.provider.MediaStore.EXTRA_OUTPUT;
 
 /**
@@ -45,17 +41,17 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
     Gallery_CustomImageAdapter customImageAdapter;  //ListView Adapter
     ArrayList<Gallery_GetSet> galleryGetSets;       //Object tipe GetSet
-    ArrayList<String> imagePath=new ArrayList<>(8);       //Almaceno la ruta donde están guardadas las imagenes.
+    ArrayList<String> imagePath=new ArrayList<>(8); //Almaceno la ruta donde están guardadas las imagenes.
     ArrayList<String> auxImage = new ArrayList<>();
 
     ListView listView;
 
-
-    int position;               //Temp variable where store listItem position
+    int position;           //Temp variable where store listItem position
     String imageTempName;
     String[] imageFor;
+
     static final String myPictureDirectory = "PuertoAppFotos";  //Name of my Photo Directory
-    static final File imageRoot = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), myPictureDirectory);
+    static final File imageRoot = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), myPictureDirectory); //My Path (the directory where I would like store my pictures)
 
 
 
@@ -63,14 +59,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-        if( getIntent().getStringArrayListExtra("validar") !=null)
-        {
-            imagePath=new ArrayList<String>(getIntent().getStringArrayListExtra("validar"));
-            //Toast toast = Toast.makeText(this, "ValidarImage Tiene Cosas", Toast.LENGTH_SHORT); toast.show();
-        }
-
-
+        setContentView(R.layout.gallery_activity_main);
 
         //Background color
         getWindow().getDecorView().setBackgroundColor(Color.DKGRAY);
@@ -79,15 +68,13 @@ public class Gallery_MainActivity extends AppCompatActivity {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
 
-        setContentView(R.layout.gallery_activity_main);
-
         listView = (ListView) findViewById(R.id.captureList);
 
         galleryGetSets = new ArrayList<Gallery_GetSet>();
 
         imageFor = getResources().getStringArray(R.array.imageFor);
 
-        //Number of rows
+        //Number of rows to the ListView (Rows to my gallery)
         for (int i = 0; i < 8; i++) {
 
             Gallery_GetSet inflate = new Gallery_GetSet();
@@ -118,7 +105,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
                 if(myBmp !=null) {
 
                     Intent intent = new Intent(Gallery_MainActivity.this, Gallery_ShowImageActivity.class);
-                    intent.putExtra("ImagePath", imagePath.get(position)); //i pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
+                    intent.putExtra("ImagePath", imagePath.get(position)); //Pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
                     startActivity(intent);
                 }
                 else{
@@ -127,14 +114,35 @@ public class Gallery_MainActivity extends AppCompatActivity {
             }
         });
 
+
+        //Get intent !! Load my imagePath from validarActivity
+        if( getIntent().getStringArrayListExtra("validarToGallery") !=null) {
+            this.imagePath = new ArrayList<>(getIntent().getStringArrayListExtra("validarToGallery"));
+
+            if (checkPermission() == true) {
+
+                for (int i = 0; i < imagePath.size(); i++) {
+
+                    String picturePath = imagePath.get(i);
+
+                    Bitmap thumbnail = (BitmapFactory.decodeFile(picturePath));
+
+                    if (thumbnail != null) {
+                        customImageAdapter.setImageInItem(i, thumbnail, picturePath);
+                    }
+                }
+            }//Check
+        }
+
     }
 
     /**
-     * Pass Intent with back button
+     * Pass a intent to ValidarActivity when Push back button
      */
 
     public void onBackPressed(){
 
+        //Copy imagePath to auxImage
         if(imagePath.size()!=0)
         {
 
@@ -176,6 +184,24 @@ public class Gallery_MainActivity extends AppCompatActivity {
         startActivityForResult(data, 200);
     }
 
+    /**
+     * Delete a image
+     * @param pos ArrayList ImagePath (Pathname and filename)
+     */
+    public void deleteImage (int pos){
+
+        File imageDel =new File(imagePath.get(pos));
+
+        if(imageDel.exists() && checkPermission()){
+            imageDel.delete(); //Del image from my sdcard.
+            Toast toast=Toast.makeText(this,"Imagen Borrada",Toast.LENGTH_SHORT);toast.show();
+
+        }
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageDel))); //Actualizo la galeria de fotos
+        this.imagePath.add(pos,""); //del image from my ArrayList.
+
+    }//Check
+
 
     /**
      * In this Function is all "the tomatoes"
@@ -203,7 +229,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
                     bitmap = BitmapFactory.decodeFile(f.getAbsolutePath(), bitmapOptions);
                     f.delete();
 
-                    //Nombre de la foto (((AQUÍ HAY QUE TOCAR)
+                    //Photo Name!!
                     String timeStamp = new SimpleDateFormat("yyyy.MM.dd_HH:mm:ss").format(new Date());
 
                     imageRoot.mkdirs();  //Nos metemos en nuestro directorio
@@ -246,7 +272,6 @@ public class Gallery_MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-
                //Galeria de imagenes
                 if (requestCode == 200) {
 
@@ -270,18 +295,18 @@ public class Gallery_MainActivity extends AppCompatActivity {
                         customImageAdapter.setImageInItem(position,thumbnail,picturePath);
                     }//Check
                    else {
-                       Toast toast=Toast.makeText(this,"Permite la escritura en memoria",Toast.LENGTH_SHORT);toast.show();
+                       Toast toast=Toast.makeText(this,"Error al escribir en memoria",Toast.LENGTH_SHORT);toast.show();
                    }
                 }
-        }
+             }
     }
 
     /**
-     * Set path, image , check Permissions and store my bich Pic in her right URII!!!
+     * Set path, image  and store my bich Pic in her right URII!!!
      * @param inContext
      * @param inImage
      * @param imageName
-     * @return
+     * @return Your path (where is your new Pic!)
      */
     public Uri getImageUri(Context inContext, Bitmap inImage, String imageName) {
 
@@ -290,7 +315,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
         return Uri.parse(path);
     }
 
-    //API 23 Write in External Storage
+    //Check Writte external ---> From API 23 and Up!
     public boolean checkPermission(){
 
         //Check Write_External Permissions
@@ -315,6 +340,10 @@ public class Gallery_MainActivity extends AppCompatActivity {
         return cursor.getString(idx);
     }
 
+    /**
+     * Convert path to bitmap
+     */
+
     public Bitmap convertSrcToBitmap(String imageSrc) {
         Bitmap myBitmap = null;
         File imgFile = new File(imageSrc);
@@ -328,7 +357,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
      * reduces the size of the image
      * @param image
      * @param maxSize
-     * @return
+     * @return my new resize Bitmap
      */
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
         int width = image.getWidth();
@@ -344,5 +373,6 @@ public class Gallery_MainActivity extends AppCompatActivity {
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
+
 
 }

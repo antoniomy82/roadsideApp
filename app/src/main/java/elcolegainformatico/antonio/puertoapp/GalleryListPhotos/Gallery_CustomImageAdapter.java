@@ -51,7 +51,7 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
 
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
         if (view == null) {
@@ -110,6 +110,7 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
                 dataSet.setStatus(true);
                 dataSet.setHaveImage(false);
                 dataSet.setImage(null);
+                ((Gallery_MainActivity)_c).deleteImage(dataSet.getListItemPosition()); //Delete image from sdcard
                 notifyDataSetChanged();
             }
         });
