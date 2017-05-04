@@ -49,7 +49,7 @@ public class ArticulosAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View myView, ViewGroup parent) {
 
-        myView= inflater.inflate(R.layout.item_articulo,null); //Inflamos nuestro item
+        myView= inflater.inflate(R.layout.item_articulo_list,null); //Inflamos nuestro item
 
         Articulo mArticulo = articuloArrayList.get(position); //Selecciono el articulo
 

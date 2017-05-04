@@ -2,6 +2,7 @@ package elcolegainformatico.antonio.puertoapp.Activities;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import elcolegainformatico.antonio.puertoapp.GalleryListPhotos.Gallery_MainActivity;
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
+import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
 
 
@@ -25,9 +27,10 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     Articulo mArticulo;
 
+
     private int hour,minute;
     private int day;
-    private int month;
+    //private int month;
     private String mes;
     private int year;
     private int isVehicle;
@@ -37,11 +40,15 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     private TextView txtZona,txtDate,txtArticle,txtDatos,lblEntidadVehiculo;
     private Button btnGetPhotos;
-
-
+    private Button btnSaveSancion;
 
 
     ArrayList<String> imagePath=null; //Array List of path
+    ArrayList<Bitmap> imageBitmap;
+
+    Sancion miSancion;
+
+
     public static final int REQUEST_CODE = 300; //Back pressed
 
 
@@ -62,7 +69,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         hour=getIntent().getIntExtra("hour",0);
         minute=getIntent().getIntExtra("minute",0);
         day=getIntent().getIntExtra("day",0);
-        month=getIntent().getIntExtra("month",0);
+       // month=getIntent().getIntExtra("month",0);
         mes=getIntent().getStringExtra("mes");
         year=getIntent().getIntExtra("year",0);
 
@@ -108,6 +115,25 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                 startActivityForResult(intent,REQUEST_CODE);
             }
         });
+
+        btnSaveSancion=(Button)findViewById(R.id.btnSaveSancion);
+
+        btnSaveSancion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             //Este chocotrolo lo tendré que subir a Firebase, de momento Objecto Sanción y va a un ArrayList<Sancion> en SancionesListActivity
+             miSancion=new Sancion(mArticulo, hour, minute, day, mes, year, isVehicle, sancion, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap);
+                //Lanzar intent a SancionesListActivity
+
+                Intent SL = new Intent(ValidarActivity.this, SancionesListActivity.class);
+
+                SL.putExtra("miSancion",miSancion);
+
+                startActivity(SL);
+
+            }
+        });
+
     }
 
 

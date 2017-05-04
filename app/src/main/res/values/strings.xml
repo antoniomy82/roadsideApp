@@ -57,5 +57,9 @@
     <string name="txtTituloArticulo">Segun la ley de puertos esto está mal</string>
     <string name="txtNumArticle">Articulo 138</string>
     <string name="txtDescriptionList">Descripción del articulo</string>
+    <string name="btnSaveSancion">Guardar sanción</string>
+    <string name="txtSDate">23 de Enero 2017</string>
+    <string name="txtSDatos">Dni/Matricula Nombre</string>
+    <string name="txtSSancion">Descripción Articulo, Num Articulo, Sancion</string>
 
 </resources>

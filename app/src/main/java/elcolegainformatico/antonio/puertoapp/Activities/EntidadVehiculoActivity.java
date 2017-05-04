@@ -178,7 +178,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                 intent.putExtra("hour",hour);
                 intent.putExtra("minute",minute);
                 intent.putExtra("day",day);
-                intent.putExtra("month",month);
+                //intent.putExtra("month",month);
                 intent.putExtra("mes",mes);
                 intent.putExtra("year",year);
 
