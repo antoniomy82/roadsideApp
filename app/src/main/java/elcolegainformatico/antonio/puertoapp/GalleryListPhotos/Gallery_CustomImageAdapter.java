@@ -100,26 +100,60 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // Call to dialog
-                dialogImage(dataSet);
+                dialogGetImage(dataSet);
                }
         });
 
         v.removeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dataSet.setStatus(true);
-                dataSet.setHaveImage(false);
-                dataSet.setImage(null);
-                ((Gallery_MainActivity)_c).deleteImage(dataSet.getListItemPosition()); //Delete image from sdcard
-                notifyDataSetChanged();
+                dialogDeleteImage(dataSet);
             }
         });
 
         return view;
     }
 
+    private void dialogDeleteImage(final Gallery_GetSet dataSet){
 
-    private void dialogImage(final Gallery_GetSet dataSet) {
+        final CharSequence[] options = { "Borrar de fotos seleccionadas", "Borrar del móvil y fotos seleccionadas","Cancelar" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(_c);
+        builder.setTitle("¿Cómo desea borrarla?");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("Borrar de fotos seleccionadas"))
+                {
+                    //Delete from my adapter
+                    dataSet.setStatus(true);
+                    dataSet.setHaveImage(false);
+                    dataSet.setImage(null);
+                    ((Gallery_MainActivity)_c).deleteImageFromPicsSelected(dataSet.getListItemPosition());//Delete image in arrayList imagePath
+                    notifyDataSetChanged();
+
+                }
+                if (options[item].equals("Borrar del móvil y fotos seleccionadas"))
+                {
+
+                    dataSet.setStatus(true);
+                    dataSet.setHaveImage(false);
+                    dataSet.setImage(null);
+                    ((Gallery_MainActivity)_c).deleteImageFromMobile(dataSet.getListItemPosition()); //Delete image from sdcard
+                    notifyDataSetChanged();
+
+                }
+                if (options[item].equals("Cancelar")) {
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+
+    //Dialog to select the source to optain a picture
+    private void dialogGetImage(final Gallery_GetSet dataSet) {
         final CharSequence[] options = { "Cámara", "Galeria de fotos","Cancelar" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(_c);

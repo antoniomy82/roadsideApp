@@ -31,6 +31,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     private String mes;
     private int year;
     private int isVehicle;
+    private double sancion;
 
     private String DniMatricula,NombreMarca,DomicilioReferencia,Ubicacion,myVehicle;
 
@@ -52,6 +53,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         setTitle("Validar Sanción");
 
+        this.sancion=150; //Inicializo a 150€
 
         //GetIntent Block
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
@@ -81,7 +83,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion);
         txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del día "+day+" de "+mes+ " de " +year+ " del año en curso");
-        txtArticle.setText("Ocurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo());
+        txtArticle.setText("Ocurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", sancion)+" EUROS" );
 
         if(isVehicle==0){
             lblEntidadVehiculo.setText("Datos del particular o Empresa");
@@ -119,6 +121,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
               if(data.getStringArrayListExtra("galleryToValidar") !=null)
               {
                   this.imagePath=data.getStringArrayListExtra("galleryToValidar");
+                  Toast toast = Toast.makeText(this, "Imagenes guardadas = "+imagePath.size(), Toast.LENGTH_SHORT); toast.show();
               }
 
         else
@@ -142,6 +145,10 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         }
 
         return myMinute;
+    }
+
+    public void setSancion(double sancion){
+        this.sancion=sancion;
     }
 
 }//ValidarActivity

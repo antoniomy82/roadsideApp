@@ -61,8 +61,9 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.gallery_activity_main);
 
+        setTitle("Fotos seleccionadas");
         //Background color
-        getWindow().getDecorView().setBackgroundColor(Color.DKGRAY);
+        getWindow().getDecorView().setBackgroundColor(Color.BLACK);
 
         //Sino no se come el temp creado para el Extra_Output
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
@@ -188,7 +189,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
      * Delete a image
      * @param pos ArrayList ImagePath (Pathname and filename)
      */
-    public void deleteImage (int pos){
+    public void deleteImageFromMobile (int pos){
 
         File imageDel =new File(imagePath.get(pos));
 
@@ -198,10 +199,14 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
         }
         sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(imageDel))); //Actualizo la galeria de fotos
-        this.imagePath.add(pos,""); //del image from my ArrayList.
+        this.imagePath.remove(pos); //del image from my ArrayList.
 
     }//Check
 
+    public void deleteImageFromPicsSelected(int pos){
+
+        this.imagePath.remove(pos); //del image from my ArrayList.
+    }
 
     /**
      * In this Function is all "the tomatoes"
