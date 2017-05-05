@@ -32,7 +32,9 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 //launch the second activity
-                Intent listIntent = new Intent(MenuActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
+                Intent listIntent = new Intent(MenuActivity.this, SancionesListActivity.class); // Activity Source , Activity Destination
+
+                listIntent.putExtra("isMenu",true);
 
                 startActivity(listIntent); //Start intent
             }
