@@ -10,6 +10,8 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+
+
 import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
 
@@ -24,9 +26,10 @@ public class SancionesListActivity extends AppCompatActivity {
 
     Sancion miSancion;
 
-    ArrayList<Sancion> sancionesList = new ArrayList<>();
+    ArrayList<Sancion> sancionesList= new ArrayList<Sancion>();
 
     ListView listSanciones;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,11 +43,18 @@ public class SancionesListActivity extends AppCompatActivity {
         final FloatingActionButton FltAddSancion = (FloatingActionButton) findViewById(R.id.FltAddSancion);
 
 
+        //Versión sin FireBase, Aquí cargar BD de FireBase
+        if((ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved")!=null) {
+
+            this.sancionesList = new ArrayList<Sancion>((ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved"));
+        }
+
+
         //GetIntent Block
         if(getIntent().getBooleanExtra("isMenu",false) ==false) {
-            miSancion = getIntent().getExtras().getParcelable("miSancion");
 
-            sancionesList.add(new Sancion(miSancion.getmArticulo(), miSancion.getHour(), miSancion.getMinute(), miSancion.getDay(), miSancion.getMes(), miSancion.getYear(), miSancion.getIsVehicle(), miSancion.getSancion(), miSancion.getDniMatricula(), miSancion.getNombreMarca(), miSancion.getDomicilioReferencia(), miSancion.getUbicacion(), miSancion.getMyVehicle(), miSancion.getImagePath(), miSancion.getImageBitmap()));
+            miSancion = getIntent().getExtras().getParcelable("miSancion");
+            this.sancionesList.add(new Sancion(miSancion.getmArticulo(), miSancion.getHour(), miSancion.getMinute(), miSancion.getDay(), miSancion.getMes(), miSancion.getYear(), miSancion.getIsVehicle(), miSancion.getSancion(), miSancion.getDniMatricula(), miSancion.getNombreMarca(), miSancion.getDomicilioReferencia(), miSancion.getUbicacion(), miSancion.getMyVehicle(), miSancion.getImagePath(), miSancion.getImageBitmap()));
         }
 
         SancionesAdapter myAdaptater = new SancionesAdapter(sancionesList,SancionesListActivity.this.getApplicationContext());
@@ -57,6 +67,9 @@ public class SancionesListActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(SancionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
 
+                //Solo para versión sin Firebase.
+                intent.putExtra("sancionesSaved",sancionesList);
+
                 startActivity(intent); //Start intent
             }
 
@@ -68,14 +81,35 @@ public class SancionesListActivity extends AppCompatActivity {
 
                 Sancion miSancion = sancionesList.get(position);
 
-                /*
                 Intent intent = new Intent(SancionesListActivity.this, ValidarActivity.class);
 
-               // intent.putExtra("myArticulo", mArticulo); //Pasamos un objeto articulo Parcelable
-                //Pasar el chorreon de intents
-                startActivity(intent);*/
+                intent.putExtra("hour",miSancion.getHour());
+                intent.putExtra("minute",miSancion.getMinute());
+                intent.putExtra("day",miSancion.getDay());
+                //intent.putExtra("month",month);
+                intent.putExtra("mes",miSancion.getMes());
+                intent.putExtra("year",miSancion.getYear());
 
-                Snackbar.make(view, "Mostrará Validar Activity" ,Snackbar.LENGTH_LONG).show();
+                intent.putExtra("DniMatricula",miSancion.getDniMatricula());
+                intent.putExtra("NombreMarca",miSancion.getNombreMarca());
+                intent.putExtra("DomicilioReferencia",miSancion.getDomicilioReferencia()) ;
+                intent.putExtra("Ubicacion",miSancion.getUbicacion());
+
+                intent.putExtra("myVehicle", miSancion.getMyVehicle());
+                intent.putExtra("myArticulo",miSancion.getmArticulo());
+                intent.putExtra("isVehicle", miSancion.getIsVehicle());
+
+                intent.putExtra("ImagePath",miSancion.getImagePath());
+                //Bitmap is not necessary , is ineficient, we will use imagePath.
+
+                //Solo para versión sin Firebase.
+                intent.putExtra("sancionesSaved",sancionesList);
+
+                intent.putExtra("isSave",false);
+
+                startActivity(intent);
+
+                //Snackbar.make(view, "Mostrará Validar Activity" ,Snackbar.LENGTH_LONG).show();
 
             }
 

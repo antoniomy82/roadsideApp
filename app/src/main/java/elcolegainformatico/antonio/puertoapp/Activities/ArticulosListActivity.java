@@ -9,6 +9,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
+import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
 
 /**
@@ -19,12 +20,16 @@ public class ArticulosListActivity extends AppCompatActivity {
 
     ListView listArticulos;
     ArrayList<Articulo> articuloArrayList;
+    ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setTitle("Lista de articulos");
+
+        //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
+        sancionesSaved = (ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved");
 
         setContentView(R.layout.activity_articulos_list); //le asigno su layout
         listArticulos=(ListView) findViewById(R.id.articulos_list); //Busco mi listView activity_articulos_list
@@ -45,6 +50,9 @@ public class ArticulosListActivity extends AppCompatActivity {
                 Intent intent = new Intent(ArticulosListActivity.this, EntidadVehiculoActivity.class);
 
                 intent.putExtra("myArticulo", mArticulo); //Pasamos un objeto articulo Parcelable
+
+                //Solo para versión sin Firebase.
+                intent.putExtra("sancionesSaved",sancionesSaved);
 
                 startActivity(intent);
             }

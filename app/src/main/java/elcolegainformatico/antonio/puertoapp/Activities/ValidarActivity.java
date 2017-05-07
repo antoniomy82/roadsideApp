@@ -4,6 +4,7 @@ package elcolegainformatico.antonio.puertoapp.Activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import elcolegainformatico.antonio.puertoapp.GalleryListPhotos.Gallery_MainActiv
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
 import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
+
+import static android.support.design.R.styleable.CoordinatorLayout;
 
 
 /**
@@ -35,6 +38,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     private int year;
     private int isVehicle;
     private double sancion;
+    boolean isSave =true;
 
     private String DniMatricula,NombreMarca,DomicilioReferencia,Ubicacion,myVehicle;
 
@@ -44,7 +48,8 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
 
     ArrayList<String> imagePath=null; //Array List of path
-    ArrayList<Bitmap> imageBitmap;
+    ArrayList<Bitmap> imageBitmap=null;
+    ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
     Sancion miSancion;
 
@@ -60,11 +65,15 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         setTitle("Validar Sanción");
 
+
         this.sancion=150; //Inicializo a 150€
 
         //GetIntent Block
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
         myVehicle = getIntent().getStringExtra("myVehicle");
+
+        //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
+        sancionesSaved = (ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved");
 
         hour=getIntent().getIntExtra("hour",0);
         minute=getIntent().getIntExtra("minute",0);
@@ -79,6 +88,12 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         Ubicacion=getIntent().getStringExtra("Ubicacion");
 
         isVehicle=getIntent().getIntExtra("isVehicle",0); //0 Entidad o persona, 1 Vehículo
+
+        if(getIntent().getStringArrayListExtra("ImagePath")!=null){
+            this.imagePath=getIntent().getStringArrayListExtra("ImagePath");
+            //Dont use bitmap
+        }
+
 
 
         //TextView link
@@ -129,10 +144,19 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
                 SL.putExtra("miSancion",miSancion);
 
+                //Solo para versión sin Firebase.
+                SL.putExtra("sancionesSaved",sancionesSaved);
+
                 startActivity(SL);
 
             }
         });
+
+        //Gone from Sanciones List
+        if( getIntent().getBooleanExtra("isSave",true)==false)
+        {
+            btnSaveSancion.setVisibility(View.INVISIBLE);
+        }
 
     }
 

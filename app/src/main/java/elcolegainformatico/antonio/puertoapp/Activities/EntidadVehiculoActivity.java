@@ -1,6 +1,7 @@
 package elcolegainformatico.antonio.puertoapp.Activities;
 
 
+import java.util.ArrayList;
 import java.util.Calendar; //(API < 23 required)Time and Date with Calendar and this implementation.This supports until API23 (With API24 too work).
 
 import android.Manifest;
@@ -28,6 +29,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
+import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
 
 
@@ -66,6 +68,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private Button btnLocation;
 
     Articulo mArticulo;
+    ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +81,9 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
         //GetIntent Block
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
+
+        //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
+        sancionesSaved = (ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved");
 
         //TextView block
         lbSelArticulo = (TextView) findViewById(R.id.lbSelArticulo);
@@ -190,6 +196,9 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                 intent.putExtra("myVehicle", myVehicle);
                 intent.putExtra("myArticulo",mArticulo);
                 intent.putExtra("isVehicle", isVehicle);
+
+                //Solo para versión sin Firebase.
+                intent.putExtra("sancionesSaved",sancionesSaved);
 
                 startActivity(intent); //Start intent
             }

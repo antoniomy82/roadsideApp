@@ -171,6 +171,8 @@ public class Sancion implements Parcelable {
 
     protected Sancion(Parcel in) {
         mArticulo = (Articulo) in.readValue(Articulo.class.getClassLoader());
+        hour = in.readInt();
+        minute = in.readInt();
         day = in.readInt();
         mes = in.readString();
         year = in.readInt();
@@ -205,6 +207,8 @@ public class Sancion implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(mArticulo);
+        dest.writeInt(hour);
+        dest.writeInt(minute);
         dest.writeInt(day);
         dest.writeString(mes);
         dest.writeInt(year);
