@@ -12,6 +12,10 @@ import android.graphics.Bitmap;
 public class Gallery_GetSet {
     String label;
     Bitmap image;
+    boolean haveImage;
+    String subtext;
+    boolean status;
+    boolean isSaved;
 
     public Gallery_GetSet() {
 
@@ -37,11 +41,14 @@ public class Gallery_GetSet {
         return haveImage;
     }
 
+
     public void setHaveImage(boolean haveImage) {
         this.haveImage = haveImage;
     }
 
-    boolean haveImage;
+    public void setSaved(boolean isSaved){this.isSaved=isSaved; }
+
+    public boolean getSaved(){ return isSaved;}
 
     public String getSubtext() {
         return subtext;
@@ -51,8 +58,6 @@ public class Gallery_GetSet {
         this.subtext = subtext;
     }
 
-    String subtext;
-    boolean status;
 
     public String getLabel() {
         return label;

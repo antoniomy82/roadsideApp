@@ -84,11 +84,18 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
 
         v.parcelName.setText(dataSet.getLabel());
         v.label.setText(dataSet.getSubtext());
-        if (dataSet.isStatus()) {
+
+        if (dataSet.isStatus()&& dataSet.getSaved()==false) {
             v.clickImage.setVisibility(View.VISIBLE);
             v.removeImage.setVisibility(View.GONE);
-        } else {
+        }
+        if (dataSet.isStatus()==false && dataSet.getSaved()==false)
+        {
             v.removeImage.setVisibility(View.VISIBLE);
+            v.clickImage.setVisibility(View.GONE);
+        }
+        if(dataSet.getSaved()==true){
+            v.removeImage.setVisibility(View.GONE);
             v.clickImage.setVisibility(View.GONE);
         }
 

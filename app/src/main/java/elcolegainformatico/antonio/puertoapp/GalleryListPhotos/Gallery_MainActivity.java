@@ -87,6 +87,17 @@ public class Gallery_MainActivity extends AppCompatActivity {
             inflate.setSubtext(imageFor[i]);
             inflate.setStatus(true);
 
+            //get intent save photos.
+            boolean mySavedIntent=getIntent().getBooleanExtra("isSave",true);
+
+            if(mySavedIntent == true){
+                inflate.setSaved(true);
+            }
+            if(mySavedIntent == false){
+                inflate.setSaved(false);
+            }
+
+
             galleryGetSets.add(inflate);
         }
 
@@ -134,6 +145,8 @@ public class Gallery_MainActivity extends AppCompatActivity {
                 }
             }//Check
         }
+
+
 
     }
 

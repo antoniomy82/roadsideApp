@@ -103,7 +103,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
         //Date (Get Variable)
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH) + 1;
+        month = calendar.get(Calendar.MONTH)+1;
         mes = getMonth(month);
         year = calendar.get(Calendar.YEAR);
 

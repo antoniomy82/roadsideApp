@@ -51,7 +51,7 @@ public class SancionesListActivity extends AppCompatActivity {
 
 
         //GetIntent Block
-        if(getIntent().getBooleanExtra("isMenu",false) ==false) {
+        if(getIntent().getBooleanExtra("isMenu",false) ==false && getIntent().getExtras().getParcelable("miSancion")!=null) {
 
             miSancion = getIntent().getExtras().getParcelable("miSancion");
             this.sancionesList.add(new Sancion(miSancion.getmArticulo(), miSancion.getHour(), miSancion.getMinute(), miSancion.getDay(), miSancion.getMes(), miSancion.getYear(), miSancion.getIsVehicle(), miSancion.getSancion(), miSancion.getDniMatricula(), miSancion.getNombreMarca(), miSancion.getDomicilioReferencia(), miSancion.getUbicacion(), miSancion.getMyVehicle(), miSancion.getImagePath(), miSancion.getImageBitmap()));
@@ -60,6 +60,7 @@ public class SancionesListActivity extends AppCompatActivity {
         SancionesAdapter myAdaptater = new SancionesAdapter(sancionesList,SancionesListActivity.this.getApplicationContext());
         listSanciones.setAdapter(myAdaptater);
 
+        //Float Button
         FltAddSancion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +76,7 @@ public class SancionesListActivity extends AppCompatActivity {
 
         });
 
+        //Selected Item
         listSanciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PuertoApp</string>
+    <string name="app_name">CeutaPortApp</string>
     <string name="multasButton">Sanciones</string>
     <string name="seleccionarButton">Seleccionar</string>
     <string name="txtNumArticulo">Articulo 13</string>
@@ -61,5 +61,7 @@
     <string name="txtSDate">23 de Enero 2017</string>
     <string name="txtSDatos">Dni/Matricula Nombre</string>
     <string name="txtSSancion">Descripción Articulo, Num Articulo, Sancion</string>
+    <string name="btnPrint">Imprimir Sanción</string>
+    <string name="btnDelete">Borrar Sanción</string>
 
 </resources>
