@@ -76,7 +76,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_entidad_vehiculo);
 
-        setTitle("Introduzca datos de entidad o vehículo");
+        setTitle("Datos de entidad o vehículo");
 
 
         //GetIntent Block
@@ -103,7 +103,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
         //Date (Get Variable)
         calendar = Calendar.getInstance();
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH)+1;
+        month = calendar.get(Calendar.MONTH);
         mes = getMonth(month);
         year = calendar.get(Calendar.YEAR);
 
@@ -354,51 +354,51 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     public String getMonth(int month){
 
         String thisMonth="";
-        if(month==1)
+        if(month==0)
         {
             thisMonth="Enero";
         }
-        if(month==2)
+        if(month==1)
         {
             thisMonth="Febrero";
         }
-        if(month==3)
+        if(month==2)
         {
             thisMonth="Marzo";
         }
-        if(month==4)
+        if(month==3)
         {
             thisMonth="Abril";
         }
-        if(month==5)
+        if(month==4)
         {
             thisMonth="Mayo";
         }
-        if(month==6)
+        if(month==5)
         {
             thisMonth="Junio";
         }
-        if(month==7)
+        if(month==6)
         {
             thisMonth="Julio";
         }
-        if(month==8)
+        if(month==7)
         {
             thisMonth="Agosto";
         }
-        if(month==9)
+        if(month==8)
         {
             thisMonth="Septiembre";
         }
-        if(month==10)
+        if(month==9)
         {
             thisMonth="Octubre";
         }
-        if(month==11)
+        if(month==10)
         {
             thisMonth="Noviembre";
         }
-        if(month==12)
+        if(month==11)
         {
             thisMonth="Diciembre";
         }

@@ -35,14 +35,19 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     private String mes;
     private int year;
     private int isVehicle;
-    private double sancion;
+    private double importeSancion;
     boolean isSave; //Boolean Control to BtnSave (Set visible or invisible)
     private String toPrint;
+
+    //today Date
     private Calendar calendar;
+    private int thisDay, thisMonth,thisYear;
+
+    private int numero,agente;
 
     private String DniMatricula,NombreMarca,DomicilioReferencia,Ubicacion,myVehicle;
 
-    private TextView txtZona,txtDate,txtArticle,txtDatos,lblEntidadVehiculo;
+    private TextView txtZona,txtDate,txtArticle,txtDatos,lblEntidadVehiculo, txtToDay;
 
     private Button btnGetPhotos;
     private Button btnSaveSancion;
@@ -68,7 +73,8 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         setTitle("Validar Sanción");
 
 
-        this.sancion=150; //Inicializo a 150€
+        this.importeSancion =150; //Inicializo a 150€
+        this.agente= 1234;
 
         /**
          * Get intent Block
@@ -98,6 +104,42 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             //Dont use bitmap
         }
 
+        thisDay=getIntent().getIntExtra("thisDay",0);
+
+        if(thisDay!=0){
+          thisMonth=getIntent().getIntExtra("thisMonth",0);
+          thisYear=getIntent().getIntExtra("thisYear",0);
+          numero=getIntent().getIntExtra("numero",0);
+          agente=getIntent().getIntExtra("agente",0);
+        }
+
+        else {
+        //Date to put importeSancion
+        calendar = Calendar.getInstance();
+        thisDay = calendar.get(Calendar.DAY_OF_MONTH);
+        thisMonth = calendar.get(Calendar.MONTH);
+        thisYear = calendar.get(Calendar.YEAR);
+
+         //Genero el número de multa
+         int pos=sancionesSaved.size();
+
+         if(pos == 0) //Initial case
+             {
+              numero=100;
+              }
+         if (pos>0)
+             {
+              numero= this.sancionesSaved.get(pos-1).getNumero()+1;
+             }
+
+           //agente=getAgente(); ( o como coño lo llame)
+        }
+
+        String esteMes = getMonth(thisMonth);
+
+        String _Agente= "\nEl agente denunciante número: "+agente;
+        String _ToDay= " Ceuta "+ thisDay+ " de "+esteMes+" de "+thisYear;
+
 
         //TextView link
         txtZona=(TextView)findViewById(R.id.txtZona);
@@ -105,6 +147,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         txtArticle = (TextView)findViewById(R.id.txtArticle);
         txtDatos = (TextView)findViewById(R.id.txtDatos);
         lblEntidadVehiculo = (TextView)findViewById(R.id.lblEntidadVehiculo);
+        txtToDay=(TextView)findViewById(R.id.txtToDay);
 
         //Button link
         btnGetPhotos=(Button)findViewById(R.id.btnGetPhotos);
@@ -112,17 +155,19 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         btnPrint=(Button) findViewById(R.id.btnPrint);
         btnDelete=(Button) findViewById(R.id.btnDelete);
 
+
+
         //SetText to Screen Block
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion);
-        txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del día "+day+" de "+mes+ " de " +year+ " del año en curso");
-        txtArticle.setText("Ocurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", sancion)+" EUROS" );
-
+        txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso");
+        txtArticle.setText("Ocurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
+        txtToDay.setText(_ToDay+" Nº "+numero+_Agente);
         //String to print
         toPrint = "AUTORIDAD PORTUARIA DE CEUTA\n POLICÍA PORTUARIA";
         toPrint = toPrint+ "\n---------------------------------------------\n\n";
         toPrint = toPrint+ "Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion;
-        toPrint = toPrint+ "\nSiendo las "+hour+":"+convertTwoDigits(minute)+" horas del día "+day+" de "+mes+ " de " +year+ " del año en curso";
-        toPrint = toPrint+ "\nOcurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", sancion)+" EUROS";
+        toPrint = toPrint+ "\nSiendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso";
+        toPrint = toPrint+ "\nOcurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS";
 
 
         if(isVehicle==0){
@@ -140,7 +185,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             //String to print
             toPrint = toPrint+"\n\nDatos del vehículo";
             toPrint = toPrint+"\nTipo: "+myVehicle+" Matricula: "+DniMatricula+"\nMarca, Modelo, Color: "+NombreMarca+"\nNº Referencia A.Portuaria: "+DomicilioReferencia;
-
         }
 
         //Put to Invisible Delete button
@@ -159,7 +203,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                 intent.putExtra("validarToGallery", imagePath);
                 intent.putExtra("isSave",isSave);
 
-
                 startActivityForResult(intent,REQUEST_CODE);
             }
         });
@@ -169,8 +212,9 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         btnSaveSancion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
              //Este chocotrolo lo tendré que subir a Firebase, de momento Objecto Sanción y va a un ArrayList<Sancion> en SancionesListActivity
-             miSancion=new Sancion(mArticulo, hour, minute, day, mes, year, isVehicle, sancion, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap);
+             miSancion=new Sancion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numero,agente);
                 //Lanzar intent a SancionesListActivity
 
                 Intent SL = new Intent(ValidarActivity.this, SancionesListActivity.class);
@@ -185,24 +229,25 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             }
         });
 
+        //Del Sancion
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Intent SL = new Intent(ValidarActivity.this, SancionesListActivity.class);
 
                  //del image from my ArrayList.
-                sancionesSaved.remove(this);
-                
-                //Solo para versión sin Firebase.
-                SL.putExtra("sancionesSaved",sancionesSaved);
+                sancionesSaved.remove(getArrayListPosition (numero));
 
-                startActivity(SL);
+                Intent delIntent = new Intent(ValidarActivity.this, SancionesListActivity.class);
+
+                //Solo para versión sin Firebase.
+                delIntent.putExtra("sancionesSaved",sancionesSaved);
+
+                startActivity(delIntent);
 
 
             }
         });
-
 
 
         //Gone from Sanciones List (Visible and Invisible Buttón check)
@@ -216,27 +261,17 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         //String to print
         toPrint = toPrint+ "\n---------------------------------------------\n\n";
-
-        //Date (Get Variable)
-        calendar = Calendar.getInstance();
-        int thisDay = calendar.get(Calendar.DAY_OF_MONTH);
-        int thisMonth = calendar.get(Calendar.MONTH)+1;
-        String esteMes = getMonth(thisMonth);
-        int thisYear = calendar.get(Calendar.YEAR);
-
-        toPrint = toPrint + " Ceuta a "+ thisDay+ " de "+esteMes+" de "+thisYear;
-
-        //Poner número agente denunciante.
-        toPrint = toPrint + "\n El agente denunciante número: "+"1234";
+        toPrint = toPrint + _ToDay;
+        toPrint = toPrint +_Agente;
 
 
-        //Print Sanción
+        //Print Sanción (Emule a printer)
         btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 showToast(v, toPrint, 10000); //Milliseconds
-
+                //Send toPrint
             }
         });
 
@@ -283,59 +318,60 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         return myMinute;
     }
 
-    public void setSancion(double sancion){
-        this.sancion=sancion;
+    //Modify importe Sanción
+    public void setImporteSancion(double importeSancion){
+        this.importeSancion = importeSancion;
     }
 
     //Return Spanish Month
     public String getMonth(int month){
 
         String thisMonth="";
-        if(month==1)
+        if(month==0)
         {
             thisMonth="Enero";
         }
-        if(month==2)
+        if(month==1)
         {
             thisMonth="Febrero";
         }
-        if(month==3)
+        if(month==2)
         {
             thisMonth="Marzo";
         }
-        if(month==4)
+        if(month==3)
         {
             thisMonth="Abril";
         }
-        if(month==5)
+        if(month==4)
         {
             thisMonth="Mayo";
         }
-        if(month==6)
+        if(month==5)
         {
             thisMonth="Junio";
         }
-        if(month==7)
+        if(month==6)
         {
             thisMonth="Julio";
         }
-        if(month==8)
+        if(month==7)
         {
             thisMonth="Agosto";
         }
-        if(month==9)
+        if(month==8)
         {
             thisMonth="Septiembre";
         }
-        if(month==10)
+        if(month==9)
         {
             thisMonth="Octubre";
         }
-        if(month==11)
+        if(month==10)
         {
             thisMonth="Noviembre";
         }
-        if(month==12)
+        if(month==11)
         {
             thisMonth="Diciembre";
         }
@@ -362,6 +398,20 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         // Show the toast and starts the countdown
         mToastToShow.show();
         toastCountDown.start();
+    }
+
+   //Return position into arrayList
+    public int getArrayListPosition (int numero){
+
+        int position=0;
+
+        for (int i=0; i<sancionesSaved.size(); i++){
+
+            if(sancionesSaved.get(i).getNumero()== numero){
+                position=i;
+            }
+        }
+      return position;
     }
 
 }//ValidarActivity

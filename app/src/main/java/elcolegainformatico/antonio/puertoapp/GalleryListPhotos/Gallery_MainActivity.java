@@ -80,11 +80,18 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
             Gallery_GetSet inflate = new Gallery_GetSet();
 
+
             // Global Values
             inflate.setUid(String.valueOf(i));
-            inflate.setLabel("Imagen");
+            if(i!=7) {
+                inflate.setLabel("Imagen");
+                inflate.setSubtext(imageFor[i]);
+            }
+            else{
+                inflate.setLabel("FIRMA");
+                inflate.setSubtext("@ Una @");
+            }
             inflate.setHaveImage(false);
-            inflate.setSubtext(imageFor[i]);
             inflate.setStatus(true);
 
             //get intent save photos.
@@ -114,14 +121,28 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
                 Bitmap myBmp=mGet.getImage();
 
-                if(myBmp !=null) {
+                if(position!=7) {
 
-                    Intent intent = new Intent(Gallery_MainActivity.this, Gallery_ShowImageActivity.class);
-                    intent.putExtra("ImagePath", imagePath.get(position)); //Pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
-                    startActivity(intent);
+                    if (myBmp != null) {
+
+                        Intent intent = new Intent(Gallery_MainActivity.this, Gallery_ShowImageActivity.class);
+                        intent.putExtra("ImagePath", imagePath.get(position)); //Pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "IMAGEN NO DISPONIBLE", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),"IMAGEN NO DISPONIBLE", Toast.LENGTH_SHORT).show();
+
+                    if (myBmp != null) {
+
+                        Intent intent = new Intent(Gallery_MainActivity.this, Gallery_ShowImageActivity.class);
+                        intent.putExtra("ImagePath", imagePath.get(position)); //Pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(getApplicationContext(), "FIRMA NO DISPONIBLE", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });

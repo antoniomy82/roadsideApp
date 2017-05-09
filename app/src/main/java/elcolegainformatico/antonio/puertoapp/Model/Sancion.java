@@ -22,6 +22,14 @@ public class Sancion implements Parcelable {
     private int isVehicle;
     private double sancion;
 
+    //date to put sancion
+    private int thisDay;
+    private int thisMonth;
+    private int thisYear;
+
+    private int numero;
+    private int agente;
+
     private String dniMatricula,nombreMarca,domicilioReferencia,ubicacion,myVehicle;
 
     //Image Gallery
@@ -29,7 +37,7 @@ public class Sancion implements Parcelable {
     ArrayList<Bitmap> imageBitmap;
 
 
-    public Sancion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap) {
+    public Sancion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap,int thisDay,int thisMonth,int thisYear, int numero,int agente) {
         this.mArticulo = mArticulo;
         this.hour = hour;
         this.minute = minute;
@@ -45,6 +53,14 @@ public class Sancion implements Parcelable {
         this.myVehicle = myVehicle;
         this.imagePath = imagePath;
         this.imageBitmap = imageBitmap;
+
+        this.thisDay=thisDay;
+        this.thisMonth=thisMonth;
+        this.thisYear=thisYear;
+        this.numero=numero;
+        this.agente=agente;
+
+
     }
 
 
@@ -168,6 +184,27 @@ public class Sancion implements Parcelable {
         this.imageBitmap = imageBitmap;
     }
 
+    public int getThisDay() {return thisDay;}
+
+    public void setThisDay(int thisDay) {this.thisDay = thisDay;}
+
+    public int getThisMonth() {return thisMonth;}
+
+    public void setThisMonth(int thisMonth) {this.thisMonth = thisMonth;}
+
+    public int getThisYear() {return thisYear;}
+
+    public void setThisYear(int thisYear) {this.thisYear = thisYear;}
+
+
+    public int getNumero() {return numero;}
+
+    public void setNumero(int numero) {this.numero = numero;}
+
+    public int getAgente() {return agente;}
+
+    public void setAgente(int agente) {this.agente = agente;}
+
 
     protected Sancion(Parcel in) {
         mArticulo = (Articulo) in.readValue(Articulo.class.getClassLoader());
@@ -184,6 +221,13 @@ public class Sancion implements Parcelable {
         domicilioReferencia= in.readString();
         ubicacion= in.readString();
         myVehicle= in.readString();
+
+        thisDay=in.readInt();
+        thisMonth=in.readInt();
+        thisYear=in.readInt();
+
+        numero=in.readInt();
+        agente=in.readInt();
 
         if (in.readByte() == 0x01) {
             imagePath = new ArrayList<String>();
@@ -221,6 +265,12 @@ public class Sancion implements Parcelable {
         dest.writeString(ubicacion);
         dest.writeString(myVehicle);
 
+        dest.writeInt(thisDay);
+        dest.writeInt(thisMonth);
+        dest.writeInt(thisYear);
+
+        dest.writeInt(numero);
+        dest.writeInt(agente);
 
         if (imagePath == null) {
             dest.writeByte((byte) (0x00));

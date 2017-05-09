@@ -53,7 +53,7 @@
     <string name="txtArticle">Articulo 8 : Prohbido estacionar el vehículo en zonas blalla</string>
     <string name="lblEntidadVehiculo">Datos del particular, empresa ó vehículo</string>
     <string name="txtDatos">Nombre Apellidos ......</string>
-    <string name="btnGetPhotos">Obtener Fotos</string>
+    <string name="btnGetPhotos">Obtener Fotos y Firma</string>
     <string name="txtTituloArticulo">Segun la ley de puertos esto está mal</string>
     <string name="txtNumArticle">Articulo 138</string>
     <string name="txtDescriptionList">Descripción del articulo</string>
@@ -63,5 +63,6 @@
     <string name="txtSSancion">Descripción Articulo, Num Articulo, Sancion</string>
     <string name="btnPrint">Imprimir Sanción</string>
     <string name="btnDelete">Borrar Sanción</string>
+    <string name="txtToDay">Agente 1234 Ceuta a 23 de Mayo de 2018</string>
 
 </resources>

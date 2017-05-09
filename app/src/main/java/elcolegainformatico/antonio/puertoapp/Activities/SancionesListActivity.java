@@ -54,7 +54,7 @@ public class SancionesListActivity extends AppCompatActivity {
         if(getIntent().getBooleanExtra("isMenu",false) ==false && getIntent().getExtras().getParcelable("miSancion")!=null) {
 
             miSancion = getIntent().getExtras().getParcelable("miSancion");
-            this.sancionesList.add(new Sancion(miSancion.getmArticulo(), miSancion.getHour(), miSancion.getMinute(), miSancion.getDay(), miSancion.getMes(), miSancion.getYear(), miSancion.getIsVehicle(), miSancion.getSancion(), miSancion.getDniMatricula(), miSancion.getNombreMarca(), miSancion.getDomicilioReferencia(), miSancion.getUbicacion(), miSancion.getMyVehicle(), miSancion.getImagePath(), miSancion.getImageBitmap()));
+            this.sancionesList.add(new Sancion(miSancion.getmArticulo(), miSancion.getHour(), miSancion.getMinute(), miSancion.getDay(), miSancion.getMes(), miSancion.getYear(), miSancion.getIsVehicle(), miSancion.getSancion(), miSancion.getDniMatricula(), miSancion.getNombreMarca(), miSancion.getDomicilioReferencia(), miSancion.getUbicacion(), miSancion.getMyVehicle(), miSancion.getImagePath(), miSancion.getImageBitmap(), miSancion.getThisDay(), miSancion.getThisMonth(),miSancion.getThisYear(), miSancion.getNumero(), miSancion.getAgente()));
         }
 
         SancionesAdapter myAdaptater = new SancionesAdapter(sancionesList,SancionesListActivity.this.getApplicationContext());
@@ -103,6 +103,14 @@ public class SancionesListActivity extends AppCompatActivity {
 
                 intent.putExtra("ImagePath",miSancion.getImagePath());
                 //Bitmap is not necessary , is ineficient, we will use imagePath.
+
+
+                intent.putExtra("thisDay",miSancion.getThisDay());
+                intent.putExtra("thisMonth",miSancion.getThisMonth());
+                intent.putExtra("thisYear", miSancion.getThisDay());
+
+                intent.putExtra("numero",miSancion.getNumero());
+                intent.putExtra("agente",miSancion.getAgente());
 
                 //Solo para versión sin Firebase.
                 intent.putExtra("sancionesSaved",sancionesList);
