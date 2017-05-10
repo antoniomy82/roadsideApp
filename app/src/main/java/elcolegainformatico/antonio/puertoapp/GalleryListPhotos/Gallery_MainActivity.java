@@ -89,7 +89,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
             }
             else{
                 inflate.setLabel("FIRMA");
-                inflate.setSubtext("@ Una @");
+                inflate.setSubtext("@  Una  @");
             }
             inflate.setHaveImage(false);
             inflate.setStatus(true);

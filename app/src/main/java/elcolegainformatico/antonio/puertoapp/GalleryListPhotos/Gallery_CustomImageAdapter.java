@@ -12,6 +12,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -74,8 +75,18 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
         dataSet.setListItemPosition(position);
 
         if (!dataSet.isHaveImage()) {
-            Bitmap icon = BitmapFactory.decodeResource(_c.getResources(), R.drawable.gallery_imgnodisponible56);
-            v.imageView.setImageBitmap(icon);
+            Bitmap icon;
+
+            if(position!=7){
+                icon = BitmapFactory.decodeResource(_c.getResources(), R.drawable.gallery_imgnodisponible56);
+                v.imageView.setImageBitmap(icon);
+            }
+            else{
+                icon = BitmapFactory.decodeResource(_c.getResources(), R.drawable.gallery_firma56);
+                v.imageView.setImageBitmap(icon);
+            }
+
+
         }
 
         else {
@@ -107,7 +118,12 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 // Call to dialog
-                dialogGetImage(dataSet);
+                if(position!=7){
+                    dialogGetImage(dataSet,"foto");
+                }
+                else {
+                    dialogSign(dataSet);
+                }
                }
         });
 
@@ -121,6 +137,32 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
         return view;
     }
 
+
+    //Dialog Sign
+    private void dialogSign(final Gallery_GetSet dataSet){
+
+        final CharSequence[] options = { "SI","NO" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(_c);
+        builder.setTitle("¿Seguro que desea guardar una firma?");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                if (options[item].equals("SI"))
+                {
+                    Toast.makeText(_c,"Guarde una firma como del mismo modo que una foto",Toast.LENGTH_SHORT).show();
+                    dialogGetImage(dataSet,"firma");
+                }
+                if (options[item].equals("NO")) {
+                    Toast.makeText(_c,"Elija otra fila para guardar fotos",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        builder.show();
+    }
+
+    //Delete Dialog
     private void dialogDeleteImage(final Gallery_GetSet dataSet){
 
         final CharSequence[] options = { "Borrar de fotos seleccionadas", "Borrar del móvil y fotos seleccionadas","Cancelar" };
@@ -159,12 +201,12 @@ public class Gallery_CustomImageAdapter extends BaseAdapter {
     }
 
 
-    //Dialog to select the source to optain a picture
-    private void dialogGetImage(final Gallery_GetSet dataSet) {
+    //Dialog to select the source to obtain a picture
+    private void dialogGetImage(final Gallery_GetSet dataSet,String text) {
         final CharSequence[] options = { "Cámara", "Galeria de fotos","Cancelar" };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(_c);
-        builder.setTitle("Seleccionar Foto");
+        builder.setTitle("Seleccionar "+text);
         builder.setItems(options, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
