@@ -52,7 +52,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
     static final String myPictureDirectory = "PuertoAppFotos";  //Name of my Photo Directory
     static final File imageRoot = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), myPictureDirectory); //My Path (the directory where I would like store my pictures)
-
+    String noImage=  "drawable://"+R.drawable.gallery_imgnodisponible56;
 
 
     @Override
@@ -111,8 +111,8 @@ public class Gallery_MainActivity extends AppCompatActivity {
         customImageAdapter = new Gallery_CustomImageAdapter(galleryGetSets, Gallery_MainActivity.this);
         listView.setAdapter(customImageAdapter);
 
-        String noImage=  "drawable://"+R.drawable.gallery_imgnodisponible56;
 
+        //Relleno todo para que se pueda insertar en cualquier fila
         for(int i=0; i<8; i++){
             this.imagePath.add(noImage);
         }
@@ -192,8 +192,10 @@ public class Gallery_MainActivity extends AppCompatActivity {
             for (int i = 0; i < 8; i++) {
                 if (myBmp != null) {
                     auxImage.add(imagePath.get(i));
-                } else {
-                    auxImage.remove(i);
+                }
+                else {
+                    if (auxImage.size()>0 && imagePath.size()>0)
+                    {auxImage.remove(i);}
                 }
             }
         }
