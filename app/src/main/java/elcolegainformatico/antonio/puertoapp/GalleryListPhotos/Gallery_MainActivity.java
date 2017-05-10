@@ -80,7 +80,6 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
             Gallery_GetSet inflate = new Gallery_GetSet();
 
-
             // Global Values
             inflate.setUid(String.valueOf(i));
             if(i!=7) {
@@ -106,10 +105,17 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
 
             galleryGetSets.add(inflate);
+
         }
 
         customImageAdapter = new Gallery_CustomImageAdapter(galleryGetSets, Gallery_MainActivity.this);
         listView.setAdapter(customImageAdapter);
+
+        String noImage=  "drawable://"+R.drawable.gallery_imgnodisponible56;
+
+        for(int i=0; i<8; i++){
+            this.imagePath.add(noImage);
+        }
 
 
        //Push in a item, and view her fucking Pic!!!
@@ -176,13 +182,19 @@ public class Gallery_MainActivity extends AppCompatActivity {
      */
 
     public void onBackPressed(){
+        Gallery_GetSet mGet= galleryGetSets.get(position);
+
+        Bitmap myBmp=mGet.getImage();
 
         //Copy imagePath to auxImage
-        if(imagePath.size()!=0)
-        {
+        if(imagePath.size()!=0) {
 
-            for(int i=0; i<imagePath.size(); i++){
-                auxImage.add(imagePath.get(i));
+            for (int i = 0; i < 8; i++) {
+                if (myBmp != null) {
+                    auxImage.add(imagePath.get(i));
+                } else {
+                    auxImage.remove(i);
+                }
             }
         }
 

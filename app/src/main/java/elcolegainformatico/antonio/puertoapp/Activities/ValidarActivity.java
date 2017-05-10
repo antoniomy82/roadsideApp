@@ -255,7 +255,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         {
             btnSaveSancion.setVisibility(View.INVISIBLE);
             btnDelete.setVisibility(View.VISIBLE);
-            btnGetPhotos.setText("Fotos Guardadas");
+            btnGetPhotos.setText("Fotos y Firma Guardadas");
             this.isSave=true;
         }
 
@@ -288,7 +288,19 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
               if(data.getStringArrayListExtra("galleryToValidar") !=null)
               {
                   this.imagePath=data.getStringArrayListExtra("galleryToValidar");
-                  Toast toast = Toast.makeText(this, "Imagenes guardadas = "+imagePath.size(), Toast.LENGTH_SHORT); toast.show();
+                  String noImage=  "drawable://"+R.drawable.gallery_imgnodisponible56;
+                  int imageCount=0;
+
+                  for(int i=0; i<imagePath.size(); i++){
+                     if(imagePath.get(i).equals(noImage))
+                      {
+
+                      }
+                      else{
+                          imageCount++;
+                      }
+                  }
+                  Toast toast = Toast.makeText(this, "Imagenes guardadas = "+imageCount, Toast.LENGTH_SHORT); toast.show();
               }
 
         else

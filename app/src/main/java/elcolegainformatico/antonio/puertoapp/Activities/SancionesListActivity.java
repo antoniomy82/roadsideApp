@@ -107,7 +107,7 @@ public class SancionesListActivity extends AppCompatActivity {
 
                 intent.putExtra("thisDay",miSancion.getThisDay());
                 intent.putExtra("thisMonth",miSancion.getThisMonth());
-                intent.putExtra("thisYear", miSancion.getThisDay());
+                intent.putExtra("thisYear", miSancion.getThisYear());
 
                 intent.putExtra("numero",miSancion.getNumero());
                 intent.putExtra("agente",miSancion.getAgente());
