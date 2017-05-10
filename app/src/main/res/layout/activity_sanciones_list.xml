@@ -7,9 +7,11 @@
 
     <ListView
         android:id="@+id/sanciones_list"
+        android:scrollbarThumbVertical="@color/red_button"
+        android:scrollbarSize="10sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#263238" />
+        android:background="@color/grey_dark_background" />
 
     <LinearLayout
         android:id="@+id/ly_bar_bottom"
@@ -25,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="28dp"
-            app:backgroundTint="#FF5252"
+            app:backgroundTint="@color/red_button"
             app:elevation="6dp"
             app:pressedTranslationZ="12dp"
             app:srcCompat="@drawable/plus" />

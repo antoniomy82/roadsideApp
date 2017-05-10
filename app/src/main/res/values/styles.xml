@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="My_custom_tittleBar">
+        <item name="android:background">#323331</item>
+    </style>
+
+    <style name="AntonioTheme" parent="android:Theme">
+        <item name="android:windowTitleSize">35dip</item>
+        <item name="android:windowTitleBackgroundStyle">@style/My_custom_tittleBar</item>
+    </style>
+
 </resources>

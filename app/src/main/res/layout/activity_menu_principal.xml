@@ -34,7 +34,7 @@
         android:layout_marginStart="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/multasButton"
-        android:textColor="@android:color/background_light"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

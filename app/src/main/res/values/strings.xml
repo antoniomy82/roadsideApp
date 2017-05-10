@@ -64,5 +64,7 @@
     <string name="btnPrint">Imprimir Sanción</string>
     <string name="btnDelete">Borrar Sanción</string>
     <string name="txtToDay">Agente 1234 Ceuta a 23 de Mayo de 2018</string>
+    <string name="txtCustom_title">TITULO ACTIVITY</string>
+    <string name="tittleBar">Titulo Activity</string>
 
 </resources>

@@ -20,7 +20,7 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/lbSelArticulo"
-            android:textColor="@android:color/holo_orange_light"
+            android:textColor="@color/Orange_light"
             android:textStyle="bold" />
 
         <TextView
@@ -30,7 +30,7 @@
             android:background="@color/colorPrimary"
             android:gravity="center"
             android:text="@string/lblTimeDate"
-            android:textColor="@android:color/background_light"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:textStyle="bold" />
 
@@ -44,7 +44,7 @@
             android:entries="@array/entidad_array"
             android:prompt="@string/spinner_entidad"
             android:textAlignment="center"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/Blue_light"
             android:textSize="14sp"
             tools:ignore="UnusedAttribute" />
 
@@ -92,7 +92,7 @@
             android:layout_marginTop="20sp"
             android:entries="@array/vehiculo_array"
             android:textAlignment="center"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/Blue_light"
             android:textSize="14sp" />
 
         <LinearLayout
@@ -109,10 +109,10 @@
                 style="?android:attr/buttonBarButtonStyle"
                 android:layout_width="132dp"
                 android:layout_height="wrap_content"
-                android:background="@android:color/holo_blue_dark"
+                android:background="@color/Blue_light"
                 android:onClick="setDate"
                 android:text="@string/btnDate"
-                android:textColor="@android:color/background_light"
+                android:textColor="@color/white"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 tools:text="Fecha del hecho" />

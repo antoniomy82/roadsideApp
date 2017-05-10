@@ -11,7 +11,7 @@
         android:layout_weight="0.02"
         android:gravity="center"
         android:text="@string/txtNumArticulo"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="@color/Blue_light"
         android:textSize="15sp"
         android:textStyle="bold" />
 
@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.76"
-        android:background="@android:color/holo_blue_dark"
+        android:background="@color/Blue_light"
         android:gravity="center"
         android:text="@string/txtDescripcion"
         android:textStyle="bold" />
