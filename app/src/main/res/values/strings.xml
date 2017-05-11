@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CeutaPortApp</string>
+    <string name="app_name">CeutaPort</string>
     <string name="multasButton">Infracciones</string>
     <string name="seleccionarButton">Seleccionar</string>
     <string name="txtNumArticulo">Articulo 13</string>
@@ -57,12 +57,12 @@
     <string name="txtTituloArticulo">Segun la ley de puertos esto está mal</string>
     <string name="txtNumArticle">Articulo 138</string>
     <string name="txtDescriptionList">Descripción del articulo</string>
-    <string name="btnSaveSancion">Guardar sanción</string>
+    <string name="btnSaveSancion">Guardar infracción</string>
     <string name="txtSDate">23 de Enero 2017</string>
     <string name="txtSDatos">Dni/Matricula Nombre</string>
     <string name="txtSSancion">Descripción Articulo, Num Articulo, Sancion</string>
-    <string name="btnPrint">Imprimir Sanción</string>
-    <string name="btnDelete">Borrar Sanción</string>
+    <string name="btnPrint">Imprimir Infracción</string>
+    <string name="btnDelete">Borrar Infracción</string>
     <string name="txtToDay">Agente 1234 Ceuta a 23 de Mayo de 2018</string>
     <string name="txtCustom_title">TITULO ACTIVITY</string>
     <string name="tittleBar">Titulo Activity</string>

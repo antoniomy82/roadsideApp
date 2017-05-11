@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 import elcolegainformatico.antonio.puertoapp.GalleryListPhotos.Gallery_MainActivity;
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
-import elcolegainformatico.antonio.puertoapp.Model.Sancion;
+import elcolegainformatico.antonio.puertoapp.Model.Infraccion;
 import elcolegainformatico.antonio.puertoapp.R;
 
 
@@ -32,7 +32,7 @@ import elcolegainformatico.antonio.puertoapp.R;
 public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     Articulo mArticulo;
-    Sancion miSancion;
+    Infraccion miInfraccion;
 
     private int hour,minute;
     private int day;
@@ -61,7 +61,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     ArrayList<String> imagePath=null; //Array List of path
     ArrayList<Bitmap> imageBitmap=null;
-    ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
+    ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
 
     public static final int REQUEST_CODE = 300; //Back pressed (On ActivityResult)
@@ -109,7 +109,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         myVehicle = getIntent().getStringExtra("myVehicle");
 
         //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
-        sancionesSaved = (ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved");
+        sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
 
         hour=getIntent().getIntExtra("hour",0);
         minute=getIntent().getIntExtra("minute",0);
@@ -239,13 +239,13 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             @Override
             public void onClick(View v) {
 
-             //Este chocotrolo lo tendré que subir a Firebase, de momento Objecto Sanción y va a un ArrayList<Sancion> en InfraccionesListActivity
-             miSancion=new Sancion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numero,agente);
+             //Este chocotrolo lo tendré que subir a Firebase, de momento Objecto Sanción y va a un ArrayList<Infraccion> en InfraccionesListActivity
+             miInfraccion =new Infraccion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numero,agente);
                 //Lanzar intent a InfraccionesListActivity
 
                 Intent SL = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
 
-                SL.putExtra("miSancion",miSancion);
+                SL.putExtra("miInfraccion", miInfraccion);
 
                 //Solo para versión sin Firebase.
                 SL.putExtra("sancionesSaved",sancionesSaved);
@@ -255,7 +255,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             }
         });
 
-        //Del Sancion
+        //Del Infraccion
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

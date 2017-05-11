@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by antonio on 4/5/17.
  */
 
-public class Sancion implements Parcelable {
+public class Infraccion implements Parcelable {
 
     Articulo mArticulo;
 
@@ -37,7 +37,7 @@ public class Sancion implements Parcelable {
     ArrayList<Bitmap> imageBitmap;
 
 
-    public Sancion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap,int thisDay,int thisMonth,int thisYear, int numero,int agente) {
+    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numero, int agente) {
         this.mArticulo = mArticulo;
         this.hour = hour;
         this.minute = minute;
@@ -206,7 +206,7 @@ public class Sancion implements Parcelable {
     public void setAgente(int agente) {this.agente = agente;}
 
 
-    protected Sancion(Parcel in) {
+    protected Infraccion(Parcel in) {
         mArticulo = (Articulo) in.readValue(Articulo.class.getClassLoader());
         hour = in.readInt();
         minute = in.readInt();
@@ -287,15 +287,15 @@ public class Sancion implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<Sancion> CREATOR = new Parcelable.Creator<Sancion>() {
+    public static final Parcelable.Creator<Infraccion> CREATOR = new Parcelable.Creator<Infraccion>() {
         @Override
-        public Sancion createFromParcel(Parcel in) {
-            return new Sancion(in);
+        public Infraccion createFromParcel(Parcel in) {
+            return new Infraccion(in);
         }
 
         @Override
-        public Sancion[] newArray(int size) {
-            return new Sancion[size];
+        public Infraccion[] newArray(int size) {
+            return new Infraccion[size];
         }
     };
 }

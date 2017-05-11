@@ -21,13 +21,15 @@ public class ArticulosAdapter extends BaseAdapter{
     private ArrayList<Articulo> articuloArrayList;
     private LayoutInflater inflater;
     private  Context contexto;
+    private boolean isReglamento;
 
     //Obtengo un arrayList de articulos
-    public ArticulosAdapter(ArrayList<Articulo> articuloArrayList, Context context){
+    public ArticulosAdapter(ArrayList<Articulo> articuloArrayList, Context context, boolean isReglamento){
 
         this.articuloArrayList = articuloArrayList;
         inflater= LayoutInflater.from(context); //Me va a inflar la información de cada articulo dentro de cada item
         contexto = context; // El contexto es una referencia a la aplicación (en qué activity hago uso de mi adaptador).
+        this.isReglamento=isReglamento;
     }
 
     @Override
@@ -49,7 +51,12 @@ public class ArticulosAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View myView, ViewGroup parent) {
 
-        myView= inflater.inflate(R.layout.item_articulo_list,null); //Inflamos nuestro item
+        if(isReglamento=true) {
+            myView = inflater.inflate(R.layout.item_reglamento_list, null); //Inflamos nuestro item
+        }
+        else{
+            myView = inflater.inflate(R.layout.item_ley_list, null); //Inflamos nuestro item
+        }
 
         Articulo mArticulo = articuloArrayList.get(position); //Selecciono el articulo
 

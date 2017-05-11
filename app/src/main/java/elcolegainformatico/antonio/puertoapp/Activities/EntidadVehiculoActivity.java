@@ -32,7 +32,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
-import elcolegainformatico.antonio.puertoapp.Model.Sancion;
+import elcolegainformatico.antonio.puertoapp.Model.Infraccion;
 import elcolegainformatico.antonio.puertoapp.R;
 
 
@@ -74,7 +74,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private TextView text_custom_title;
 
     Articulo mArticulo;
-    ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
+    ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
 
         //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
-        sancionesSaved = (ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved");
+        sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
 
         //TextView block
         lbSelArticulo = (TextView) findViewById(R.id.lbSelArticulo);
@@ -334,8 +334,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                     }
                 }, hour, minute, DateFormat.is24HourFormat(this));
 
-
-        timePickerDialog.show();
+         timePickerDialog.show();
     }
 
     //Show Date and Time in lblTimeDate

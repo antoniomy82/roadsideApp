@@ -33,7 +33,7 @@
 
 
 
-        <activity android:name=".Activities.MenuActivity"  android:screenOrientation="portrait" android:label="Menú Principal">
+        <activity android:name=".Activities.MenuActivity"  android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.InfraccionesListActivity"  android:screenOrientation="portrait" android:label="Infracciones guardadas"/>
+        <activity android:name=".Activities.InfraccionesListActivity"  android:screenOrientation="portrait" />
 
 
         <activity android:name=".Activities.ArticulosListActivity"  android:screenOrientation="portrait"/>

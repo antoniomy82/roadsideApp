@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import elcolegainformatico.antonio.puertoapp.Model.Sancion;
+import elcolegainformatico.antonio.puertoapp.Model.Infraccion;
 import elcolegainformatico.antonio.puertoapp.R;
 
 /**
@@ -18,12 +18,12 @@ import elcolegainformatico.antonio.puertoapp.R;
 
 public class InfraccionesAdapter extends BaseAdapter {
 
-    private ArrayList<Sancion> sancionesArrayList;
+    private ArrayList<Infraccion> sancionesArrayList;
     private LayoutInflater inflater;
     private Context contexto;
 
     //Obtengo un arrayList de articulos
-    public InfraccionesAdapter(ArrayList<Sancion> sancionesArrayList, Context context){
+    public InfraccionesAdapter(ArrayList<Infraccion> sancionesArrayList, Context context){
 
         this.sancionesArrayList = sancionesArrayList;
         inflater= LayoutInflater.from(context); //Me va a inflar la información de cada articulo dentro de cada item
@@ -51,7 +51,7 @@ public class InfraccionesAdapter extends BaseAdapter {
 
         myView= inflater.inflate(R.layout.item_infraccion_list,null); //Inflamos nuestro item
 
-        Sancion miSancion = sancionesArrayList.get(position); //Selecciono el articulo
+        Infraccion miInfraccion = sancionesArrayList.get(position); //Selecciono el articulo
 
 
         TextView txtSDate = (TextView) myView.findViewById(R.id.txtSDate);
@@ -59,10 +59,10 @@ public class InfraccionesAdapter extends BaseAdapter {
         TextView txtSSancion= (TextView) myView.findViewById(R.id.txtSSancion);
 
 
-        txtSDate.setText(miSancion.getDay()+" de "+miSancion.getMes()+" "+miSancion.getYear()); //Obtengo el árticulo de mi modelo de datos articulo
+        txtSDate.setText(miInfraccion.getDay()+" de "+ miInfraccion.getMes()+" "+ miInfraccion.getYear()); //Obtengo el árticulo de mi modelo de datos articulo
 
-        txtSDatos.setText(miSancion.getDniMatricula()+" - "+miSancion.getNombreMarca());
-        txtSSancion.setText("Zona: "+miSancion.getUbicacion()+" Infracción: "+miSancion.getmArticulo().getDescripcion()+ " "+miSancion.getmArticulo().getNumArticulo()+  " Sanción: "+miSancion.getSancion()+ "€");
+        txtSDatos.setText(miInfraccion.getDniMatricula()+" - "+ miInfraccion.getNombreMarca());
+        txtSSancion.setText("Zona: "+ miInfraccion.getUbicacion()+" Infracción: "+ miInfraccion.getmArticulo().getDescripcion()+ " "+ miInfraccion.getmArticulo().getNumArticulo()+  " Sanción: "+ miInfraccion.getSancion()+ "€");
 
         return myView;
     }
