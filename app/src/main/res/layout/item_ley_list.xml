@@ -7,14 +7,14 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="243dp"
+        android:layout_height="292dp"
         android:orientation="vertical"
         android:weightSum="1"
         tools:ignore="UselessParent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="28dp"
             android:orientation="horizontal">
 
             <TextView
@@ -27,7 +27,7 @@
                 android:text="@string/txtNumArticle"
                 android:textAppearance="@style/TextAppearance.AppCompat.Button"
                 android:textColor="@color/white"
-                android:textSize="13sp"
+                android:textSize="12sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
 
             <TextView
@@ -40,8 +40,10 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:textSize="12sp"
                 tools:ignore="RtlHardcoded" />
         </LinearLayout>
+
 
         <TextView
             android:id="@+id/txtDescriptionList"
@@ -51,7 +53,9 @@
             android:gravity="center|start"
             android:text="@string/txtDescriptionList"
             android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="12sp" />
+
 
     </LinearLayout>
 

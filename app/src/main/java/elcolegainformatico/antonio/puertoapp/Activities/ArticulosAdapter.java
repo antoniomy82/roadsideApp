@@ -51,10 +51,10 @@ public class ArticulosAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View myView, ViewGroup parent) {
 
-        if(isReglamento=true) {
+        if(isReglamento==true) {
             myView = inflater.inflate(R.layout.item_reglamento_list, null); //Inflamos nuestro item
         }
-        else{
+        if(isReglamento==false){
             myView = inflater.inflate(R.layout.item_ley_list, null); //Inflamos nuestro item
         }
 

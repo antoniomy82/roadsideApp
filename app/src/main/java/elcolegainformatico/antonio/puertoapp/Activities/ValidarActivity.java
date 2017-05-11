@@ -186,7 +186,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         //SetText to Screen Block
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion);
         txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso");
-        txtArticle.setText("Ocurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
+        txtArticle.setText("Ocurrió el siguiente hecho: "+mArticulo.getDescripcion()+" Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+" Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
         txtToDay.setText(_ToDay+" Nº "+numero+_Agente);
         //String to print
         toPrint = "AUTORIDAD PORTUARIA DE CEUTA\n POLICÍA PORTUARIA";
