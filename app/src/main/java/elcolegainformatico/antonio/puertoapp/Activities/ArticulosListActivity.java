@@ -2,10 +2,15 @@ package elcolegainformatico.antonio.puertoapp.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 
 import elcolegainformatico.antonio.puertoapp.Model.Articulo;
@@ -23,11 +28,34 @@ public class ArticulosListActivity extends AppCompatActivity {
     ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
     boolean isReglamento;
 
+    private ImageButton home_custom_bar;
+    private TextView text_custom_title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setTitle("Lista de articulos");
+        //Custom title bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_title_bar);
+
+
+        text_custom_title=(TextView)findViewById(R.id.text_custom_title);
+        text_custom_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize));
+        text_custom_title.setText("LISTA DE ARTICULOS");
+
+        home_custom_bar=(ImageButton) findViewById(R.id.home_custom_bar);
+
+        home_custom_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ArticulosListActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
         sancionesSaved = (ArrayList<Sancion>) getIntent().getSerializableExtra("sancionesSaved");

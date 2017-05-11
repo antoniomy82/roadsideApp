@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import elcolegainformatico.antonio.puertoapp.Model.Articulo;
 import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
 
@@ -17,14 +16,14 @@ import elcolegainformatico.antonio.puertoapp.R;
  * Created by antonio on 4/5/17.
  */
 
-public class SancionesAdapter extends BaseAdapter {
+public class InfraccionesAdapter extends BaseAdapter {
 
     private ArrayList<Sancion> sancionesArrayList;
     private LayoutInflater inflater;
     private Context contexto;
 
     //Obtengo un arrayList de articulos
-    public SancionesAdapter(ArrayList<Sancion> sancionesArrayList, Context context){
+    public InfraccionesAdapter(ArrayList<Sancion> sancionesArrayList, Context context){
 
         this.sancionesArrayList = sancionesArrayList;
         inflater= LayoutInflater.from(context); //Me va a inflar la información de cada articulo dentro de cada item
@@ -50,7 +49,7 @@ public class SancionesAdapter extends BaseAdapter {
 
     public View getView(int position, View myView, ViewGroup parent) {
 
-        myView= inflater.inflate(R.layout.item_sancion_list,null); //Inflamos nuestro item
+        myView= inflater.inflate(R.layout.item_infraccion_list,null); //Inflamos nuestro item
 
         Sancion miSancion = sancionesArrayList.get(position); //Selecciono el articulo
 

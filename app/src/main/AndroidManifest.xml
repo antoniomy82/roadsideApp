@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.SancionesListActivity"  android:screenOrientation="portrait" android:label="Infracciones guardadas"/>
+        <activity android:name=".Activities.InfraccionesListActivity"  android:screenOrientation="portrait" android:label="Infracciones guardadas"/>
 
 
         <activity android:name=".Activities.ArticulosListActivity"  android:screenOrientation="portrait"/>
@@ -54,7 +54,7 @@
 
         <activity android:name=".GalleryListPhotos.Gallery_MainActivity" android:screenOrientation="portrait" />
 
-        <activity android:name=".GalleryListPhotos.Gallery_ShowImageActivity"/>
+        <activity android:name=".GalleryListPhotos.Gallery_ShowImageActivity" />
 
 
     </application>

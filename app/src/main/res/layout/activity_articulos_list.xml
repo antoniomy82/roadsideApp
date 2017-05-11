@@ -5,7 +5,7 @@
 
     <ListView
         android:id="@+id/articulos_list"
-        android:scrollbarThumbVertical="@color/red_classic"
+        android:scrollbarThumbVertical="@color/white"
         android:scrollbarSize="10sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

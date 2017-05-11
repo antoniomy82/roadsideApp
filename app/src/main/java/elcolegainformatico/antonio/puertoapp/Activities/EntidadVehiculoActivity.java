@@ -16,13 +16,16 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -67,6 +70,9 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private Button btnNext2; //to ValidarActitivy
     private Button btnLocation;
 
+    private ImageButton home_custom_bar;
+    private TextView text_custom_title;
+
     Articulo mArticulo;
     ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
@@ -76,7 +82,28 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_entidad_vehiculo);
 
-        setTitle("Datos de entidad o vehículo");
+        //Custom title bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_title_bar);
+
+
+        text_custom_title=(TextView)findViewById(R.id.text_custom_title);
+        text_custom_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize));
+
+        text_custom_title.setText("INTRODUCCIÓN DE DATOS");
+
+
+        home_custom_bar=(ImageButton) findViewById(R.id.home_custom_bar);
+
+        home_custom_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(EntidadVehiculoActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         //GetIntent Block

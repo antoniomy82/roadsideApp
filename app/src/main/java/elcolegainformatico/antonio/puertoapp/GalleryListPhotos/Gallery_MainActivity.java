@@ -16,11 +16,15 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -54,6 +58,9 @@ public class Gallery_MainActivity extends AppCompatActivity {
     static final File imageRoot = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), myPictureDirectory); //My Path (the directory where I would like store my pictures)
     String noImage=  "drawable://"+R.drawable.gallery_imgnodisponible56;
 
+    private ImageButton home_custom_bar;
+    private TextView text_custom_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +68,20 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.gallery_activity_main);
 
-        setTitle("Fotos seleccionadas");
+        //Custom title bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_title_bar);
+
+
+        text_custom_title=(TextView)findViewById(R.id.text_custom_title);
+        text_custom_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize));
+        text_custom_title.setText("MENÚ PRINCIPAL");
+
+        home_custom_bar=(ImageButton) findViewById(R.id.home_custom_bar);
+
+        home_custom_bar.setImageResource(R.drawable.logo_puerto36);
+
         //Background color
         getWindow().getDecorView().setBackgroundColor(Color.BLACK);
 

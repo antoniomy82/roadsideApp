@@ -4,10 +4,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.os.CountDownTimer;
@@ -64,6 +67,8 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     public static final int REQUEST_CODE = 300; //Back pressed (On ActivityResult)
     private Toast mToastToShow; // Personalized Toast
 
+    private ImageButton home_custom_bar;
+    private TextView text_custom_title;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +76,27 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         setContentView(R.layout.activity_validar);
 
-        setTitle("Validar Infracción");
+
+        //Custom title bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_title_bar);
+
+
+        text_custom_title=(TextView)findViewById(R.id.text_custom_title);
+        text_custom_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize));
+
+        text_custom_title.setText("VALIDAR INFRACCIÓN");
+
+        home_custom_bar=(ImageButton) findViewById(R.id.home_custom_bar);
+
+        home_custom_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ValidarActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
         this.importeSancion =150; //Inicializo a 150€
@@ -214,11 +239,11 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             @Override
             public void onClick(View v) {
 
-             //Este chocotrolo lo tendré que subir a Firebase, de momento Objecto Sanción y va a un ArrayList<Sancion> en SancionesListActivity
+             //Este chocotrolo lo tendré que subir a Firebase, de momento Objecto Sanción y va a un ArrayList<Sancion> en InfraccionesListActivity
              miSancion=new Sancion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numero,agente);
-                //Lanzar intent a SancionesListActivity
+                //Lanzar intent a InfraccionesListActivity
 
-                Intent SL = new Intent(ValidarActivity.this, SancionesListActivity.class);
+                Intent SL = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
 
                 SL.putExtra("miSancion",miSancion);
 
@@ -432,7 +457,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                     //del image from my ArrayList.
                     sancionesSaved.remove(getArrayListPosition(numero));
 
-                    Intent delIntent = new Intent(ValidarActivity.this, SancionesListActivity.class);
+                    Intent delIntent = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
 
                     //Solo para versión sin Firebase.
                     delIntent.putExtra("sancionesSaved", sancionesSaved);

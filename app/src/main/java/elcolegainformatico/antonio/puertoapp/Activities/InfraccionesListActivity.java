@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -14,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
 
 import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
@@ -25,7 +25,7 @@ import elcolegainformatico.antonio.puertoapp.R;
  */
 
 
-public class SancionesListActivity extends AppCompatActivity {
+public class InfraccionesListActivity extends AppCompatActivity {
 
     Sancion miSancion;
 
@@ -33,7 +33,7 @@ public class SancionesListActivity extends AppCompatActivity {
 
     ListView listSanciones;
 
-    private ImageButton home_custom_bar, plus_infraccion_custom;
+    private ImageButton home_custom_bar;
     private TextView text_custom_title;
 
 
@@ -41,7 +41,7 @@ public class SancionesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_sanciones_list);
+        setContentView(R.layout.activity_infracciones_list);
         listSanciones=(ListView) findViewById(R.id.sanciones_list);
 
 
@@ -50,20 +50,17 @@ public class SancionesListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowCustomEnabled(true);
         getSupportActionBar().setCustomView(R.layout.custom_title_bar);
 
-        View view =getSupportActionBar().getCustomView();
 
         text_custom_title=(TextView)findViewById(R.id.text_custom_title);
-        text_custom_title.setText("Infracciones guardadas");
+        text_custom_title.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimension(R.dimen.textsize));
+        text_custom_title.setText("INFRACCIONES GUARDADAS");
 
         home_custom_bar=(ImageButton) findViewById(R.id.home_custom_bar);
-
-        plus_infraccion_custom=(ImageButton)findViewById(R.id.plus_infraccion_custom);
-        //plus_infraccion_custom.setImageResource(R.drawable.);
 
         home_custom_bar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SancionesListActivity.this, MenuActivity.class);
+                Intent intent = new Intent(InfraccionesListActivity.this, MenuActivity.class);
                 startActivity(intent);
             }
         });
@@ -87,7 +84,7 @@ public class SancionesListActivity extends AppCompatActivity {
             this.sancionesList.add(new Sancion(miSancion.getmArticulo(), miSancion.getHour(), miSancion.getMinute(), miSancion.getDay(), miSancion.getMes(), miSancion.getYear(), miSancion.getIsVehicle(), miSancion.getSancion(), miSancion.getDniMatricula(), miSancion.getNombreMarca(), miSancion.getDomicilioReferencia(), miSancion.getUbicacion(), miSancion.getMyVehicle(), miSancion.getImagePath(), miSancion.getImageBitmap(), miSancion.getThisDay(), miSancion.getThisMonth(),miSancion.getThisYear(), miSancion.getNumero(), miSancion.getAgente()));
         }
 
-        SancionesAdapter myAdaptater = new SancionesAdapter(sancionesList,SancionesListActivity.this.getApplicationContext());
+        InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList,InfraccionesListActivity.this.getApplicationContext());
         listSanciones.setAdapter(myAdaptater);
 
         //Float Button
@@ -97,7 +94,7 @@ public class SancionesListActivity extends AppCompatActivity {
                /*
                 Snackbar.make(v, "Se presiono Float" ,Snackbar.LENGTH_LONG).show();
 
-                Intent intent = new Intent(SancionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
+                Intent intent = new Intent(InfraccionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
 
                 //Solo para versión sin Firebase.
                 intent.putExtra("sancionesSaved",sancionesList);
@@ -115,7 +112,7 @@ public class SancionesListActivity extends AppCompatActivity {
 
                 Sancion miSancion = sancionesList.get(position);
 
-                Intent intent = new Intent(SancionesListActivity.this, ValidarActivity.class);
+                Intent intent = new Intent(InfraccionesListActivity.this, ValidarActivity.class);
 
                 intent.putExtra("hour",miSancion.getHour());
                 intent.putExtra("minute",miSancion.getMinute());
@@ -171,7 +168,7 @@ public class SancionesListActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
-                Intent intent = new Intent(SancionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
+                Intent intent = new Intent(InfraccionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
                 intent.putExtra("sancionesSaved",sancionesList);
 
 
