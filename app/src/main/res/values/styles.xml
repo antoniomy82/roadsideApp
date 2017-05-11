@@ -1,20 +1,18 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="My_custom_tittleBar">
-        <item name="android:background">#323331</item>
-    </style>
+    <style name="CustomTheme" parent="Theme.AppCompat.Light">
 
-    <style name="AntonioTheme" parent="android:Theme">
-        <item name="android:windowTitleSize">35dip</item>
-        <item name="android:windowTitleBackgroundStyle">@style/My_custom_tittleBar</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
     </style>
 
 </resources>

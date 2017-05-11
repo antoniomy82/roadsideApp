@@ -1,8 +1,10 @@
 package elcolegainformatico.antonio.puertoapp.Activities;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Window;
 import android.widget.Button;
 import android.view.View;
@@ -21,11 +23,9 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_menu_principal);
-        //this.getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.custom_title_bar);
 
-       // setTitle("Menú Principal");
+        setTitle("Menú Principal");
 
         //Seek reference to the button
         mMultasButton = (Button) findViewById(R.id.multasButton);

@@ -1,47 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_width="fill_parent"
-    android:layout_height="35dip"
-    android:gravity="center_vertical"
-    android:paddingStart="5dip"
-    android:background="#323331"
-    tools:ignore="RtlSymmetry">
+    >
 
-    <ImageView
-        android:id="@+id/header"
-        android:layout_width="32dp"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo_puerto_ceuta"
-        android:layout_weight="0.01"
-        tools:ignore="ContentDescription" />
+    <TableRow android:background="@color/colorPrimary"
+        tools:ignore="UselessParent">
 
 
-    <TextView
-        android:id="@+id/tittleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/tittleBar"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/text_custom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="10dp"
+            android:text="@string/app_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/home"
-        android:layout_width="30dp"
-        android:layout_height="29dp"
-        android:layout_marginEnd="14dp"
-        android:src="@drawable/home_18dp"
-        tools:ignore="ContentDescription" />
+        <ImageButton
+            android:id="@+id/home_custom_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/home"
+            tools:ignore="ContentDescription" />
 
-    <ImageView
-        android:id="@+id/add"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/edit_18dp"
-        tools:ignore="ContentDescription" />
+        <ImageButton
+            android:id="@+id/plus_infraccion_custom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/plus"
+            tools:ignore="ContentDescription" />
 
-</LinearLayout>
+
+    </TableRow>
+
+</TableLayout>

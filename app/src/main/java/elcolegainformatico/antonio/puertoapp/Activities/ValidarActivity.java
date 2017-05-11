@@ -1,8 +1,10 @@
 package elcolegainformatico.antonio.puertoapp.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
@@ -59,7 +61,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     ArrayList<Sancion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
 
-
     public static final int REQUEST_CODE = 300; //Back pressed (On ActivityResult)
     private Toast mToastToShow; // Personalized Toast
 
@@ -70,7 +71,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         setContentView(R.layout.activity_validar);
 
-        setTitle("Validar Sanción");
+        setTitle("Validar Infracción");
 
 
         this.importeSancion =150; //Inicializo a 150€
@@ -234,17 +235,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             @Override
             public void onClick(View v) {
 
-
-                 //del image from my ArrayList.
-                sancionesSaved.remove(getArrayListPosition (numero));
-
-                Intent delIntent = new Intent(ValidarActivity.this, SancionesListActivity.class);
-
-                //Solo para versión sin Firebase.
-                delIntent.putExtra("sancionesSaved",sancionesSaved);
-
-                startActivity(delIntent);
-
+            dialogDelete();
 
             }
         });
@@ -424,6 +415,41 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             }
         }
       return position;
+    }
+
+    public void dialogDelete() {
+
+        final CharSequence[] options = {"SI", "NO"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿ESTÁ SEGURO QUE DESEA BORRAR ESTA INFRACCIÓN?");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+
+                if (options[item].equals("SI")) {
+                    //del image from my ArrayList.
+                    sancionesSaved.remove(getArrayListPosition(numero));
+
+                    Intent delIntent = new Intent(ValidarActivity.this, SancionesListActivity.class);
+
+                    //Solo para versión sin Firebase.
+                    delIntent.putExtra("sancionesSaved", sancionesSaved);
+
+                    startActivity(delIntent);
+
+                }
+                if (options[item].equals("NO")) {
+
+                    //NADA
+
+                }
+
+
+            }
+        });
+        builder.show();
     }
 
 }//ValidarActivity

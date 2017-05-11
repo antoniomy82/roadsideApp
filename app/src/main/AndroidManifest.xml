@@ -29,11 +29,11 @@
         android:screenOrientation="locked"
         android:hardwareAccelerated="false"
         android:largeHeap="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/CustomTheme">
 
 
 
-        <activity android:name=".Activities.MenuActivity"  android:screenOrientation="portrait" >
+        <activity android:name=".Activities.MenuActivity"  android:screenOrientation="portrait" android:label="Menú Principal">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".Activities.SancionesListActivity"  android:screenOrientation="portrait"/>
+        <activity android:name=".Activities.SancionesListActivity"  android:screenOrientation="portrait" android:label="Infracciones guardadas"/>
 
 
         <activity android:name=".Activities.ArticulosListActivity"  android:screenOrientation="portrait"/>

@@ -1,20 +1,23 @@
 package elcolegainformatico.antonio.puertoapp.Activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 
 import elcolegainformatico.antonio.puertoapp.Model.Sancion;
 import elcolegainformatico.antonio.puertoapp.R;
-
 
 
 /**
@@ -30,6 +33,9 @@ public class SancionesListActivity extends AppCompatActivity {
 
     ListView listSanciones;
 
+    private ImageButton home_custom_bar, plus_infraccion_custom;
+    private TextView text_custom_title;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +44,31 @@ public class SancionesListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sanciones_list);
         listSanciones=(ListView) findViewById(R.id.sanciones_list);
 
-        setTitle("Sanciones Guardadas ");
+
+        //Custom title bar
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(R.layout.custom_title_bar);
+
+        View view =getSupportActionBar().getCustomView();
+
+        text_custom_title=(TextView)findViewById(R.id.text_custom_title);
+        text_custom_title.setText("Infracciones guardadas");
+
+        home_custom_bar=(ImageButton) findViewById(R.id.home_custom_bar);
+
+        plus_infraccion_custom=(ImageButton)findViewById(R.id.plus_infraccion_custom);
+        //plus_infraccion_custom.setImageResource(R.drawable.);
+
+        home_custom_bar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SancionesListActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
 
         final FloatingActionButton FltAddSancion = (FloatingActionButton) findViewById(R.id.FltAddSancion);
 
@@ -64,6 +94,7 @@ public class SancionesListActivity extends AppCompatActivity {
         FltAddSancion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+               /*
                 Snackbar.make(v, "Se presiono Float" ,Snackbar.LENGTH_LONG).show();
 
                 Intent intent = new Intent(SancionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
@@ -71,7 +102,8 @@ public class SancionesListActivity extends AppCompatActivity {
                 //Solo para versión sin Firebase.
                 intent.putExtra("sancionesSaved",sancionesList);
 
-                startActivity(intent); //Start intent
+                startActivity(intent); //Start intent */
+               dialogInfraccion();
             }
 
         });
@@ -127,6 +159,39 @@ public class SancionesListActivity extends AppCompatActivity {
 
 
         }
+
+    //Dialog Infraccion
+    private void dialogInfraccion(){
+
+        final CharSequence[] options = { "LEY","REGLAMENTO" };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("¿QUÉ TIPO DE INFRACCIÓN DESEA PONER?");
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                Intent intent = new Intent(SancionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
+                intent.putExtra("sancionesSaved",sancionesList);
+
+
+                if (options[item].equals("LEY"))
+                {
+                    intent.putExtra("isReglamento",false);
+
+                }
+                if (options[item].equals("REGLAMENTO")) {
+
+                    intent.putExtra("isReglamento",true);
+
+                }
+
+                startActivity(intent); //Start intent
+
+            }
+        });
+        builder.show();
+    }
 
 
 }
