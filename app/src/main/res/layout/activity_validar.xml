@@ -33,7 +33,7 @@
         android:id="@+id/txtArticle"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.72"
+        android:layout_weight="0.60"
         android:background="@color/black"
         android:gravity="center_horizontal|center"
         android:text="@string/txtArticle"

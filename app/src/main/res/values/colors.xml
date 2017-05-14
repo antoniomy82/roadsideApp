@@ -6,8 +6,7 @@
 
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
-    <color name="yellow_classic">#FFEB3B</color>
-    <color name="red_classic">#D50000</color>
+
     <color name="red_button">#FF5252</color>
     <color name="grey_dark_background">#263238</color>
     <color name="grey_soft_background">#607D8B</color>

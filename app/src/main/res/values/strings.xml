@@ -5,18 +5,6 @@
     <string name="txtNumArticulo">Articulo 13</string>
     <string name="txtTitulo">VEHÍCULOS INDUSTRIALES Y MAQUINARIA</string>
     <string name="txtDescripcion">El acceso de vehículos industriales y de maquinaria móvil , se autorizará en cada caso por la Dirección del Puerto , que podrá controlar sus características y estado de conservación y funcionamiento de acuerdo con lo que se establece en este Reglamento, sin que por ello pueda derivarse ninguna responsabilidad para la Junta del Puerto ni para su personal , en caso de accidente.</string>
-    <string name="tvAddress">Dirección:</string>
-    <string name="btnGetLocation">Obtener dirección</string>
-    <string name="tvLocation">Ubicación:</string>
-    <string name="edAddress">Dirección:</string>
-    <string name="tvSelectedArt">ArticuloX</string>
-    <string name="lb_ArticuloSel">Ley/Artículo seleccionado:</string>
-    <string name="lbAddress">Dirección obtenida: \n (puede editarla manualmente)</string>
-    <string name="btnNext">Siguiente</string>
-    <string name="lbZona">Zona : \n (puede dejarla en blanco)</string>
-    <string name="edZone">Zona</string>
-    <string name="tvZona">Zona</string>
-    <string name="lbSelAddress">Direccion X</string>
     <string name="lblTimeDate">22:53 13/01/2018</string>
     <string name="lbSelArticulo">Articulo X : Cacaca</string>
 
@@ -27,7 +15,7 @@
         <item>Datos del vehículo</item>
     </string-array>
 
-    <string name="spiner_vehiculo">"Tipo de vehículo"</string>
+
     <string-array name="vehiculo_array">
         <item>Motocicleta</item>
         <item>Triciclo</item>
@@ -48,14 +36,14 @@
     <string name="btnTime">HORA DEL HECHO</string>
     <string name="btnNext2">Siguiente</string>
     <string name="btnMyLocation">Obtener dirección GPS</string>
-    <string name="txtZona">Diligencia para hacer constar...</string>
+    <string name="txtZona">Diligencia para hacer constar</string>
     <string name="txtDate">Siendo las 22:00 del día 22/10/2018</string>
     <string name="txtArticle">Articulo 8 : Prohbido estacionar el vehículo en zonas blalla</string>
     <string name="lblEntidadVehiculo">Datos del particular, empresa ó vehículo</string>
     <string name="txtDatos">Nombre Apellidos ......</string>
     <string name="btnGetPhotos">Obtener Fotos y Firma</string>
     <string name="txtTituloArticulo">Segun la ley de puertos esto está mal</string>
-    <string name="txtNumArticle">Articulo 138</string>
+    <string name="txtNumArticle">306.2.a</string>
     <string name="txtDescriptionList">Descripción del articulo</string>
     <string name="btnSaveSancion">Guardar infracción</string>
     <string name="txtSDate">23 de Enero 2017</string>
@@ -64,7 +52,33 @@
     <string name="btnPrint">Imprimir Infracción</string>
     <string name="btnDelete">Borrar Infracción</string>
     <string name="txtToDay">Agente 1234 Ceuta a 23 de Mayo de 2018</string>
-    <string name="txtCustom_title">TITULO ACTIVITY</string>
-    <string name="tittleBar">Titulo Activity</string>
+
+
+    <string name="ListaArticulos">"LISTA DE ARTICULOS"</string>
+    <string name="IntroducirDatos">"INTRODUCCIÓN DE DATOS"</string>
+    <string name="MenuPrincipal">"MENÚ PRINCIPAL"</string>
+    <string name="Infracciones">"INFRACCIONES GUARDADAS"</string>
+    <string name="Validar">"VALIDAR INFRACCIÓN"</string>
+    <string name="DatosParticular">"Datos del particular o Empresa"</string>
+    <string name="DatosVehiculo">"Datos del vehículo"</string>
+    <string name="fotoFirmaSaved">Fotos y Firma Guardadas</string>
+
+    <string name="auth_failed">Authentication failed, check your email and password or sign up</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_name">Fullname</string>
+    <string name="btn_login">LOGIN</string>
+    <string name="btn_link_to_register">¿No eres miembro? ¡Registrate ahora!</string>
+    <string name="btn_link_to_login">¿Ya estás registrado?. ¡Logeate Aquí!</string>
+    <string name="btn_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="email">Email</string>
+    <string name="action_sign_in_short">Registrar</string>
+    <string name="lbl_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="forgot_password_msg">Necesitamos el email con el que te registraste, te enviaremos las instrucciones para resetear tu password.</string>
+    <string name="btn_reset_password">Resetear Password</string>
+    <string name="btn_back"><![CDATA[<< Atrás]]></string>
+
+
+
 
 </resources>

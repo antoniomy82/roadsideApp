@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "24439179844",
+    "firebase_url": "https://ceutaport-e581a.firebaseio.com",
+    "project_id": "ceutaport-e581a",
+    "storage_bucket": "ceutaport-e581a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:24439179844:android:b3b371b2d059d7a4",
+        "android_client_info": {
+          "package_name": "elcolegainformatico.antonio.puertoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "24439179844-4v84leuenac2go4v8sc8630fq6ugom6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyClhq9pe4iSgCik1_yPSb9nMvfbyolkOSg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
