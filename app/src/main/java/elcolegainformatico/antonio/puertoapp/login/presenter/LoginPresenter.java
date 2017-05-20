@@ -1,7 +1,7 @@
 package elcolegainformatico.antonio.puertoapp.login.presenter;
 
 /**
- * Created by joseluissanchez-porrogodoy on 24/8/16.
+ * Created by antonio on 14/5/17.
  */
 public interface LoginPresenter {
     void goToSingup();

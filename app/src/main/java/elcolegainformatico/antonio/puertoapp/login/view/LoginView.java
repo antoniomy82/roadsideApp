@@ -1,7 +1,7 @@
 package elcolegainformatico.antonio.puertoapp.login.view;
 
 /**
- * Created by joseluissanchez-porrogodoy on 24/8/16.
+ * Created by antonio on 14/5/17.
  */
 public interface LoginView {
     void showAlertMessage(String message);

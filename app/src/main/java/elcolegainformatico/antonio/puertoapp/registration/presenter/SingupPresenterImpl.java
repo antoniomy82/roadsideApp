@@ -8,7 +8,7 @@ import elcolegainformatico.antonio.puertoapp.registration.view.SingupView;
 
 
 /**
- * Created by joseluissanchez-porrogodoy on 26/8/16.
+ * Created by antonio on 14/5/17.
  */
 public class SingupPresenterImpl implements SingupPresenter {
 

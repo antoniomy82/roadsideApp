@@ -12,7 +12,7 @@ import elcolegainformatico.antonio.puertoapp.registration.presenter.SingupPresen
 
 
 /**
- * Created by joseluissanchez-porrogodoy on 26/8/16.
+ * Created by antonio on 14/5/17.
  */
 public class SingupInteractorImpl implements SingupInteractor{
     private final SingupPresenter presenter;

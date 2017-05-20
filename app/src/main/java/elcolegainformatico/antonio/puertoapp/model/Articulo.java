@@ -7,6 +7,8 @@ import android.os.Parcelable;
  * Created by antonio on 7/4/17.
  */
 
+
+//Hardcode Data Structure , work in local because the articulos no change
 public class Articulo implements Parcelable {
 
     private String numArticulo; //Cambiar por un int

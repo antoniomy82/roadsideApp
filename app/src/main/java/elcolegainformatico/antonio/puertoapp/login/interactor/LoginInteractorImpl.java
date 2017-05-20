@@ -14,7 +14,7 @@ import elcolegainformatico.antonio.puertoapp.login.presenter.LoginPresenter;
 
 
 /**
- * Created by joseluissanchez-porrogodoy on 24/8/16.
+ * Created by antonio on 14/5/17.
  */
 public class LoginInteractorImpl implements LoginInteractor {
     private final LoginPresenter presenter;

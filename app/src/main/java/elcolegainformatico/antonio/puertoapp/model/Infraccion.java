@@ -5,6 +5,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
@@ -12,6 +14,10 @@ import java.util.ArrayList;
  */
 
 public class Infraccion implements Parcelable {
+
+
+    private int numInfraccion;
+    private int numUsuario;
 
     private Articulo mArticulo;
 
@@ -27,8 +33,7 @@ public class Infraccion implements Parcelable {
     private int thisMonth;
     private int thisYear;
 
-    private int numero;
-    private int agente;
+
 
     private String dniMatricula,nombreMarca,domicilioReferencia,ubicacion,myVehicle;
 
@@ -37,7 +42,7 @@ public class Infraccion implements Parcelable {
     private ArrayList<Bitmap> imageBitmap;
 
 
-    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numero, int agente) {
+    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numInfraccion, int numUsuario) {
         this.mArticulo = mArticulo;
         this.hour = hour;
         this.minute = minute;
@@ -57,11 +62,14 @@ public class Infraccion implements Parcelable {
         this.thisDay=thisDay;
         this.thisMonth=thisMonth;
         this.thisYear=thisYear;
-        this.numero=numero;
-        this.agente=agente;
+        this.numInfraccion = numInfraccion;
+        this.numUsuario = numUsuario;
 
 
     }
+
+    //Data Structure for Firebase . Map <Key,Value> because Firebase works with trees
+
 
 
     public Articulo getmArticulo() {
@@ -138,9 +146,9 @@ public class Infraccion implements Parcelable {
     public int getThisYear() {return thisYear;}
 
 
-    public int getNumero() {return numero;}
+    public int getNumInfraccion() {return numInfraccion;}
 
-    public int getAgente() {return agente;}
+    public int getNumUsuario() {return numUsuario;}
 
     protected Infraccion(Parcel in) {
         mArticulo = (Articulo) in.readValue(Articulo.class.getClassLoader());
@@ -162,8 +170,8 @@ public class Infraccion implements Parcelable {
         thisMonth=in.readInt();
         thisYear=in.readInt();
 
-        numero=in.readInt();
-        agente=in.readInt();
+        numInfraccion =in.readInt();
+        numUsuario =in.readInt();
 
         if (in.readByte() == 0x01) {
             imagePath = new ArrayList<>();
@@ -205,8 +213,8 @@ public class Infraccion implements Parcelable {
         dest.writeInt(thisMonth);
         dest.writeInt(thisYear);
 
-        dest.writeInt(numero);
-        dest.writeInt(agente);
+        dest.writeInt(numInfraccion);
+        dest.writeInt(numUsuario);
 
         if (imagePath == null) {
             dest.writeByte((byte) (0x00));

@@ -81,7 +81,7 @@ public class InfraccionesListActivity extends AppCompatActivity {
         if(!getIntent().getBooleanExtra("isMenu",false)  && getIntent().getExtras().getParcelable("miInfraccion")!=null) {
 
             miInfraccion = getIntent().getExtras().getParcelable("miInfraccion");
-            this.sancionesList.add(new Infraccion(miInfraccion.getmArticulo(), miInfraccion.getHour(), miInfraccion.getMinute(), miInfraccion.getDay(), miInfraccion.getMes(), miInfraccion.getYear(), miInfraccion.getIsVehicle(), miInfraccion.getSancion(), miInfraccion.getDniMatricula(), miInfraccion.getNombreMarca(), miInfraccion.getDomicilioReferencia(), miInfraccion.getUbicacion(), miInfraccion.getMyVehicle(), miInfraccion.getImagePath(), miInfraccion.getImageBitmap(), miInfraccion.getThisDay(), miInfraccion.getThisMonth(), miInfraccion.getThisYear(), miInfraccion.getNumero(), miInfraccion.getAgente()));
+            this.sancionesList.add(new Infraccion(miInfraccion.getmArticulo(), miInfraccion.getHour(), miInfraccion.getMinute(), miInfraccion.getDay(), miInfraccion.getMes(), miInfraccion.getYear(), miInfraccion.getIsVehicle(), miInfraccion.getSancion(), miInfraccion.getDniMatricula(), miInfraccion.getNombreMarca(), miInfraccion.getDomicilioReferencia(), miInfraccion.getUbicacion(), miInfraccion.getMyVehicle(), miInfraccion.getImagePath(), miInfraccion.getImageBitmap(), miInfraccion.getThisDay(), miInfraccion.getThisMonth(), miInfraccion.getThisYear(), miInfraccion.getNumInfraccion(), miInfraccion.getNumUsuario()));
         }
 
         InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList,InfraccionesListActivity.this.getApplicationContext());
@@ -129,8 +129,8 @@ public class InfraccionesListActivity extends AppCompatActivity {
                 intent.putExtra("thisMonth", miInfraccion.getThisMonth());
                 intent.putExtra("thisYear", miInfraccion.getThisYear());
 
-                intent.putExtra("numero", miInfraccion.getNumero());
-                intent.putExtra("agente", miInfraccion.getAgente());
+                intent.putExtra("numero", miInfraccion.getNumInfraccion());
+                intent.putExtra("agente", miInfraccion.getNumUsuario());
 
                 //Solo para versión sin Firebase.
                 intent.putExtra("sancionesSaved",sancionesList);
