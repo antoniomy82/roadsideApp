@@ -36,7 +36,7 @@ public class InfraccionesListActivity extends AppCompatActivity {
     private ImageButton home_custom_bar;
     private TextView text_custom_title;
 
-    int cacota;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
