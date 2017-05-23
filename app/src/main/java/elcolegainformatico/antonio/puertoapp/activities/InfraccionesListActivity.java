@@ -191,6 +191,7 @@ public class InfraccionesListActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+
                 for(DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                     numInfraccion = childDataSnapshot.getValue().toString();
                     numUsuario = childDataSnapshot.child("numUsuario").getValue().toString();
@@ -217,6 +218,31 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
                     sancionesList.add(new Infraccion(null, 2, 1, 3, mesInfraccion, 201, 0, 22, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, 3, 3, 3, 3, 3));
                 }
+
+                /*
+                numInfraccion = dataSnapshot.getValue().toString();
+                numUsuario = dataSnapshot.child("numUsuario").getValue().toString();
+                hourInfraccion = dataSnapshot.child("hourInfraccion").getValue().toString();
+                minuteInfraccion = dataSnapshot.child("minuteInfraccion").getValue().toString();
+                dayInfraccion = dataSnapshot.child("dayInfraccion").getValue().toString();
+                mesInfraccion = dataSnapshot.child("mesInfraccion").getValue().toString();
+                yearInfraccion = dataSnapshot.child("yearInfraccion").getValue().toString();
+                // mArticulo = dataSnapshot.child("mArticulo").getValue(Articulo.class);
+                isVehicle = dataSnapshot.child("isVehicle").getValue().toString();
+                myVehicle = dataSnapshot.child("myVehicle").getValue().toString();
+                DniMatricula = dataSnapshot.child("DniMatricula").getValue().toString();
+                NombreMarca = dataSnapshot.child("NombreMarca").getValue().toString();
+                DomicilioReferencia = dataSnapshot.child("DomicilioReferencia").getValue().toString();
+                Ubicacion = dataSnapshot.child("Ubicacion").getValue().toString();
+                imagePath = (ArrayList) dataSnapshot.child("imagePath").getValue();
+                imageBitmap = (ArrayList) dataSnapshot.child("imageBitmap").getValue();
+                thisDay = dataSnapshot.child("thisDay").getValue().toString();
+                thisMonth = dataSnapshot.child("thisMonth").getValue().toString();
+                thisYear = dataSnapshot.child("thisYear").getValue().toString();
+                importeSancion = dataSnapshot.child("importeSancion").getValue().toString();
+                sancionesList.add(new Infraccion(null, 2, 1, 3, mesInfraccion, 201, 0, 22, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, 3, 3, 3, 3, 3));
+
+               */
                 InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList,InfraccionesListActivity.this.getApplicationContext());
                 listSanciones.setAdapter(myAdaptater);
             }
