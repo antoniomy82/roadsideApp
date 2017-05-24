@@ -47,15 +47,15 @@ public class InfraccionesListActivity extends AppCompatActivity {
     private TextView text_custom_title;
 
     String numInfraccion;
-    String numUsuario;
-    String hourInfraccion;
-    String minuteInfraccion;
-    String dayInfraccion;
-    String yearInfraccion;
-    String isVehicle;
-    String thisDay;
-    String thisMonth;
-    String thisYear;
+    long numUsuario;
+    long hourInfraccion;
+    long minuteInfraccion;
+    long dayInfraccion;
+    long yearInfraccion;
+    long isVehicle;
+    long thisDay;
+    long thisMonth;
+    long thisYear;
 
     String mesInfraccion;
 
@@ -69,7 +69,7 @@ public class InfraccionesListActivity extends AppCompatActivity {
     ArrayList<String> imagePath;
     ArrayList<Bitmap> imageBitmap;
 
-    String importeSancion;
+    Double importeSancion;
 
 
 
@@ -110,22 +110,6 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
 
         final FloatingActionButton FltAddSancion = (FloatingActionButton) findViewById(R.id.FltAddSancion);
-
-       /*
-        //Versión sin FireBase, Aquí cargar BD de FireBase
-        if(getIntent().getSerializableExtra("sancionesSaved") !=null) {
-
-            this.sancionesList = new ArrayList<>((ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved"));
-        }
-
-
-        //GetIntent Block
-        if(!getIntent().getBooleanExtra("isMenu",false)  && getIntent().getExtras().getParcelable("miInfraccion")!=null) {
-
-            miInfraccion = getIntent().getExtras().getParcelable("miInfraccion");
-            this.sancionesList.add(new Infraccion(miInfraccion.getmArticulo(), miInfraccion.getHour(), miInfraccion.getMinute(), miInfraccion.getDay(), miInfraccion.getMes(), miInfraccion.getYear(), miInfraccion.getIsVehicle(), miInfraccion.getSancion(), miInfraccion.getDniMatricula(), miInfraccion.getNombreMarca(), miInfraccion.getDomicilioReferencia(), miInfraccion.getUbicacion(), miInfraccion.getMyVehicle(), miInfraccion.getImagePath(), miInfraccion.getImageBitmap(), miInfraccion.getThisDay(), miInfraccion.getThisMonth(), miInfraccion.getThisYear(), miInfraccion.getNumInfraccion(), miInfraccion.getNumUsuario()));
-        }
-       */
 
 
         //Float Button
@@ -186,65 +170,52 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
         });
 
-
+        //Recupero los datos de Firebase Attach a listener to read the data at our posts reference
         dbInfracciones.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+             if(dbInfracciones!=null) {
+                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                     InfraccionesAdapter myAdaptater = null;
+
+                     numInfraccion = childDataSnapshot.getValue().toString();
+                     numUsuario = (long) childDataSnapshot.child("numUsuario").getValue();
+                     hourInfraccion = (long) childDataSnapshot.child("hourInfraccion").getValue(); //Aquí siempre peta
+                     minuteInfraccion = (long) childDataSnapshot.child("minuteInfraccion").getValue();
+                     dayInfraccion = (long) childDataSnapshot.child("dayInfraccion").getValue();
+                     mesInfraccion = childDataSnapshot.child("mesInfraccion").getValue().toString();
+                     yearInfraccion = (long) childDataSnapshot.child("yearInfraccion").getValue();
+
+                     isVehicle = (long) childDataSnapshot.child("isVehicle").getValue();
+                     myVehicle = childDataSnapshot.child("myVehicle").getValue().toString();
+                     DniMatricula = childDataSnapshot.child("DniMatricula").getValue().toString();
+                     NombreMarca = childDataSnapshot.child("NombreMarca").getValue().toString();
+                     DomicilioReferencia = childDataSnapshot.child("DomicilioReferencia").getValue().toString();
+                     Ubicacion = childDataSnapshot.child("Ubicacion").getValue().toString();
+                     imagePath = (ArrayList) childDataSnapshot.child("imagePath").getValue();
+                     imageBitmap = (ArrayList) childDataSnapshot.child("imageBitmap").getValue();
+                     thisDay = (long) childDataSnapshot.child("thisDay").getValue();
+                     thisMonth = (long) childDataSnapshot.child("thisMonth").getValue();
+                     thisYear = (long) childDataSnapshot.child("thisYear").getValue();
+                     //importeSancion = (Double) childDataSnapshot.child("importeSancion").getValue();
+
+                     String Articulo_Num= childDataSnapshot.child("Articulo_Num").getValue().toString();
+                     String Articulo_Des= childDataSnapshot.child("Articulo_Des").getValue().toString();
+                     String Articulo_Tit= childDataSnapshot.child("Articulo_Tit").getValue().toString();
+
+                     mArticulo=new Articulo(Articulo_Num,Articulo_Tit,Articulo_Des);
 
 
-                for(DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                    numInfraccion = childDataSnapshot.getValue().toString();
-                    numUsuario = childDataSnapshot.child("numUsuario").getValue().toString();
-                    hourInfraccion = childDataSnapshot.child("hourInfraccion").getValue().toString();
-                    minuteInfraccion = childDataSnapshot.child("minuteInfraccion").getValue().toString();
-                    dayInfraccion = childDataSnapshot.child("dayInfraccion").getValue().toString();
-                    mesInfraccion = childDataSnapshot.child("mesInfraccion").getValue().toString();
-                    yearInfraccion = childDataSnapshot.child("yearInfraccion").getValue().toString();
-                    // mArticulo = dataSnapshot.child("mArticulo").getValue(Articulo.class);
-                    isVehicle = childDataSnapshot.child("isVehicle").getValue().toString();
-                    myVehicle = childDataSnapshot.child("myVehicle").getValue().toString();
-                    DniMatricula = childDataSnapshot.child("DniMatricula").getValue().toString();
-                    NombreMarca = childDataSnapshot.child("NombreMarca").getValue().toString();
-                    DomicilioReferencia = childDataSnapshot.child("DomicilioReferencia").getValue().toString();
-                    Ubicacion = childDataSnapshot.child("Ubicacion").getValue().toString();
-                    imagePath = (ArrayList) childDataSnapshot.child("imagePath").getValue();
-                    imageBitmap = (ArrayList) childDataSnapshot.child("imageBitmap").getValue();
-                    thisDay = childDataSnapshot.child("thisDay").getValue().toString();
-                    thisMonth = childDataSnapshot.child("thisMonth").getValue().toString();
-                    thisYear = childDataSnapshot.child("thisYear").getValue().toString();
-                    importeSancion = childDataSnapshot.child("importeSancion").getValue().toString();
+                     sancionesList.add(new Infraccion(mArticulo, (int) hourInfraccion, (int) minuteInfraccion, (int) dayInfraccion, mesInfraccion, (int) yearInfraccion, (int) isVehicle,3211323 , DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, (int) thisDay, (int) thisMonth, (int) thisYear, 000, (int) numUsuario));
+                     //sancionesList.add(new Infraccion(null, (int)hourInfraccion, (int)minuteInfraccion, (int)dayInfraccion, mesInfraccion, (int)yearInfraccion, 0, 22, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, 3, 3, 3, 3,(int)numUsuario));
 
-                    //sancionesList.add(new Infraccion(mArticulo, Integer.valueOf(hourInfraccion), Integer.valueOf(minuteInfraccion),Integer.valueOf(dayInfraccion), mesInfraccion, Integer.valueOf(yearInfraccion), Integer.valueOf(isVehicle), Double.parseDouble(importeSancion), DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,Integer.valueOf(thisDay),Integer.valueOf(thisMonth),Integer.valueOf(thisYear),Integer.valueOf(numInfraccion),Integer.valueOf(numUsuario)));
+                     myAdaptater = new InfraccionesAdapter(sancionesList, InfraccionesListActivity.this.getApplicationContext());
+                     listSanciones.setAdapter(myAdaptater);
 
-                    sancionesList.add(new Infraccion(null, 2, 1, 3, mesInfraccion, 201, 0, 22, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, 3, 3, 3, 3, 3));
-                }
+                 }
 
-                /*
-                numInfraccion = dataSnapshot.getValue().toString();
-                numUsuario = dataSnapshot.child("numUsuario").getValue().toString();
-                hourInfraccion = dataSnapshot.child("hourInfraccion").getValue().toString();
-                minuteInfraccion = dataSnapshot.child("minuteInfraccion").getValue().toString();
-                dayInfraccion = dataSnapshot.child("dayInfraccion").getValue().toString();
-                mesInfraccion = dataSnapshot.child("mesInfraccion").getValue().toString();
-                yearInfraccion = dataSnapshot.child("yearInfraccion").getValue().toString();
-                // mArticulo = dataSnapshot.child("mArticulo").getValue(Articulo.class);
-                isVehicle = dataSnapshot.child("isVehicle").getValue().toString();
-                myVehicle = dataSnapshot.child("myVehicle").getValue().toString();
-                DniMatricula = dataSnapshot.child("DniMatricula").getValue().toString();
-                NombreMarca = dataSnapshot.child("NombreMarca").getValue().toString();
-                DomicilioReferencia = dataSnapshot.child("DomicilioReferencia").getValue().toString();
-                Ubicacion = dataSnapshot.child("Ubicacion").getValue().toString();
-                imagePath = (ArrayList) dataSnapshot.child("imagePath").getValue();
-                imageBitmap = (ArrayList) dataSnapshot.child("imageBitmap").getValue();
-                thisDay = dataSnapshot.child("thisDay").getValue().toString();
-                thisMonth = dataSnapshot.child("thisMonth").getValue().toString();
-                thisYear = dataSnapshot.child("thisYear").getValue().toString();
-                importeSancion = dataSnapshot.child("importeSancion").getValue().toString();
-                sancionesList.add(new Infraccion(null, 2, 1, 3, mesInfraccion, 201, 0, 22, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, 3, 3, 3, 3, 3));
+             }
 
-               */
-                InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList,InfraccionesListActivity.this.getApplicationContext());
-                listSanciones.setAdapter(myAdaptater);
             }
 
             @SuppressLint("LongLogTag")

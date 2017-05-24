@@ -254,12 +254,13 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                // String Key = dbFirebase.child("infracciones").push().getKey();
 
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("numUsuario").setValue(numUsuario);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("hourInfraccion").setValue(hour);
+                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("hourInfraccion").setValue(hour); //Ojo con este
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("minuteInfraccion").setValue(minute);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("dayInfraccion").setValue(day);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("mesInfraccion").setValue(mes);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("yearInfraccion").setValue(year);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("mArticulo").setValue(mArticulo);
+
+                //dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("mArticulo").setValue(mArticulo);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("isVehicle").setValue(isVehicle);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("myVehicle").setValue(myVehicle);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("DniMatricula").setValue(DniMatricula);
@@ -272,6 +273,13 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("thisMonth").setValue(thisMonth);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("thisYear").setValue(thisYear);
                 dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("importeSancion").setValue(importeSancion);
+
+                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("Articulo_Num").setValue(mArticulo.getNumArticulo());
+                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("Articulo_Tit").setValue(mArticulo.getTitulo());
+                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("Articulo_Des").setValue(mArticulo.getDescripcion());
+
+
+
 
 
 

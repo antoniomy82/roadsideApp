@@ -11,6 +11,8 @@ import android.os.Parcelable;
 //Hardcode Data Structure , work in local because the articulos no change
 public class Articulo implements Parcelable {
 
+
+
     private String numArticulo; //Cambiar por un int
     private String Titulo;
     private String Descripcion;
@@ -18,6 +20,18 @@ public class Articulo implements Parcelable {
     public Articulo(String numArticulo, String titulo, String descripcion) {
         this.numArticulo = numArticulo;
         Titulo = titulo;
+        Descripcion = descripcion;
+    }
+
+    public void setNumArticulo(String numArticulo) {
+        this.numArticulo = numArticulo;
+    }
+
+    public void setTitulo(String titulo) {
+        Titulo = titulo;
+    }
+
+    public void setDescripcion(String descripcion) {
         Descripcion = descripcion;
     }
 
@@ -34,7 +48,8 @@ public class Articulo implements Parcelable {
     }
 
 
-    protected Articulo(Parcel in) {
+//Change Public for read from Outside class
+    public Articulo(Parcel in) {
         numArticulo = in.readString();
         Titulo = in.readString();
         Descripcion = in.readString();

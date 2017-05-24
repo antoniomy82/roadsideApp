@@ -62,7 +62,11 @@ public class InfraccionesAdapter extends BaseAdapter {
         txtSDate.setText(miInfraccion.getDay()+" de "+ miInfraccion.getMes()+" "+ miInfraccion.getYear()); //Obtengo el árticulo de mi modelo de datos articulo
 
         txtSDatos.setText(miInfraccion.getDniMatricula()+" - "+ miInfraccion.getNombreMarca());
-        //txtSSancion.setText("Zona: "+ miInfraccion.getUbicacion()+" Infracción: "+ miInfraccion.getmArticulo().getDescripcion()+ " "+ miInfraccion.getmArticulo().getNumArticulo()+  " Sanción: "+ miInfraccion.getSancion()+ "€");
+
+      if(miInfraccion.getmArticulo()!=null) {
+          txtSSancion.setText("Zona: " + miInfraccion.getUbicacion() + " Infracción: " + miInfraccion.getmArticulo().getDescripcion() + " " + miInfraccion.getmArticulo().getNumArticulo() + " Sanción: " + miInfraccion.getSancion() + "€");
+      }
+        //txtSSancion.setText("Zona: "+ miInfraccion.getUbicacion()+" Infracción: "+ " Sanción: "+ miInfraccion.getSancion()+ "€");
 
         return myView;
     }
