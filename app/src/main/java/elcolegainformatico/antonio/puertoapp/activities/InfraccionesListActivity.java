@@ -16,7 +16,9 @@ import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,8 +38,6 @@ import elcolegainformatico.antonio.puertoapp.R;
 
 
 public class InfraccionesListActivity extends AppCompatActivity {
-
-    private Infraccion miInfraccion;
 
     private ArrayList<Infraccion> sancionesList= new ArrayList<>();
 
@@ -62,14 +62,15 @@ public class InfraccionesListActivity extends AppCompatActivity {
     Articulo mArticulo;
 
     String myVehicle;
-    String DniMatricula;
-    String NombreMarca;
+    String dniMatricula;
+    String nombreMarca;
     String DomicilioReferencia;
     String Ubicacion;
+
     ArrayList<String> imagePath;
     ArrayList<Bitmap> imageBitmap;
 
-    Double importeSancion;
+    String importeSancion;
 
 
 
@@ -84,8 +85,6 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
         final DatabaseReference dbInfracciones;
         dbInfracciones = FirebaseDatabase.getInstance().getReference().child("infracciones");
-
-
 
         //Custom title bar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -170,53 +169,57 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
         });
 
-        //Recupero los datos de Firebase Attach a listener to read the data at our posts reference
+
+
         dbInfracciones.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-             if(dbInfracciones!=null) {
-                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                     InfraccionesAdapter myAdaptater = null;
+                if(dbInfracciones!=null) {
 
-                     numInfraccion = childDataSnapshot.getValue().toString();
-                     numUsuario = (long) childDataSnapshot.child("numUsuario").getValue();
-                     hourInfraccion = (long) childDataSnapshot.child("hourInfraccion").getValue(); //Aquí siempre peta
-                     minuteInfraccion = (long) childDataSnapshot.child("minuteInfraccion").getValue();
-                     dayInfraccion = (long) childDataSnapshot.child("dayInfraccion").getValue();
-                     mesInfraccion = childDataSnapshot.child("mesInfraccion").getValue().toString();
-                     yearInfraccion = (long) childDataSnapshot.child("yearInfraccion").getValue();
+                    int range=0;
+                    int size = (int) dataSnapshot.getChildrenCount();
+                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
 
-                     isVehicle = (long) childDataSnapshot.child("isVehicle").getValue();
-                     myVehicle = childDataSnapshot.child("myVehicle").getValue().toString();
-                     DniMatricula = childDataSnapshot.child("DniMatricula").getValue().toString();
-                     NombreMarca = childDataSnapshot.child("NombreMarca").getValue().toString();
-                     DomicilioReferencia = childDataSnapshot.child("DomicilioReferencia").getValue().toString();
-                     Ubicacion = childDataSnapshot.child("Ubicacion").getValue().toString();
-                     imagePath = (ArrayList) childDataSnapshot.child("imagePath").getValue();
-                     imageBitmap = (ArrayList) childDataSnapshot.child("imageBitmap").getValue();
-                     thisDay = (long) childDataSnapshot.child("thisDay").getValue();
-                     thisMonth = (long) childDataSnapshot.child("thisMonth").getValue();
-                     thisYear = (long) childDataSnapshot.child("thisYear").getValue();
-                     //importeSancion = (Double) childDataSnapshot.child("importeSancion").getValue();
+                        if(range<size-1){ //Se me sale del Rango ¿Por qué???????????????
+                            numInfraccion = childDataSnapshot.getKey();
+                            dniMatricula = childDataSnapshot.child("dniMatricula").getValue().toString();
+                            DomicilioReferencia = childDataSnapshot.child("domicilioReferencia").getValue().toString();
+                            importeSancion = childDataSnapshot.child("importeSancion").getValue().toString();
+                            mesInfraccion = childDataSnapshot.child("mesInfraccion").getValue().toString();
+                            Ubicacion = childDataSnapshot.child("ubicacion").getValue().toString();
+                            myVehicle = childDataSnapshot.child("myVehicle").getValue().toString();
+                            nombreMarca = childDataSnapshot.child("nombreMarca").getValue().toString();
 
-                     String Articulo_Num= childDataSnapshot.child("Articulo_Num").getValue().toString();
-                     String Articulo_Des= childDataSnapshot.child("Articulo_Des").getValue().toString();
-                     String Articulo_Tit= childDataSnapshot.child("Articulo_Tit").getValue().toString();
+                            numUsuario = (long) childDataSnapshot.child("numUsuario").getValue();
+                            thisDay = (long) childDataSnapshot.child("thisDay").getValue();
+                            thisMonth = (long) childDataSnapshot.child("thisMonth").getValue();
+                            thisYear = (long) childDataSnapshot.child("thisYear").getValue();
+                            yearInfraccion = (long) childDataSnapshot.child("yearInfraccion").getValue();
+                            dayInfraccion = (long) childDataSnapshot.child("dayInfraccion").getValue();
+                            hourInfraccion = (long) childDataSnapshot.child("hourInfraccion").getValue();
+                            isVehicle = (long) childDataSnapshot.child("isVehicle").getValue();
+                            minuteInfraccion = (long) childDataSnapshot.child("minuteInfraccion").getValue();
 
-                     mArticulo=new Articulo(Articulo_Num,Articulo_Tit,Articulo_Des);
+                            String Articulo_Des = childDataSnapshot.child("articulo_Des").getValue().toString();
+                            String Articulo_Num = childDataSnapshot.child("articulo_Num").getValue().toString();
+                            String Articulo_Tit = childDataSnapshot.child("articulo_Tit").getValue().toString();
 
+                            imagePath = (ArrayList) childDataSnapshot.child("imagePath").getValue();
+                            imageBitmap = (ArrayList) childDataSnapshot.child("imageBitmap").getValue();
+                            mArticulo = new Articulo(Articulo_Num, Articulo_Tit, Articulo_Des);
 
-                     sancionesList.add(new Infraccion(mArticulo, (int) hourInfraccion, (int) minuteInfraccion, (int) dayInfraccion, mesInfraccion, (int) yearInfraccion, (int) isVehicle,3211323 , DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, (int) thisDay, (int) thisMonth, (int) thisYear, 000, (int) numUsuario));
-                     //sancionesList.add(new Infraccion(null, (int)hourInfraccion, (int)minuteInfraccion, (int)dayInfraccion, mesInfraccion, (int)yearInfraccion, 0, 22, DniMatricula, NombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, 3, 3, 3, 3,(int)numUsuario));
+                            sancionesList.add(new Infraccion(mArticulo, (int) hourInfraccion, (int) minuteInfraccion, (int) dayInfraccion, mesInfraccion, (int) yearInfraccion, (int) isVehicle, Double.parseDouble(importeSancion), dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, (int) thisDay, (int) thisMonth, (int) thisYear, Integer.parseInt(numInfraccion), (int) numUsuario));
 
-                     myAdaptater = new InfraccionesAdapter(sancionesList, InfraccionesListActivity.this.getApplicationContext());
-                     listSanciones.setAdapter(myAdaptater);
+                            InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList, InfraccionesListActivity.this.getApplicationContext());
+                            listSanciones.setAdapter(myAdaptater);
+                            range++;
+                        }
 
-                 }
-
-             }
+                    }
+                }
 
             }
+
 
             @SuppressLint("LongLogTag")
             @Override
@@ -225,8 +228,8 @@ public class InfraccionesListActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
 
     //Dialog Infraccion
     private void dialogInfraccion(){
