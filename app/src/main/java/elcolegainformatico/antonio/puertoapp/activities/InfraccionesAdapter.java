@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import elcolegainformatico.antonio.puertoapp.model.Infraccion;
 import elcolegainformatico.antonio.puertoapp.R;
+import elcolegainformatico.antonio.puertoapp.viewholders.InfraccionesViewHolder;
 
 /**
  * Created by antonio on 4/5/17.
@@ -47,27 +48,39 @@ public class InfraccionesAdapter extends BaseAdapter {
     }
 
 
-    public View getView(int position, View myView, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-        myView= inflater.inflate(R.layout.item_infraccion_list,null); //Inflamos nuestro item
+        View item = convertView;
+        InfraccionesViewHolder holder;
+
+        if(item == null){
+            LayoutInflater inflater=LayoutInflater.from(contexto); //Use this outside activities - all you need is to provide a Context
+            item=inflater.inflate(R.layout.item_infraccion_list,null); //Inflamos nuestro item
+            holder= new InfraccionesViewHolder(item);
+            item.setTag(holder);
+        }
+
+        else {
+            holder=(InfraccionesViewHolder)item.getTag();
+        }
 
         Infraccion miInfraccion = sancionesArrayList.get(position); //Selecciono el articulo
 
+       /*
+        TextView txtSDate = (TextView) item.findViewById(R.id.txtSDate);
+        TextView txtSDatos = (TextView) item.findViewById(R.id.txtSDatos);
+        TextView txtSSancion= (TextView) item.findViewById(R.id.txtSSancion);*/
 
-        TextView txtSDate = (TextView) myView.findViewById(R.id.txtSDate);
-        TextView txtSDatos = (TextView) myView.findViewById(R.id.txtSDatos);
-        TextView txtSSancion= (TextView) myView.findViewById(R.id.txtSSancion);
 
+        holder.txtSDate.setText(miInfraccion.getDay()+" de "+ miInfraccion.getMes()+" "+ miInfraccion.getYear()); //Obtengo el árticulo de mi modelo de datos articulo
 
-        txtSDate.setText(miInfraccion.getDay()+" de "+ miInfraccion.getMes()+" "+ miInfraccion.getYear()); //Obtengo el árticulo de mi modelo de datos articulo
-
-        txtSDatos.setText(miInfraccion.getDniMatricula()+" - "+ miInfraccion.getNombreMarca());
+        holder.txtSDatos.setText(miInfraccion.getDniMatricula()+" - "+ miInfraccion.getNombreMarca());
 
       if(miInfraccion.getmArticulo()!=null) {
-          txtSSancion.setText("Zona: " + miInfraccion.getUbicacion() + " Infracción: " + miInfraccion.getmArticulo().getDescripcion() + " " + miInfraccion.getmArticulo().getNumArticulo() + " Sanción: " + miInfraccion.getSancion() + "€");
+          holder.txtSSancion.setText("Zona: " + miInfraccion.getUbicacion() + " Infracción: " + miInfraccion.getmArticulo().getDescripcion() + " " + miInfraccion.getmArticulo().getNumArticulo() + " Sanción: " + miInfraccion.getSancion() + "€");
       }
-        //txtSSancion.setText("Zona: "+ miInfraccion.getUbicacion()+" Infracción: "+ " Sanción: "+ miInfraccion.getSancion()+ "€");
 
-        return myView;
+
+        return item;
     }
 }

@@ -38,7 +38,6 @@
 
         <activity android:name=".activities.InfraccionesListActivity"  android:screenOrientation="portrait" />
 
-
         <activity android:name=".activities.ArticulosListActivity"  android:screenOrientation="portrait"/>
 
         <activity android:name=".activities.ArticuloEditActivity"  android:screenOrientation="portrait"/>

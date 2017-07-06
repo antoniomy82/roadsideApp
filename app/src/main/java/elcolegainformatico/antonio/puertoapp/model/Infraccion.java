@@ -41,6 +41,8 @@ public class Infraccion implements Parcelable {
     private ArrayList<String> imagePath;
     private ArrayList<Bitmap> imageBitmap;
 
+    public Infraccion() {
+    }
 
     public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numInfraccion, int numUsuario) {
         this.mArticulo = mArticulo;

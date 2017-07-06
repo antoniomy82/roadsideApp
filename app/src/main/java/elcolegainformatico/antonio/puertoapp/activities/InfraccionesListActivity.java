@@ -1,6 +1,5 @@
 package elcolegainformatico.antonio.puertoapp.activities;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,21 +8,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -37,11 +28,11 @@ import elcolegainformatico.antonio.puertoapp.R;
  */
 
 
-public class InfraccionesListActivity extends AppCompatActivity {
+public class InfraccionesListActivity extends AppCompatActivity{
 
     private ArrayList<Infraccion> sancionesList= new ArrayList<>();
 
-    private ListView listSanciones;
+   // private ListView listSanciones;
 
     private ImageButton home_custom_bar;
     private TextView text_custom_title;
@@ -80,11 +71,11 @@ public class InfraccionesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_infracciones_list);
-        listSanciones=(ListView) findViewById(R.id.sanciones_list);
+        setContentView(R.layout.activity_infracciones_fragment);
+        //listSanciones=(ListView) findViewById(R.id.sanciones_list);
 
-        final DatabaseReference dbInfracciones;
-        dbInfracciones = FirebaseDatabase.getInstance().getReference().child("infracciones");
+       // final DatabaseReference dbInfracciones;
+        //dbInfracciones = FirebaseDatabase.getInstance().getReference().child("infracciones");
 
         //Custom title bar
         getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
@@ -120,6 +111,7 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
         });
 
+        /*
         //Selected Item
         listSanciones.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -169,8 +161,8 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
         });
 
-
-
+*/
+/*
         dbInfracciones.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -180,7 +172,7 @@ public class InfraccionesListActivity extends AppCompatActivity {
                     int size = (int) dataSnapshot.getChildrenCount();
                     for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
 
-                        if(range<size-1){ //Se me sale del Rango ¿Por qué???????????????
+                      if(range<size-1){ //Se me sale del Rango ¿Por qué???????????????
                             numInfraccion = childDataSnapshot.getKey();
                             dniMatricula = childDataSnapshot.child("dniMatricula").getValue().toString();
                             DomicilioReferencia = childDataSnapshot.child("domicilioReferencia").getValue().toString();
@@ -210,8 +202,10 @@ public class InfraccionesListActivity extends AppCompatActivity {
 
                             sancionesList.add(new Infraccion(mArticulo, (int) hourInfraccion, (int) minuteInfraccion, (int) dayInfraccion, mesInfraccion, (int) yearInfraccion, (int) isVehicle, Double.parseDouble(importeSancion), dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, (int) thisDay, (int) thisMonth, (int) thisYear, Integer.parseInt(numInfraccion), (int) numUsuario));
 
+
                             InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList, InfraccionesListActivity.this.getApplicationContext());
                             listSanciones.setAdapter(myAdaptater);
+
                             range++;
                         }
 
@@ -228,6 +222,8 @@ public class InfraccionesListActivity extends AppCompatActivity {
             }
         });
 
+
+ */
     }
 
 
