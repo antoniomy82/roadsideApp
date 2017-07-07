@@ -239,7 +239,7 @@ public class InfraccionesListActivity extends AppCompatActivity{
             public void onClick(DialogInterface dialog, int item) {
 
                 Intent intent = new Intent(InfraccionesListActivity.this, ArticulosListActivity.class); // Activity Source , Activity Destination
-                intent.putExtra("sancionesSaved",sancionesList);
+                //intent.putExtra("sancionesSaved",sancionesList);
 
 
                 if (options[item].equals("LEY"))

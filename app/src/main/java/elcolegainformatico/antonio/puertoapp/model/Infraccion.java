@@ -26,7 +26,7 @@ public class Infraccion implements Parcelable {
     private String mes;
     private int year;
     private int isVehicle;
-    private double sancion;
+    private double importeSancion;
 
     //date to put sancion
     private int thisDay;
@@ -44,7 +44,7 @@ public class Infraccion implements Parcelable {
     public Infraccion() {
     }
 
-    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double sancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numInfraccion, int numUsuario) {
+    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double importeSancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numInfraccion, int numUsuario) {
         this.mArticulo = mArticulo;
         this.hour = hour;
         this.minute = minute;
@@ -52,7 +52,7 @@ public class Infraccion implements Parcelable {
         this.mes = mes;
         this.year = year;
         this.isVehicle = isVehicle;
-        this.sancion = sancion;
+        this.importeSancion = importeSancion;
         this.dniMatricula = DniMatricula;
         this.nombreMarca = NombreMarca;
         this.domicilioReferencia = DomicilioReferencia;
@@ -105,7 +105,7 @@ public class Infraccion implements Parcelable {
 
 
     public double getSancion() {
-        return sancion;
+        return importeSancion;
     }
 
 
@@ -160,7 +160,7 @@ public class Infraccion implements Parcelable {
         mes = in.readString();
         year = in.readInt();
         isVehicle = in.readInt();
-        sancion = in.readDouble();
+        importeSancion = in.readDouble();
 
         dniMatricula= in.readString();
         nombreMarca= in.readString();
@@ -203,7 +203,7 @@ public class Infraccion implements Parcelable {
         dest.writeString(mes);
         dest.writeInt(year);
         dest.writeInt(isVehicle);
-        dest.writeDouble(sancion);
+        dest.writeDouble(importeSancion);
 
         dest.writeString(dniMatricula);
         dest.writeString(nombreMarca);

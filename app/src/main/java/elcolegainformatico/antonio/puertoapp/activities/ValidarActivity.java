@@ -71,7 +71,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     private ArrayList<String> imagePath=null; //Array List of path
     private ArrayList<Bitmap> imageBitmap=null;
-    private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
+    //private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
 
     private static final int REQUEST_CODE = 300; //Back pressed (On ActivityResult)
@@ -125,7 +125,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
 
         //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
-        sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
+        //sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
 
         hour=getIntent().getIntExtra("hour",0);
         minute=getIntent().getIntExtra("minute",0);
@@ -171,16 +171,12 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             thisYear = calendar.get(Calendar.YEAR);
 
             //Genero el número de multa
-            int pos=sancionesSaved.size();
+           // int pos=sancionesSaved.size();
+            //Hacer aquí un Query
 
-            if(pos == 0) //Initial case
-            {
+
                 this.numInfraccion =100;
-            }
-            if (pos>0)
-            {
-                this.numInfraccion = this.sancionesSaved.get(pos-1).getNumInfraccion()+1;
-            }
+
 
             //numUsuario=getNumUsuario(); ( o como coño lo llame)
         }
@@ -210,8 +206,10 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         //SetText to Screen Block
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto"+"\n"+Ubicacion);
         txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso");
-//        txtArticle.setText("Ocurrió el siguiente hecho: "+mArticulo.getDescripcion()+" Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+" Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
+        txtArticle.setText("Ocurrió el siguiente hecho: +mArticulo.getDescripcion()"+" Conforme a lo estipulado en el +mArticulo.getNumArticulo()"+" Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
         txtToDay.setText(_ToDay+" Nº "+ numInfraccion +_Agente);
+
+
         //String to print
         toPrint = "AUTORIDAD PORTUARIA DE CEUTA\n POLICÍA PORTUARIA";
         toPrint = toPrint+ "\n---------------------------------------------\n\n";
@@ -299,7 +297,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                 //Lanzar intent a InfraccionesListActivity
                 Intent SL = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
 
-                //SL.putExtra("miInfraccion", miInfraccion);
+                SL.putExtra("miInfraccion", miInfraccion);
 
                 //Solo para versión sin Firebase.
                 //SL.putExtra("sancionesSaved",sancionesSaved);
@@ -479,19 +477,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         toastCountDown.start();
     }
 
-    //Return position into arrayList
-    private int getArrayListPosition (int numero){
 
-        int position=0;
-
-        for (int i=0; i<sancionesSaved.size(); i++){
-
-            if(sancionesSaved.get(i).getNumInfraccion()== numero){
-                position=i;
-            }
-        }
-        return position;
-    }
 
     private void dialogDelete() {
 
@@ -505,7 +491,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
 
                 if (options[item].equals("SI")) {
-
+                    /*
                     //Esto porque usamos el objecto del arrayList y recogemos un arraylist
                     int myNum=sancionesSaved.get(getArrayListPosition(numInfraccion)).getNumInfraccion();
 
@@ -519,7 +505,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                     //Solo para versión sin Firebase.
                     delIntent.putExtra("sancionesSaved", sancionesSaved);
 
-                    startActivity(delIntent);
+                    startActivity(delIntent); */
 
                 }
                 if (options[item].equals("NO")) {

@@ -16,7 +16,7 @@ public class InfraccionesViewHolder extends RecyclerView.ViewHolder{
     public TextView txtSDate;
     public TextView txtSDatos;
     public TextView txtSSancion;
-    private Infraccion mInfraccion;
+
 
 
 
@@ -29,10 +29,10 @@ public class InfraccionesViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bind(Infraccion infraccion) {
-        mInfraccion=infraccion;
-        txtSDate.setText(infraccion.getDay()+"/"+infraccion.getMes()+"/"+infraccion.getYear());
+
+        txtSDate.setText(infraccion.getThisDay()+"/"+infraccion.getThisMonth()+"/"+infraccion.getThisYear());
         txtSDatos.setText(infraccion.getDniMatricula()+"/"+infraccion.getNombreMarca());
-        txtSSancion.setText(infraccion.getmArticulo()+"/"+infraccion.getSancion());
+        txtSSancion.setText(infraccion.getmArticulo()+"/"+infraccion.getUbicacion());
 
     }
 }

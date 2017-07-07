@@ -73,7 +73,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
     private TextView text_custom_title;
 
     private Articulo mArticulo;
-    private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
+    //private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
 
         //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
-        sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
+        //sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
 
         //TextView block
         lbSelArticulo = (TextView) findViewById(R.id.lbSelArticulo);
@@ -224,7 +224,7 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
                 intent.putExtra("isVehicle", isVehicle);
 
                 //Solo para versión sin Firebase.
-                intent.putExtra("sancionesSaved",sancionesSaved);
+                //intent.putExtra("sancionesSaved",sancionesSaved);
 
                 startActivity(intent); //Start intent
             }

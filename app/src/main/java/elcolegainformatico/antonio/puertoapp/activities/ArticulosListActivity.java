@@ -25,7 +25,7 @@ public class ArticulosListActivity extends AppCompatActivity {
 
     private ListView listArticulos;
     private ArrayList<Articulo> articuloArrayList;
-    private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
+    //private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
     private boolean isReglamento;
 
     private ImageButton home_custom_bar;
@@ -58,7 +58,7 @@ public class ArticulosListActivity extends AppCompatActivity {
 
 
         //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
-        sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
+        //sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
 
         isReglamento=getIntent().getBooleanExtra("isReglamento",true);
 
@@ -92,7 +92,7 @@ public class ArticulosListActivity extends AppCompatActivity {
                 intent.putExtra("myArticulo", mArticulo); //Pasamos un objeto articulo Parcelable
 
                 //Solo para versión sin Firebase.
-                intent.putExtra("sancionesSaved",sancionesSaved);
+               // intent.putExtra("sancionesSaved",sancionesSaved);
 
                 startActivity(intent);
             }
