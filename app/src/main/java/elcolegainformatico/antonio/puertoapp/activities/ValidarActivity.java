@@ -22,7 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Map;
 
 import elcolegainformatico.antonio.puertoapp.gallery_list_photos.Gallery_MainActivity;
 import elcolegainformatico.antonio.puertoapp.model.Articulo;
@@ -206,7 +205,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         //SetText to Screen Block
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto"+"\n"+Ubicacion);
         txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso");
-        txtArticle.setText("Ocurrió el siguiente hecho: +mArticulo.getDescripcion()"+" Conforme a lo estipulado en el +mArticulo.getNumArticulo()"+" Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
+        txtArticle.setText("Ocurrió el siguiente hecho: "+mArticulo.getDescripcion()+" Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+" Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
         txtToDay.setText(_ToDay+" Nº "+ numInfraccion +_Agente);
 
 
@@ -215,7 +214,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         toPrint = toPrint+ "\n---------------------------------------------\n\n";
         toPrint = toPrint+ "Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion;
         toPrint = toPrint+ "\nSiendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso";
-//        toPrint = toPrint+ "\nOcurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS";
+        toPrint = toPrint+ "\nOcurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS";
 
 
         if(isVehicle==0){
@@ -262,45 +261,47 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             public void onClick(View v) {
 
                 //Creo el objecto infracción, va a un ArrayList<Infraccion> en InfraccionesListActivity
-                miInfraccion =new Infraccion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear, numInfraccion, numUsuario);
 
-                // String Key = dbFirebase.child("infracciones").push().getKey();
+                String Key = dbFirebase.child("infracciones").push().getKey();
 
                 //dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).setValue(miInfraccion);
 
 
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("numUsuario").setValue(numUsuario);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("hourInfraccion").setValue(hour);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("minuteInfraccion").setValue(minute);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("dayInfraccion").setValue(day);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("mesInfraccion").setValue(mes);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("yearInfraccion").setValue(year);
-                //dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("mArticulo").setValue(mArticulo);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("isVehicle").setValue(isVehicle);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("myVehicle").setValue(myVehicle);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("dniMatricula").setValue(dniMatricula);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("nombreMarca").setValue(nombreMarca);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("domicilioReferencia").setValue(DomicilioReferencia);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("ubicacion").setValue(Ubicacion);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("imagePath").setValue(imagePath);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("imageBitmap").setValue(imageBitmap);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("thisDay").setValue(thisDay);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("thisMonth").setValue(thisMonth);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("thisYear").setValue(thisYear);
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("importeSancion").setValue(importeSancion);
+                String Articulo_Num = mArticulo.getNumArticulo();
+                String Articulo_Tit = mArticulo.getTitulo();
+                String Articulo_Des = mArticulo.getDescripcion();
+                Articulo mArticulo = new Articulo(Articulo_Num, Articulo_Tit, Articulo_Des);
 
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("articulo_Num").setValue(mArticulo.getNumArticulo());
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("articulo_Tit").setValue(mArticulo.getTitulo());
-                dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).child("articulo_Des").setValue(mArticulo.getDescripcion());
+
+                miInfraccion =new Infraccion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numUsuario);
+
+                dbFirebase.child("infracciones").child(Key).setValue(miInfraccion);
+                /*
+                dbFirebase.child("infracciones").child(Key).child("numUsuario").setValue(numUsuario);
+                dbFirebase.child("infracciones").child(Key).child("mArticulo").setValue(mArticulo);
+                dbFirebase.child("infracciones").child(Key).child("hourInfraccion").setValue(hour);
+                dbFirebase.child("infracciones").child(Key).child("minuteInfraccion").setValue(minute);
+                dbFirebase.child("infracciones").child(Key).child("dayInfraccion").setValue(day);
+                dbFirebase.child("infracciones").child(Key).child("mesInfraccion").setValue(mes);
+                dbFirebase.child("infracciones").child(Key).child("yearInfraccion").setValue(year);
+                dbFirebase.child("infracciones").child(Key).child("isVehicle").setValue(isVehicle);
+                dbFirebase.child("infracciones").child(Key).child("importeSancion").setValue(importeSancion);
+                dbFirebase.child("infracciones").child(Key).child("dniMatricula").setValue(dniMatricula);
+                dbFirebase.child("infracciones").child(Key).child("nombreMarca").setValue(nombreMarca);
+                dbFirebase.child("infracciones").child(Key).child("domicilioReferencia").setValue(DomicilioReferencia);
+                dbFirebase.child("infracciones").child(Key).child("ubicacion").setValue(Ubicacion);
+                dbFirebase.child("infracciones").child(Key).child("myVehicle").setValue(myVehicle);
+                dbFirebase.child("infracciones").child(Key).child("imagePath").setValue(imagePath);
+                dbFirebase.child("infracciones").child(Key).child("imageBitmap").setValue(imageBitmap);
+                dbFirebase.child("infracciones").child(Key).child("thisDay").setValue(thisDay);
+                dbFirebase.child("infracciones").child(Key).child("thisMonth").setValue(thisMonth);
+                dbFirebase.child("infracciones").child(Key).child("thisYear").setValue(thisYear);*/
+
+
 
 
                 //Lanzar intent a InfraccionesListActivity
                 Intent SL = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
-
-                SL.putExtra("miInfraccion", miInfraccion);
-
-                //Solo para versión sin Firebase.
-                //SL.putExtra("sancionesSaved",sancionesSaved);
 
                 startActivity(SL);
 
@@ -491,6 +492,13 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
 
                 if (options[item].equals("SI")) {
+
+
+                    String miNodo = getIntent().getStringExtra("nodo");
+
+                    dbFirebase.child("infracciones").child(miNodo).removeValue();
+                    Intent delIntent = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
+                    startActivity(delIntent);
                     /*
                     //Esto porque usamos el objecto del arrayList y recogemos un arraylist
                     int myNum=sancionesSaved.get(getArrayListPosition(numInfraccion)).getNumInfraccion();

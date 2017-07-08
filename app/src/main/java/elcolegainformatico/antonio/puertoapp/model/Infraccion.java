@@ -5,8 +5,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 
 /**
@@ -16,15 +14,15 @@ import java.util.Map;
 public class Infraccion implements Parcelable {
 
 
-    private int numInfraccion;
-    private int numUsuario;
 
+    private int numUsuario;
     private Articulo mArticulo;
 
-    private int hour,minute;
-    private int day;
-    private String mes;
-    private int year;
+    private int hourInfraccion;
+    private int minuteInfraccion;
+    private int dayInfraccion;
+    private String mesInfraccion;
+    private int yearInfraccion;
     private int isVehicle;
     private double importeSancion;
 
@@ -42,16 +40,18 @@ public class Infraccion implements Parcelable {
     private ArrayList<Bitmap> imageBitmap;
 
     public Infraccion() {
+        //needed for firebase
     }
 
-    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double importeSancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numInfraccion, int numUsuario) {
+    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double importeSancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numUsuario) {
         this.mArticulo = mArticulo;
-        this.hour = hour;
-        this.minute = minute;
-        this.day = day;
-        this.mes = mes;
-        this.year = year;
+        this.hourInfraccion = hour;
+        this.minuteInfraccion = minute;
+        this.dayInfraccion = day;
+        this.mesInfraccion = mes;
+        this.yearInfraccion = year;
         this.isVehicle = isVehicle;
+
         this.importeSancion = importeSancion;
         this.dniMatricula = DniMatricula;
         this.nombreMarca = NombreMarca;
@@ -64,14 +64,13 @@ public class Infraccion implements Parcelable {
         this.thisDay=thisDay;
         this.thisMonth=thisMonth;
         this.thisYear=thisYear;
-        this.numInfraccion = numInfraccion;
         this.numUsuario = numUsuario;
-
 
     }
 
     //Data Structure for Firebase . Map <Key,Value> because Firebase works with trees
 
+ 
 
 
     public Articulo getmArticulo() {
@@ -79,23 +78,23 @@ public class Infraccion implements Parcelable {
     }
 
     public int getHour() {
-        return hour;
+        return hourInfraccion;
     }
 
     public int getMinute() {
-        return minute;
+        return minuteInfraccion;
     }
 
     public int getDay() {
-        return day;
+        return dayInfraccion;
     }
 
     public String getMes() {
-        return mes;
+        return mesInfraccion;
     }
 
     public int getYear() {
-        return year;
+        return yearInfraccion;
     }
 
 
@@ -148,17 +147,94 @@ public class Infraccion implements Parcelable {
     public int getThisYear() {return thisYear;}
 
 
-    public int getNumInfraccion() {return numInfraccion;}
 
     public int getNumUsuario() {return numUsuario;}
 
+
+
+    public void setNumUsuario(int numUsuario) {
+        this.numUsuario = numUsuario;
+    }
+
+    public void setmArticulo(Articulo mArticulo) {
+        this.mArticulo = mArticulo;
+    }
+
+    public void setHourInfraccion(int hourInfraccion) {
+        this.hourInfraccion = hourInfraccion;
+    }
+
+    public void setMinuteInfraccion(int minuteInfraccion) {
+        this.minuteInfraccion = minuteInfraccion;
+    }
+
+    public void setDayInfraccion(int dayInfraccion) {
+        this.dayInfraccion = dayInfraccion;
+    }
+
+    public void setMesInfraccion(String mesInfraccion) {
+        this.mesInfraccion = mesInfraccion;
+    }
+
+    public void setYearInfraccion(int yearInfraccion) {
+        this.yearInfraccion = yearInfraccion;
+    }
+
+    public void setIsVehicle(int isVehicle) {
+        this.isVehicle = isVehicle;
+    }
+
+    public void setImporteSancion(double importeSancion) {
+        this.importeSancion = importeSancion;
+    }
+
+    public void setThisDay(int thisDay) {
+        this.thisDay = thisDay;
+    }
+
+    public void setThisMonth(int thisMonth) {
+        this.thisMonth = thisMonth;
+    }
+
+    public void setThisYear(int thisYear) {
+        this.thisYear = thisYear;
+    }
+
+    public void setDniMatricula(String dniMatricula) {
+        this.dniMatricula = dniMatricula;
+    }
+
+    public void setNombreMarca(String nombreMarca) {
+        this.nombreMarca = nombreMarca;
+    }
+
+    public void setDomicilioReferencia(String domicilioReferencia) {
+        this.domicilioReferencia = domicilioReferencia;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public void setMyVehicle(String myVehicle) {
+        this.myVehicle = myVehicle;
+    }
+
+    public void setImagePath(ArrayList<String> imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setImageBitmap(ArrayList<Bitmap> imageBitmap) {
+        this.imageBitmap = imageBitmap;
+    }
+
     protected Infraccion(Parcel in) {
         mArticulo = (Articulo) in.readValue(Articulo.class.getClassLoader());
-        hour = in.readInt();
-        minute = in.readInt();
-        day = in.readInt();
-        mes = in.readString();
-        year = in.readInt();
+        hourInfraccion = in.readInt();
+        minuteInfraccion = in.readInt();
+        dayInfraccion = in.readInt();
+        mesInfraccion = in.readString();
+        yearInfraccion = in.readInt();
         isVehicle = in.readInt();
         importeSancion = in.readDouble();
 
@@ -172,7 +248,6 @@ public class Infraccion implements Parcelable {
         thisMonth=in.readInt();
         thisYear=in.readInt();
 
-        numInfraccion =in.readInt();
         numUsuario =in.readInt();
 
         if (in.readByte() == 0x01) {
@@ -197,11 +272,11 @@ public class Infraccion implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeValue(mArticulo);
-        dest.writeInt(hour);
-        dest.writeInt(minute);
-        dest.writeInt(day);
-        dest.writeString(mes);
-        dest.writeInt(year);
+        dest.writeInt(hourInfraccion);
+        dest.writeInt(minuteInfraccion);
+        dest.writeInt(dayInfraccion);
+        dest.writeString(mesInfraccion);
+        dest.writeInt(yearInfraccion);
         dest.writeInt(isVehicle);
         dest.writeDouble(importeSancion);
 
@@ -215,7 +290,6 @@ public class Infraccion implements Parcelable {
         dest.writeInt(thisMonth);
         dest.writeInt(thisYear);
 
-        dest.writeInt(numInfraccion);
         dest.writeInt(numUsuario);
 
         if (imagePath == null) {

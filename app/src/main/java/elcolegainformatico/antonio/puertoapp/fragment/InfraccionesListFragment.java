@@ -73,66 +73,68 @@ public abstract class InfraccionesListFragment extends Fragment {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+
                         Infraccion miInfraccion=getItem(position);
 
                         Intent intent = new Intent(getActivity(), ValidarActivity.class);
-                        Log.d("@@Mi Infraccion Hora:  ",String.valueOf(miInfraccion.getHour()));
 
                         intent.putExtra("hour", miInfraccion.getHour());
+                        Log.d("@@infraccion Hora:  ",String.valueOf(miInfraccion.getHour()));
+
                         intent.putExtra("minute", miInfraccion.getMinute());
+                        Log.d("@@infraccion Minuto:  ",String.valueOf(miInfraccion.getMinute()));
+
                         intent.putExtra("day", miInfraccion.getDay());
+                        Log.d("@@infraccion Dia:  ",String.valueOf(miInfraccion.getDay()));
+
                         //intent.putExtra("month",month);
                         intent.putExtra("mes", miInfraccion.getMes());
+                        Log.d("@@infraccion Mes:  ",String.valueOf(miInfraccion.getMes()));
+
                         intent.putExtra("year", miInfraccion.getYear());
+                        Log.d("@@infraccion Año:  ",String.valueOf(miInfraccion.getYear()));
 
                         intent.putExtra("DniMatricula", miInfraccion.getDniMatricula());
+                        Log.d("@@ DniMatricula:  ",String.valueOf(miInfraccion.getDniMatricula()));
 
-                        Log.d("@@Mi DniMatricula:  ",String.valueOf(miInfraccion.getDniMatricula()));
                         intent.putExtra("NombreMarca", miInfraccion.getNombreMarca());
-                        intent.putExtra("DomicilioReferencia", miInfraccion.getDomicilioReferencia()) ;
+                        Log.d("@@ NombreMarca:  ",String.valueOf(miInfraccion.getNombreMarca()));
+
+                        intent.putExtra("DomicilioReferencia", miInfraccion.getDomicilioReferencia());
+                        Log.d("@@DomicilioReferencia: ",String.valueOf(miInfraccion.getDomicilioReferencia()));
+
                         intent.putExtra("Ubicacion", miInfraccion.getUbicacion());
+                        Log.d("@@Ubicacion: ",String.valueOf(miInfraccion.getUbicacion()));
 
                         intent.putExtra("myVehicle", miInfraccion.getMyVehicle());
+                        Log.d("@@ myVehicle: ",String.valueOf(miInfraccion.getMyVehicle()));
 
-                        //Extraigo el nodo, osea el número de multa
-                        String miNodo= mDatabase.child("infracciones").child(uuid).getKey();
+                        intent.putExtra("myArticulo", miInfraccion.getmArticulo());
 
-                        //Extraigo los datos de los articulos
-                        DatabaseReference articuloDesRef= mDatabase.child("infracciones").child(uuid).child("articulo_Des");
-                        DatabaseReference articuloNumRef= mDatabase.child("infracciones").child(uuid).child("articulo_Num");
-                        DatabaseReference articuloTitRef= mDatabase.child("infracciones").child(uuid).child("articulo_Tit");
-
-                       /*
-                        String Articulo_Des;
-
-                        articuloDesRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
-                                   Articulo_Des= singleSnapshot.getValue().toString();
-                                }
-                            }
-
-                        Articulo mArticulo = new Articulo(Articulo_Num, Articulo_Tit, Articulo_Des);
-
-
-                        //FALTA PASAR BIEN EL ARTICULO
-                        intent.putExtra("myArticulo", mArticulo);*/
                         intent.putExtra("isVehicle", miInfraccion.getIsVehicle());
+                        Log.d("@@ isVehicle: ",String.valueOf(miInfraccion.getIsVehicle()));
 
                         intent.putExtra("ImagePath", miInfraccion.getImagePath());
                         //Bitmap is not necessary , is ineficient, we will use imagePath.
 
 
                         intent.putExtra("thisDay", miInfraccion.getThisDay());
+                        Log.d("@@ thisDay: ",String.valueOf(miInfraccion.getThisDay()));
+
                         intent.putExtra("thisMonth", miInfraccion.getThisMonth());
+                        Log.d("@@ thisMonth: ",String.valueOf(miInfraccion.getThisMonth()));
+
                         intent.putExtra("thisYear", miInfraccion.getThisYear());
+                        Log.d("@@ thisYear: ",String.valueOf(miInfraccion.getThisYear()));
 
-                        intent.putExtra("numero", miInfraccion.getNumInfraccion());
+
                         intent.putExtra("agente", miInfraccion.getNumUsuario());
+                        Log.d("@@ agente: ",String.valueOf(miInfraccion.getNumUsuario()));
 
-                        //Solo para versión sin Firebase.
-                        //intent.putExtra("sancionesSaved",sancionesList);
+                        //Extraigo el nodo, osea el número de multa
+                        String miNodo= mDatabase.child("infracciones").child(uuid).getKey();
+
+                        intent.putExtra("nodo",miNodo);
 
                         intent.putExtra("isSave",false);
                         startActivity(intent);

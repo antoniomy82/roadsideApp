@@ -17,6 +17,10 @@ public class Articulo implements Parcelable {
     private String Titulo;
     private String Descripcion;
 
+    public Articulo(){
+        //needed for firebase
+    }
+
     public Articulo(String numArticulo, String titulo, String descripcion) {
         this.numArticulo = numArticulo;
         Titulo = titulo;

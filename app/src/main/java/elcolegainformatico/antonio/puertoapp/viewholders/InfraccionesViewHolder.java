@@ -32,7 +32,7 @@ public class InfraccionesViewHolder extends RecyclerView.ViewHolder{
 
         txtSDate.setText(infraccion.getThisDay()+"/"+infraccion.getThisMonth()+"/"+infraccion.getThisYear());
         txtSDatos.setText(infraccion.getDniMatricula()+"/"+infraccion.getNombreMarca());
-        txtSSancion.setText(infraccion.getmArticulo()+"/"+infraccion.getUbicacion());
+        txtSSancion.setText(infraccion.getmArticulo().getNumArticulo()+ "-" +infraccion.getmArticulo().getDescripcion()+" Zona: "+infraccion.getUbicacion());
 
     }
 }
