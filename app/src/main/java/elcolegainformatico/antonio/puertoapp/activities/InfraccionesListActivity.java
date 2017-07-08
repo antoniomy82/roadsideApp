@@ -64,68 +64,6 @@ public class InfraccionesListActivity extends AppCompatActivity{
 
         });
 
-/*
-        dbInfracciones.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dbInfracciones!=null) {
-
-                    int range=0;
-                    int size = (int) dataSnapshot.getChildrenCount();
-                    for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-
-                      if(range<size-1){ //Se me sale del Rango ¿Por qué???????????????
-                            numInfraccion = childDataSnapshot.getKey();
-                            dniMatricula = childDataSnapshot.child("dniMatricula").getValue().toString();
-                            DomicilioReferencia = childDataSnapshot.child("domicilioReferencia").getValue().toString();
-                            importeSancion = childDataSnapshot.child("importeSancion").getValue().toString();
-                            mesInfraccion = childDataSnapshot.child("mesInfraccion").getValue().toString();
-                            Ubicacion = childDataSnapshot.child("ubicacion").getValue().toString();
-                            myVehicle = childDataSnapshot.child("myVehicle").getValue().toString();
-                            nombreMarca = childDataSnapshot.child("nombreMarca").getValue().toString();
-
-                            numUsuario = (long) childDataSnapshot.child("numUsuario").getValue();
-                            thisDay = (long) childDataSnapshot.child("thisDay").getValue();
-                            thisMonth = (long) childDataSnapshot.child("thisMonth").getValue();
-                            thisYear = (long) childDataSnapshot.child("thisYear").getValue();
-                            yearInfraccion = (long) childDataSnapshot.child("yearInfraccion").getValue();
-                            dayInfraccion = (long) childDataSnapshot.child("dayInfraccion").getValue();
-                            hourInfraccion = (long) childDataSnapshot.child("hourInfraccion").getValue();
-                            isVehicle = (long) childDataSnapshot.child("isVehicle").getValue();
-                            minuteInfraccion = (long) childDataSnapshot.child("minuteInfraccion").getValue();
-
-                            String Articulo_Des = childDataSnapshot.child("articulo_Des").getValue().toString();
-                            String Articulo_Num = childDataSnapshot.child("articulo_Num").getValue().toString();
-                            String Articulo_Tit = childDataSnapshot.child("articulo_Tit").getValue().toString();
-
-                            imagePath = (ArrayList) childDataSnapshot.child("imagePath").getValue();
-                            imageBitmap = (ArrayList) childDataSnapshot.child("imageBitmap").getValue();
-                            mArticulo = new Articulo(Articulo_Num, Articulo_Tit, Articulo_Des);
-
-                            sancionesList.add(new Infraccion(mArticulo, (int) hourInfraccion, (int) minuteInfraccion, (int) dayInfraccion, mesInfraccion, (int) yearInfraccion, (int) isVehicle, Double.parseDouble(importeSancion), dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap, (int) thisDay, (int) thisMonth, (int) thisYear, Integer.parseInt(numInfraccion), (int) numUsuario));
-
-
-                            InfraccionesAdapter myAdaptater = new InfraccionesAdapter(sancionesList, InfraccionesListActivity.this.getApplicationContext());
-                            listSanciones.setAdapter(myAdaptater);
-
-                            range++;
-                        }
-
-                    }
-                }
-
-            }
-
-
-            @SuppressLint("LongLogTag")
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG,"Error!",databaseError.toException());
-            }
-        });
-
-
- */
     }
 
 

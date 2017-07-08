@@ -207,12 +207,12 @@ public class EntidadVehiculoActivity extends AppCompatActivity {
 
 
                 //Hacer un check de que estén los campos rellenos y llamar a dialogEmpty
-                intent.putExtra("hour",hour);
-                intent.putExtra("minute",minute);
-                intent.putExtra("day",day);
+                intent.putExtra("hourInfraccion",hour);
+                intent.putExtra("minuteInfraccion",minute);
+                intent.putExtra("dayInfraccion",day);
                 //intent.putExtra("month",month);
-                intent.putExtra("mes",mes);
-                intent.putExtra("year",year);
+                intent.putExtra("mesInfraccion",mes);
+                intent.putExtra("yearInfraccion",year);
 
                 intent.putExtra("DniMatricula",edDniMatricula.getText().toString());
                 intent.putExtra("NombreMarca",edNombreMarca.getText().toString());

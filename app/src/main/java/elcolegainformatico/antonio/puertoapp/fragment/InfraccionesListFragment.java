@@ -77,22 +77,21 @@ public abstract class InfraccionesListFragment extends Fragment {
                         Infraccion miInfraccion=getItem(position);
 
                         Intent intent = new Intent(getActivity(), ValidarActivity.class);
+                        intent.putExtra("hourInfraccion", miInfraccion.getHourInfraccion());
+                        Log.d("@@infraccion Hora:  ",String.valueOf(miInfraccion.getHourInfraccion()));
 
-                        intent.putExtra("hour", miInfraccion.getHour());
-                        Log.d("@@infraccion Hora:  ",String.valueOf(miInfraccion.getHour()));
+                        intent.putExtra("minuteInfraccion", miInfraccion.getMinuteInfraccion());
+                        Log.d("@@infraccion Minuto:  ",String.valueOf(miInfraccion.getMinuteInfraccion()));
 
-                        intent.putExtra("minute", miInfraccion.getMinute());
-                        Log.d("@@infraccion Minuto:  ",String.valueOf(miInfraccion.getMinute()));
-
-                        intent.putExtra("day", miInfraccion.getDay());
-                        Log.d("@@infraccion Dia:  ",String.valueOf(miInfraccion.getDay()));
+                        intent.putExtra("dayInfraccion", miInfraccion.getDayInfraccion());
+                        Log.d("@@infraccion Dia:  ",String.valueOf(miInfraccion.getDayInfraccion()));
 
                         //intent.putExtra("month",month);
-                        intent.putExtra("mes", miInfraccion.getMes());
-                        Log.d("@@infraccion Mes:  ",String.valueOf(miInfraccion.getMes()));
+                        intent.putExtra("mesInfraccion", miInfraccion.getMesInfraccion());
+                        Log.d("@@infraccion Mes:  ",String.valueOf(miInfraccion.getMesInfraccion()));
 
-                        intent.putExtra("year", miInfraccion.getYear());
-                        Log.d("@@infraccion Año:  ",String.valueOf(miInfraccion.getYear()));
+                        intent.putExtra("yearInfraccion", miInfraccion.getYearInfraccion());
+                        Log.d("@@infraccion Año:  ",String.valueOf(miInfraccion.getYearInfraccion()));
 
                         intent.putExtra("DniMatricula", miInfraccion.getDniMatricula());
                         Log.d("@@ DniMatricula:  ",String.valueOf(miInfraccion.getDniMatricula()));

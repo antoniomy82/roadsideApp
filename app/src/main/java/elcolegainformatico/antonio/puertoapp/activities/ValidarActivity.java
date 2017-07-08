@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -38,12 +37,12 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     private Articulo mArticulo;
     private Infraccion miInfraccion;
 
-    private int hour;
-    private int minute;
-    private int day;
+    private int hourInfraccion;
+    private int minuteInfraccion;
+    private int dayInfraccion;
     //private int month;
-    private String mes;
-    private int year;
+    private String mesInfraccion;
+    private int yearInfraccion;
     private int isVehicle;
     private double importeSancion;
     private boolean isSave; //Boolean Control to BtnSave (Set visible or invisible)
@@ -52,7 +51,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     //today Date
     private Calendar calendar;
     private int thisDay, thisMonth,thisYear;
-
     private int numInfraccion, numUsuario;
 
     String dniMatricula;
@@ -70,8 +68,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
     private ArrayList<String> imagePath=null; //Array List of path
     private ArrayList<Bitmap> imageBitmap=null;
-    //private ArrayList<Infraccion> sancionesSaved = new ArrayList<>(); //Store sanciones go from SancionesList
-
 
     private static final int REQUEST_CODE = 300; //Back pressed (On ActivityResult)
     private Toast mToastToShow; // Personalized Toast
@@ -121,17 +117,12 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
          * Get intent Block
          */
         mArticulo = getIntent().getExtras().getParcelable("myArticulo");
-
-
-        //Esto lo usamos en la versión sin FireBase, tenemos que pasarla a la siguiente activity
-        //sancionesSaved = (ArrayList<Infraccion>) getIntent().getSerializableExtra("sancionesSaved");
-
-        hour=getIntent().getIntExtra("hour",0);
-        minute=getIntent().getIntExtra("minute",0);
-        day=getIntent().getIntExtra("day",0);
+        hourInfraccion=getIntent().getIntExtra("hourInfraccion",0);
+        minuteInfraccion=getIntent().getIntExtra("minuteInfraccion",0);
+        dayInfraccion=getIntent().getIntExtra("dayInfraccion",0);
         // month=getIntent().getIntExtra("month",0);
-        mes=getIntent().getStringExtra("mes");
-        year=getIntent().getIntExtra("year",0);
+        mesInfraccion=getIntent().getStringExtra("mesInfraccion");
+        yearInfraccion=getIntent().getIntExtra("yearInfraccion",0);
 
         dniMatricula=getIntent().getStringExtra("DniMatricula");
         nombreMarca = getIntent().getStringExtra("NombreMarca");
@@ -170,7 +161,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             thisYear = calendar.get(Calendar.YEAR);
 
             //Genero el número de multa
-           // int pos=sancionesSaved.size();
             //Hacer aquí un Query
 
 
@@ -181,7 +171,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         }
 
         String esteMes = getMonth(thisMonth);
-
         String _Agente= "\nEl numUsuario denunciante número: "+ numUsuario;
         String _ToDay= " Ceuta "+ thisDay+ " de "+esteMes+" de "+thisYear;
 
@@ -204,7 +193,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         //SetText to Screen Block
         txtZona.setText("Diligencia para hacer constar que en la zona del puerto"+"\n"+Ubicacion);
-        txtDate.setText("Siendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso");
+        txtDate.setText("Siendo las "+hourInfraccion+":"+convertTwoDigits(minuteInfraccion)+" horas del "+dayInfraccion+" de "+mesInfraccion+ " de " +yearInfraccion+ " del año en curso");
         txtArticle.setText("Ocurrió el siguiente hecho: "+mArticulo.getDescripcion()+" Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+" Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS" );
         txtToDay.setText(_ToDay+" Nº "+ numInfraccion +_Agente);
 
@@ -213,7 +202,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         toPrint = "AUTORIDAD PORTUARIA DE CEUTA\n POLICÍA PORTUARIA";
         toPrint = toPrint+ "\n---------------------------------------------\n\n";
         toPrint = toPrint+ "Diligencia para hacer constar que en la zona del puerto \n"+Ubicacion;
-        toPrint = toPrint+ "\nSiendo las "+hour+":"+convertTwoDigits(minute)+" horas del "+day+" de "+mes+ " de " +year+ " del año en curso";
+        toPrint = toPrint+ "\nSiendo las "+hourInfraccion+":"+convertTwoDigits(minuteInfraccion)+" horas del "+dayInfraccion+" de "+mesInfraccion+ " de " +yearInfraccion+ " del año en curso";
         toPrint = toPrint+ "\nOcurrió el siguiente hecho:\n"+mArticulo.getDescripcion()+". Conforme a lo estipulado en el "+mArticulo.getNumArticulo()+"\n Siendo la multa de "+String.format("%.0f", importeSancion)+" EUROS";
 
 
@@ -260,8 +249,6 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             @Override
             public void onClick(View v) {
 
-                //Creo el objecto infracción, va a un ArrayList<Infraccion> en InfraccionesListActivity
-
                 String Key = dbFirebase.child("infracciones").push().getKey();
 
                 //dbFirebase.child("infracciones").child(Integer.toString(numInfraccion)).setValue(miInfraccion);
@@ -273,32 +260,9 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                 Articulo mArticulo = new Articulo(Articulo_Num, Articulo_Tit, Articulo_Des);
 
 
-                miInfraccion =new Infraccion(mArticulo, hour, minute, day, mes, year, isVehicle, importeSancion, dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numUsuario);
+                miInfraccion =new Infraccion(mArticulo, hourInfraccion, minuteInfraccion, dayInfraccion, mesInfraccion, yearInfraccion, isVehicle, importeSancion, dniMatricula, nombreMarca, DomicilioReferencia, Ubicacion, myVehicle, imagePath, imageBitmap,thisDay,thisMonth,thisYear,numUsuario);
 
                 dbFirebase.child("infracciones").child(Key).setValue(miInfraccion);
-                /*
-                dbFirebase.child("infracciones").child(Key).child("numUsuario").setValue(numUsuario);
-                dbFirebase.child("infracciones").child(Key).child("mArticulo").setValue(mArticulo);
-                dbFirebase.child("infracciones").child(Key).child("hourInfraccion").setValue(hour);
-                dbFirebase.child("infracciones").child(Key).child("minuteInfraccion").setValue(minute);
-                dbFirebase.child("infracciones").child(Key).child("dayInfraccion").setValue(day);
-                dbFirebase.child("infracciones").child(Key).child("mesInfraccion").setValue(mes);
-                dbFirebase.child("infracciones").child(Key).child("yearInfraccion").setValue(year);
-                dbFirebase.child("infracciones").child(Key).child("isVehicle").setValue(isVehicle);
-                dbFirebase.child("infracciones").child(Key).child("importeSancion").setValue(importeSancion);
-                dbFirebase.child("infracciones").child(Key).child("dniMatricula").setValue(dniMatricula);
-                dbFirebase.child("infracciones").child(Key).child("nombreMarca").setValue(nombreMarca);
-                dbFirebase.child("infracciones").child(Key).child("domicilioReferencia").setValue(DomicilioReferencia);
-                dbFirebase.child("infracciones").child(Key).child("ubicacion").setValue(Ubicacion);
-                dbFirebase.child("infracciones").child(Key).child("myVehicle").setValue(myVehicle);
-                dbFirebase.child("infracciones").child(Key).child("imagePath").setValue(imagePath);
-                dbFirebase.child("infracciones").child(Key).child("imageBitmap").setValue(imageBitmap);
-                dbFirebase.child("infracciones").child(Key).child("thisDay").setValue(thisDay);
-                dbFirebase.child("infracciones").child(Key).child("thisMonth").setValue(thisMonth);
-                dbFirebase.child("infracciones").child(Key).child("thisYear").setValue(thisYear);*/
-
-
-
 
                 //Lanzar intent a InfraccionesListActivity
                 Intent SL = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
@@ -325,6 +289,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             btnSaveSancion.setVisibility(View.INVISIBLE);
             btnDelete.setVisibility(View.VISIBLE);
             btnGetPhotos.setText(getResources().getString(R.string.fotoFirmaSaved));
+            text_custom_title.setText("INFRACCIÓN GUARDADA");
             this.isSave=true;
         }
 
@@ -493,29 +458,13 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
                 if (options[item].equals("SI")) {
 
-
                     String miNodo = getIntent().getStringExtra("nodo");
 
                     dbFirebase.child("infracciones").child(miNodo).removeValue();
                     Intent delIntent = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
                     startActivity(delIntent);
-                    /*
-                    //Esto porque usamos el objecto del arrayList y recogemos un arraylist
-                    int myNum=sancionesSaved.get(getArrayListPosition(numInfraccion)).getNumInfraccion();
-
-                    dbFirebase.child("infracciones").child(String.valueOf(myNum)).removeValue();
-
-                    //del image from my ArrayList.
-                    sancionesSaved.remove(getArrayListPosition(numInfraccion));
-
-                    Intent delIntent = new Intent(ValidarActivity.this, InfraccionesListActivity.class);
-
-                    //Solo para versión sin Firebase.
-                    delIntent.putExtra("sancionesSaved", sancionesSaved);
-
-                    startActivity(delIntent); */
-
                 }
+
                 if (options[item].equals("NO")) {
                     //Nothing
 

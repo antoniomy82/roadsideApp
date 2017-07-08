@@ -21,6 +21,9 @@ public class Infraccion implements Parcelable {
     private int hourInfraccion;
     private int minuteInfraccion;
     private int dayInfraccion;
+
+
+
     private String mesInfraccion;
     private int yearInfraccion;
     private int isVehicle;
@@ -77,26 +80,26 @@ public class Infraccion implements Parcelable {
         return mArticulo;
     }
 
-    public int getHour() {
+
+    public int getHourInfraccion() {
         return hourInfraccion;
     }
 
-    public int getMinute() {
+    public int getMinuteInfraccion() {
         return minuteInfraccion;
     }
 
-    public int getDay() {
+    public int getDayInfraccion() {
         return dayInfraccion;
     }
 
-    public String getMes() {
+    public String getMesInfraccion() {
         return mesInfraccion;
     }
 
-    public int getYear() {
+    public int getYearInfraccion() {
         return yearInfraccion;
     }
-
 
     public int getIsVehicle() {
         return isVehicle;
