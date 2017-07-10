@@ -40,13 +40,13 @@ public class Infraccion implements Parcelable {
 
     //Image Gallery
     private ArrayList<String> imagePath;
-    private ArrayList<Bitmap> imageBitmap;
+    private ArrayList<String> imageBitmap;
 
     public Infraccion() {
         //needed for firebase
     }
 
-    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double importeSancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<Bitmap> imageBitmap, int thisDay, int thisMonth, int thisYear, int numUsuario) {
+    public Infraccion(Articulo mArticulo, int hour, int minute, int day, String mes, int year, int isVehicle, double importeSancion, String DniMatricula, String NombreMarca, String DomicilioReferencia, String Ubicacion, String myVehicle, ArrayList<String> imagePath, ArrayList<String> imageBitmap, int thisDay, int thisMonth, int thisYear, int numUsuario) {
         this.mArticulo = mArticulo;
         this.hourInfraccion = hour;
         this.minuteInfraccion = minute;
@@ -139,7 +139,7 @@ public class Infraccion implements Parcelable {
         return imagePath;
     }
 
-    public ArrayList<Bitmap> getImageBitmap() {
+    public ArrayList<String> getImageBitmap() {
         return imageBitmap;
     }
 
@@ -227,7 +227,7 @@ public class Infraccion implements Parcelable {
         this.imagePath = imagePath;
     }
 
-    public void setImageBitmap(ArrayList<Bitmap> imageBitmap) {
+    public void setImageBitmap(ArrayList<String> imageBitmap) {
         this.imageBitmap = imageBitmap;
     }
 

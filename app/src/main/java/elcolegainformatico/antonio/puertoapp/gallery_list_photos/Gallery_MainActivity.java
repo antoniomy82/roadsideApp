@@ -18,6 +18,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
@@ -27,8 +28,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -46,6 +49,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
     private Gallery_CustomImageAdapter customImageAdapter;  //ListView Adapter
     private ArrayList<Gallery_GetSet> galleryGetSets;       //Object tipe GetSet
     private ArrayList<String> imagePath=new ArrayList<>(8); //Almaceno la ruta donde están guardadas las imagenes.
+    private ArrayList<String> imageBitmap=new ArrayList<>(8); //Almacen los bitmaps en string
     private ArrayList<String> auxImage = new ArrayList<>();
 
     private ListView listView;
@@ -153,6 +157,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(Gallery_MainActivity.this, Gallery_ShowImageActivity.class);
                         intent.putExtra("ImagePath", imagePath.get(position)); //Pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
+                        intent.putExtra("ImageBitMap", imageBitmap.get(position));
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "IMAGEN NO DISPONIBLE", Toast.LENGTH_SHORT).show();
@@ -164,6 +169,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(Gallery_MainActivity.this, Gallery_ShowImageActivity.class);
                         intent.putExtra("ImagePath", imagePath.get(position)); //Pass the path.... yeahh!!! I Speak Gibraltarian Inglish!! Lol!!
+                        intent.putExtra("ImageBitMap", imageBitmap.get(position));
                         startActivity(intent);
                     } else {
                         Toast.makeText(getApplicationContext(), "FIRMA NO DISPONIBLE", Toast.LENGTH_SHORT).show();
@@ -175,12 +181,13 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
 
         //Get intent !! Load my imagePath from validarActivity
-        if( getIntent().getStringArrayListExtra("validarToGallery") !=null) {
-            this.imagePath = new ArrayList<>(getIntent().getStringArrayListExtra("validarToGallery"));
+        if( getIntent().getStringArrayListExtra("pathFromValidar") !=null && getIntent().getStringArrayListExtra("imagesFromValidar") !=null) {
+            this.imagePath = new ArrayList<>(getIntent().getStringArrayListExtra("pathFromValidar"));
+            this.imageBitmap = new ArrayList<>(getIntent().getStringArrayListExtra("imagesFromValidar"));
 
             if (checkPermission()) {
 
-                for (int i = 0; i < imagePath.size(); i++) {
+                for (int i = 0; i < imageBitmap.size(); i++) {
 
                     String picturePath = imagePath.get(i);
 
@@ -189,11 +196,20 @@ public class Gallery_MainActivity extends AppCompatActivity {
                     if (thumbnail != null) {
                         customImageAdapter.setImageInItem(i, thumbnail, picturePath);
                     }
+                    else if( imageBitmap.get(i)!=null){
+                        try {
+                            thumbnail = decodeFromFirebaseBase64(imageBitmap.get(i));
+                            customImageAdapter.setImageInItem(i, thumbnail, picturePath);
+                        }
+                        catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    }
+
                 }
             }//Check
-        }
-
-
 
     }
 
@@ -221,7 +237,8 @@ public class Gallery_MainActivity extends AppCompatActivity {
         }
 
         Intent myImage = new Intent();
-        myImage.putStringArrayListExtra("galleryToValidar",auxImage);
+        myImage.putStringArrayListExtra("pathToValidar",auxImage);
+        myImage.putStringArrayListExtra("imagesToValidar",imageBitmap);
 
         setResult(Activity.RESULT_OK,myImage);
 
@@ -328,6 +345,7 @@ public class Gallery_MainActivity extends AppCompatActivity {
                             String picturePath = getRealPathFromURI(tempUri);
 
                             imagePath.add(position, picturePath); //Almaceno la ruta donde está la foto
+                            imageBitmap.add(position,encodeBitmapToString(bitmap)); //Almaceno el bitmap convertido a String
 
                             //Añadir imagen a la galeria
                             customImageAdapter.setImageInItem(position, bitmap, picturePath);
@@ -361,6 +379,9 @@ public class Gallery_MainActivity extends AppCompatActivity {
                         Bitmap thumbnail=(BitmapFactory.decodeFile(picturePath));
 
                         imagePath.add(position,picturePath);
+                        thumbnail=getResizedBitmap(thumbnail,100);
+                        imageBitmap.add(position,encodeBitmapToString(thumbnail)); //Almaceno el bitmap convertido a String
+
 
                         Log.d("Tamaño", String.valueOf(thumbnail.getByteCount()));
 
@@ -414,17 +435,18 @@ public class Gallery_MainActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * Convert path to bitmap
-     */
 
-    public Bitmap convertSrcToBitmap(String imageSrc) {
-        Bitmap myBitmap = null;
-        File imgFile = new File(imageSrc);
-        if (imgFile.exists()) {
-            myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
-        }
-        return myBitmap;
+    public String encodeBitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+    }
+
+    public static Bitmap decodeFromFirebaseBase64(String image) throws IOException {
+        byte[] decodedByteArray = android.util.Base64.decode(image, Base64.DEFAULT);
+        return BitmapFactory.decodeByteArray(decodedByteArray, 0, decodedByteArray.length);
     }
 
     /**
@@ -434,8 +456,12 @@ public class Gallery_MainActivity extends AppCompatActivity {
      * @return my new resize Bitmap
      */
     public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+        /*
         int width = image.getWidth();
-        int height = image.getHeight();
+        int height = image.getHeight();*/
+        int width = 800;
+        int height = 600;
+
 
         float bitmapRatio = (float)width / (float) height;
         if (bitmapRatio > 1) {
@@ -447,6 +473,4 @@ public class Gallery_MainActivity extends AppCompatActivity {
         }
         return Bitmap.createScaledBitmap(image, width, height, true);
     }
-
-
 }

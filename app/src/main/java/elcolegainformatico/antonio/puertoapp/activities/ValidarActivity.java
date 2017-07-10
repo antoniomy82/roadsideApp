@@ -3,10 +3,12 @@ package elcolegainformatico.antonio.puertoapp.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,9 @@ import android.os.CountDownTimer;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,7 +72,7 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
     private Button btnDelete;
 
     private ArrayList<String> imagePath=null; //Array List of path
-    private ArrayList<Bitmap> imageBitmap=null;
+    public ArrayList<String> imageBitmap=null;
 
     private static final int REQUEST_CODE = 300; //Back pressed (On ActivityResult)
     private Toast mToastToShow; // Personalized Toast
@@ -142,6 +147,10 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         if(getIntent().getStringArrayListExtra("ImagePath")!=null){
             this.imagePath=getIntent().getStringArrayListExtra("ImagePath");
             //Dont use bitmap
+        }
+
+        if(getIntent().getStringArrayListExtra("ImageBitmap")!=null){
+            this.imageBitmap=getIntent().getStringArrayListExtra("ImageBitmap");
         }
 
         thisDay=getIntent().getIntExtra("thisDay",0);
@@ -236,7 +245,8 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
             public void onClick(View v) {
                 Intent intent=new Intent(ValidarActivity.this, Gallery_MainActivity.class);
 
-                intent.putExtra("validarToGallery", imagePath);
+                intent.putExtra("pathFromValidar", imagePath);
+                intent.putExtra("imagesFromValidar", imageBitmap);
                 intent.putExtra("isSave",isSave);
 
                 startActivityForResult(intent,REQUEST_CODE);
@@ -319,9 +329,14 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
 
         if (requestCode == 300 && resultCode == RESULT_OK && data!=null){
 
-            if(data.getStringArrayListExtra("galleryToValidar") !=null)
+            imageBitmap=new ArrayList<String>(data.getStringArrayListExtra("imagesToValidar"));
+
+            if(data.getStringArrayListExtra("pathToValidar") !=null)
             {
-                this.imagePath=data.getStringArrayListExtra("galleryToValidar");
+
+                Bitmap auxBitmap;
+
+                this.imagePath=data.getStringArrayListExtra("pathToValidar");
                 String noImage=  "drawable://"+R.drawable.gallery_imgnodisponible56;
                 int imageCount=0;
 
@@ -329,6 +344,9 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
                     if(!imagePath.get(i).equals(noImage))
                     {
                         imageCount++;
+                        //auxBitmap=convertSrcToBitmap(imagePath.get(i));
+
+                        //imageBitmap.add(encodeBitmapToString(auxBitmap));
                     }
                 }
                 Toast toast = Toast.makeText(this, "Imagenes guardadas = "+imageCount, Toast.LENGTH_SHORT); toast.show();
@@ -475,6 +493,34 @@ public class ValidarActivity extends AppCompatActivity implements Serializable{
         });
         builder.show();
     }
+
+
+    /**
+     * Convert path to bitmap
+     */
+
+    public Bitmap convertSrcToBitmap(String imageSrc) {
+        Bitmap myBitmap = null;
+        File imgFile = new File(imageSrc);
+        if (imgFile.exists()) {
+            myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+        }
+        return myBitmap;
+    }
+
+
+
+
+    public String encodeBitmapToString(Bitmap bitmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
+
+    }
+
+
+
 
 }//ValidarActivity
 
