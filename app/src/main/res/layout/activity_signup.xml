@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,7 +19,7 @@
             android:layout_height="@dimen/logo_w_h"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="30dp"
-            android:src="@drawable/logo_puerto_ceuta"
+            android:src="@drawable/logo_roadside"
             tools:ignore="ContentDescription" />
 
         <android.support.design.widget.TextInputLayout
@@ -52,7 +51,8 @@
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
                 android:maxLines="1"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black"
+                tools:ignore="InvalidImeActionId" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -62,7 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/Orange_light"
             android:text="@string/action_sign_in_short"
             android:textColor="@android:color/white"
             android:textStyle="bold" />

@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/torre"
-    tools:context="elcolegainformatico.antonio.puertoapp.activities.MenuActivity">
+    android:background="@drawable/carretera"
+    tools:context="elcolegainformatico.antonio.roadsideApp.activities.MenuActivity">
 
 
     <LinearLayout
@@ -32,9 +32,9 @@
         android:layout_height="76dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/Orange_light"
         android:text="@string/multasButton"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"

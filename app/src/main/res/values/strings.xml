@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">CeutaPort</string>
-    <string name="multasButton">Infracciones</string>
+    <string name="app_name">Roadside Assistance</string>
+    <string name="multasButton">Asistencias</string>
     <string name="seleccionarButton">Seleccionar</string>
     <string name="txtNumArticulo">Articulo 13</string>
     <string name="txtTitulo">VEHÍCULOS INDUSTRIALES Y MAQUINARIA</string>
@@ -9,13 +9,6 @@
     <string name="lbSelArticulo">Articulo X : Cacaca</string>
 
     <!--   Spinners -->
-    <string name="spinner_entidad">"Seleccione entidad a multar"</string>
-    <string-array name="entidad_array">
-        <item>Datos del particular o Empresa</item>
-        <item>Datos del vehículo</item>
-    </string-array>
-
-
     <string-array name="vehiculo_array">
         <item>Motocicleta</item>
         <item>Triciclo</item>
@@ -39,26 +32,27 @@
     <string name="txtZona">Diligencia para hacer constar</string>
     <string name="txtDate">Siendo las 22:00 del día 22/10/2018</string>
     <string name="txtArticle">Articulo 8 : Prohbido estacionar el vehículo en zonas blalla</string>
-    <string name="lblEntidadVehiculo">Datos del particular, empresa ó vehículo</string>
+    <string name="lblEntidadVehiculo">Datos del vehículo</string>
     <string name="txtDatos">Nombre Apellidos ......</string>
     <string name="btnGetPhotos">Obtener Fotos y Firma</string>
     <string name="txtTituloArticulo">Segun la ley de puertos esto está mal</string>
     <string name="txtNumArticle">306.2.a</string>
     <string name="txtDescriptionList">Descripción del articulo</string>
-    <string name="btnSaveSancion">Guardar infracción</string>
+    <string name="btnSaveSancion">Guardar asistencia</string>
     <string name="txtSDate">23 de Enero 2017</string>
     <string name="txtSDatos">Dni/Matricula Nombre</string>
     <string name="txtSSancion">Descripción Articulo, Num Articulo, Sancion</string>
-    <string name="btnPrint">Imprimir Infracción</string>
-    <string name="btnDelete">Borrar Infracción</string>
-    <string name="txtToDay">Agente 1234 Ceuta a 23 de Mayo de 2018</string>
+    <string name="btnPrint">Imprimir Asistencia</string>
+    <string name="btnDelete">Borrar Asistencia</string>
+    <string name="txtToDay">Ceuta a 23 de Mayo de 2018</string>
 
 
     <string name="ListaArticulos">"LISTA DE ARTICULOS"</string>
     <string name="IntroducirDatos">"INTRODUCCIÓN DE DATOS"</string>
     <string name="MenuPrincipal">"MENÚ PRINCIPAL"</string>
-    <string name="Infracciones">"INFRACCIONES GUARDADAS"</string>
-    <string name="Validar">"VALIDAR INFRACCIÓN"</string>
+    <string name="GaleriaImagenes">"GALERÍA DE IMÁGENES</string>
+    <string name="Infracciones">"ASISTENCIAS GUARDADAS"</string>
+    <string name="Validar">"VALIDAR ASISTENCIA"</string>
     <string name="DatosParticular">"Datos del particular o Empresa"</string>
     <string name="DatosVehiculo">"Datos del vehículo"</string>
     <string name="fotoFirmaSaved">Fotos y Firma Guardadas</string>

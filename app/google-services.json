@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "24439179844",
-    "firebase_url": "https://ceutaport-e581a.firebaseio.com",
-    "project_id": "ceutaport-e581a",
-    "storage_bucket": "ceutaport-e581a.appspot.com"
+    "project_number": "886268960654",
+    "firebase_url": "https://roadsideapp-d69ec.firebaseio.com",
+    "project_id": "roadsideapp-d69ec",
+    "storage_bucket": "roadsideapp-d69ec.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:24439179844:android:b3b371b2d059d7a4",
+        "mobilesdk_app_id": "1:886268960654:android:851803ee22a75241",
         "android_client_info": {
-          "package_name": "elcolegainformatico.antonio.puertoapp"
+          "package_name": "elcolegainformatico.antonio.roadsideapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "24439179844-4v84leuenac2go4v8sc8630fq6ugom6i.apps.googleusercontent.com",
+          "client_id": "886268960654-9jocp0i4lo057pf22dvl7gph86a0dncj.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyClhq9pe4iSgCik1_yPSb9nMvfbyolkOSg"
+          "current_key": "AIzaSyBtFd8Kv9bEoBp6Bv61_HbVtXG3PDIcGpk"
         }
       ],
       "services": {
